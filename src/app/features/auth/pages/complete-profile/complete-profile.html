@@ -1,0 +1,119 @@
+<div class="complete-container">
+  <img src="assets/logo.png" class="logo" alt="Logo de la aplicación" />
+
+  <div class="complete-card">
+    <h2>Completa tu cuenta</h2>
+
+    <form (ngSubmit)="complete(form)" #form="ngForm">
+      <!-- USUARIO -->
+      <div class="input-group">
+        <label for="usuario">Usuario</label>
+        <input
+          id="usuario"
+          type="text"
+          name="usuario"
+          ngModel
+          required
+          placeholder="Crea un usuario"
+          #usuario="ngModel"
+        />
+      </div>
+
+      <!-- TELÉFONO -->
+      <div class="input-group">
+        <label for="telefono">Teléfono</label>
+        <input
+          id="telefono"
+          type="tel"
+          name="telefono"
+          ngModel
+          required
+          pattern="[0-9]{10}"
+          placeholder="Ingresa tu teléfono"
+          #telefono="ngModel"
+        />
+      </div>
+
+      <!-- CONTRASEÑA -->
+      <div class="input-group">
+        <label for="clave">Clave (mínimo 6 caracteres)</label>
+        <input
+          id="clave"
+          type="password"
+          name="clave"
+          ngModel
+          required
+          minlength="6"
+          placeholder="Crea una contraseña"
+          #clave="ngModel"
+        />
+      </div>
+
+      <!-- CONFIRMAR -->
+      <div class="input-group">
+        <label for="confirmarClave">Confirmar contraseña</label>
+        <input
+          id="confirmarClave"
+          type="password"
+          name="confirmarClave"
+          ngModel
+          required
+          placeholder="Repite la contraseña"
+          #confirmarClave="ngModel"
+        />
+      </div>
+
+      <!-- BOTÓN -->
+      <button type="submit" [disabled]="form.invalid || clave.value !== confirmarClave.value">
+        Completar cuenta
+      </button>
+
+      <p *ngIf="(form.touched || form.dirty) && !mensajeExito" class="mensaje error">
+        <!-- CAMPOS VACÍOS -->
+        <span
+          *ngIf="
+            (usuario.errors?.['required'] ||
+              telefono.errors?.['required'] ||
+              clave.errors?.['required'] ||
+              confirmarClave.errors?.['required']) &&
+            !telefono.errors?.['pattern'] &&
+            !clave.errors?.['minlength']
+          "
+        >
+          Todos los campos deben estar diligenciados correctamente
+        </span>
+
+        <!-- TELÉFONO -->
+        <span *ngIf="!telefono.errors?.['required'] && telefono.errors?.['pattern']">
+          El teléfono debe tener 10 dígitos numéricos
+        </span>
+
+        <!-- CONTRASEÑA -->
+        <span *ngIf="!clave.errors?.['required'] && clave.errors?.['minlength']">
+          La contraseña debe tener al menos 6 caracteres
+        </span>
+
+        <!-- CONFIRMACIÓN -->
+        <span
+          *ngIf="
+            !confirmarClave.errors?.['required'] &&
+            !clave.errors?.['minlength'] &&
+            clave.value &&
+            confirmarClave.value &&
+            clave.value !== confirmarClave.value
+          "
+        >
+          Las contraseñas no coinciden
+        </span>
+      </p>
+
+      <!-- ERRORES BACKEND -->
+      <p class="mensaje error" *ngIf="error">{{ error }}</p>
+
+      <!-- ÉXITO -->
+      <p *ngIf="mensajeExito" class="mensaje success">{{ mensajeExito }}</p>
+
+      <p class="login-link">¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+.complete-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #303854, #1f263a);
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 15px;
+  left: -20px;
+  width: 280px;
+}
+
+.complete-card {
+  width: 420px;
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.complete-card h2 {
+  font-size: 40px;
+  color: #303854;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: 'League Spartan', serif;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  font-size: 13px;
+  color: #777;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 2px solid #C2CDD5;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #303854;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #303854;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.login-link {
+  margin-top: 16px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.login-link a {
+  color: #303854;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mensaje {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.mensaje.error {
+  color: red;
+}
+
+.mensajeExito {
+  color: #2ecc71;
+}

@@ -1,0 +1,148 @@
+.table-container { 
+  width: 90%; 
+  max-width: 1100px; 
+  margin-top: -35px;
+  margin-left: 2px; 
+  background: white; 
+  padding: 25px; 
+  border-radius: 15px;  
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+  overflow: hidden;
+} 
+
+.table-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 20px; 
+} 
+
+.table-header h2 { 
+  color: #303854; 
+  font-family: 'League Spartan', sans-serif;
+  font-size: 32px;
+  margin: 0; 
+} 
+
+.btn-create { 
+  background: #303854; 
+  color: white; 
+  border: none; 
+  padding: 10px 15px; 
+  border-radius: 10px; 
+  cursor: pointer; 
+  transition: 0.3s; 
+} 
+
+.btn-create:hover { 
+  background: #1f253d; 
+} 
+
+.header-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.header-table thead {
+  background: #303854;
+  color: white;  
+}
+
+.header-table th {
+  padding: 12px;
+  text-align: center;
+}
+
+/* 🔥 SOLUCIÓN AQUÍ */
+.table-scroll { 
+  max-height: 380px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable; /* 👈 clave para alinear siempre */
+} 
+
+.body-table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  table-layout: fixed;
+}
+
+.body-table tbody tr td:nth-child(4) {
+  max-width: 180px;      
+  white-space: nowrap;  
+  overflow: hidden;      
+  text-overflow: ellipsis; 
+}
+
+/* Usuario (3ª columna) */
+.body-table tbody tr td:nth-child(3) {
+  max-width: 150px;      /* puedes ajustar */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body-table td:not(:last-child) { 
+  padding: 12px; 
+  border-bottom: 1px solid #eee; 
+  text-align: center; 
+  vertical-align: middle;
+}
+
+.body-table tr:hover { 
+  background: #f9f9f9;
+} 
+
+.acciones { 
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+} 
+
+.acciones-inner {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  padding-right: 10px; 
+}
+
+.btn-edit, .btn-state { 
+  padding: 6px 12px; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  white-space: nowrap;
+  font-size: 14px; 
+  flex-shrink: 0;
+} 
+
+.btn-edit { 
+  background: #303854; 
+  color: white; 
+  border: none; 
+  transition: 0.2s; 
+} 
+
+.btn-edit:hover {  
+  background: #1f253d; 
+} 
+
+.btn-state { 
+  background: #C2CDD5; 
+  border: none; 
+  transition: 0.2s; 
+} 
+
+.btn-state:hover { 
+  background: #aab7c2; 
+} 
+
+.activo { 
+  color: green; 
+  font-weight: bold; 
+} 
+
+.inactivo { 
+  color: red; 
+  font-weight: bold; 
+}

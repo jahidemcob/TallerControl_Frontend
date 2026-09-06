@@ -1,0 +1,8 @@
+<app-user-form
+  title="Editar Usuario"
+  buttonLabel="Guardar cambios"
+  mode="edit"
+  [usuario]="user"
+  [errores]="errores"
+  (submitForm)="guardar($event)"
+/>

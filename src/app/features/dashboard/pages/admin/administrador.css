@@ -1,0 +1,188 @@
+/* BASE */
+.dashboard {
+  display: flex;
+  height: 100vh;
+  background: #F4F7FB;
+  font-family: 'Inter', sans-serif;
+}
+ 
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #303854; 
+  border-radius: 25px;
+  padding: 15px 0;
+  width: 70px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+  margin: 10px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  stroke: white;
+  margin: 0 auto;
+}
+
+.text {
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: white;
+  margin-top: 5px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.sidebar li:hover {
+  width: 180px;
+  background: #303854;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.sidebar li:hover .text {
+  opacity: 1;
+}
+
+/* MAIN */
+.main-content {
+  flex: 1;
+  margin-left: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 40px;
+  position: relative;
+}
+
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  background: #C2CDD5;
+  border-radius: 50%;
+}
+
+.username {
+  color: #303854;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 65px;
+  right: 40px;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  width: 160px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.dropdown p {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.dropdown p:hover {
+  background: #F4F7FB;
+}
+
+/* CONTENIDO */
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 👇 NUEVO */
+.welcome {
+  text-align: center;
+    transform: translate(-80px, -60px);
+
+}
+
+.welcome h1 {
+  font-size: 45px;
+  color: #303854;
+  margin-bottom: 10px;
+}
+
+.welcome p {
+  font-size: 18px;
+  color: #6c757d;
+}
+
+/* BOTONES DEL SIDEBAR */
+.sidebar li button {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+  color: white;
+}
+
+/* HOVER IGUAL AL ORIGINAL */
+.sidebar li button:hover {
+  width: 180px;
+}
+
+/* BOTÓN DROPDOWN */
+.dropdown button {
+  all: unset;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* HOVER DROPDOWN */
+.dropdown button:hover {
+  background: #F4F7FB;
+}

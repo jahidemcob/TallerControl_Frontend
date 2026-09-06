@@ -1,0 +1,171 @@
+/* CONTENEDOR */
+.login-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+/* IZQUIERDA */
+.left-panel {
+  flex: 1.3;
+  background: linear-gradient(135deg, #303854, #1f263a);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CONTENIDO CENTRADO */
+.overlay {
+  width: 80%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+  height: 100%;
+  transform: translateY(-25px);
+}
+
+/* LOGO */
+.logo {
+  width: 350px;
+  display: block;
+  margin: 0 auto -43px; /* 👈 shorthand */
+}
+
+/* TITULO */
+.left-panel h1 {
+  margin: 0;
+  font-family: 'League Spartan', serif;
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 0.9;
+  text-align: center;
+}
+
+/* SUBTITULO */
+.left-panel h1 span {
+  display: block;
+  margin-top: -6px;
+  font-weight: 600;
+  opacity: 0.9;
+  color: #c2cdd5;
+}
+
+/* PARRAFO */
+.left-panel p {
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 8px; /* 👈 simplificado */
+  color: #c2cdd5;
+}
+
+/* DERECHA */
+.right-panel {
+  flex: 0.7;
+  background: #f4f7fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TARJETA */
+.login-card {
+  width: 380px;
+  background: #fff;
+  padding: 35px;
+  border-radius: 12px;
+}
+
+/* TITULOS */
+.login-card h2 {
+  font-size: 28px;
+  color: #303854;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+/* INPUTS */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-bottom: 2px solid #c2cdd5;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  border-color: #303854;
+}
+
+/* BOTONES */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #303854;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* GOOGLE */
+.google-btn {
+  background: #fff;
+  color: #303854;
+  border: 1px solid #c2cdd5;
+}
+
+/* LINK */
+.register-link {
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.register-link a {
+  color: #303854;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.aviso {
+  background: #eaf4ff;
+  color: #303854;
+  border: 1px solid #c2cdd5;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.aviso.error {
+  background: #fff0f0;
+  color: #c0392b;
+  border-color: #f5c6c6;
+}

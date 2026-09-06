@@ -1,0 +1,99 @@
+<div class="table-container">
+  <div class="table-header">
+    <h2>Gestión de Usuarios</h2>
+    <button class="btn-create" (click)="crear()">+ Crear Usuario</button>
+  </div>
+
+  <!-- HEADER -->
+  <table class="custom-table header-table">
+    <colgroup>
+      <col />
+      <col />
+      <col />
+      <col />
+      <col />
+      <col />
+      <col style="width: 235px" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Usuario</th>
+        <th>Correo</th>
+        <th>Rol</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+  </table>
+
+  <!-- BODY -->
+  <div class="table-scroll">
+    <table class="custom-table body-table">
+      <colgroup>
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+        <col style="width: 220px" />
+      </colgroup>
+
+      <!-- THEAD OCULTO SOLO PARA ACCESIBILIDAD -->
+      <thead style="display: none">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Usuario</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let u of usuarios">
+          <td>{{ u.idUsuario }}</td>
+          <td>{{ u.nombre }}</td>
+          <td>{{ u.nombreUsuario }}</td>
+          <td>{{ u.correo }}</td>
+
+          <td>
+            {{
+              u.idRol === 1
+                ? 'Admin'
+                : u.idRol === 2
+                  ? 'Empleado'
+                  : u.idRol === 3
+                    ? 'Cliente'
+                    : 'Sin rol'
+            }}
+          </td>
+
+          <td>
+            <span [class.activo]="u.activo" [class.inactivo]="!u.activo">
+              {{ u.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+
+          <td class="acciones">
+            <div class="acciones-inner">
+              <button class="btn-edit" (click)="editar(u.idUsuario)">Editar</button>
+
+              <button
+                class="btn-state"
+                (click)="toggleEstado(u)"
+                [disabled]="loadingIds.includes(u.idUsuario)"
+              >
+                {{ u.activo ? 'Desactivar' : 'Activar' }}
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
