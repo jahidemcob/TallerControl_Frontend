@@ -1,0 +1,9 @@
+<app-service-form
+  title="Crear Servicio"
+  buttonLabel="Guardar"
+  [service]="service"
+  [errores]="errores"
+  [loading]="loading"
+  [successMessage]="successMessage"
+  (submitForm)="createService($event)"
+/>

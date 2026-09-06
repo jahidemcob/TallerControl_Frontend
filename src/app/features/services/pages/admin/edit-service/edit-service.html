@@ -1,0 +1,8 @@
+<app-service-form
+  title="Editar Servicio"
+  buttonLabel="Actualizar"
+  [service]="service"
+  [errores]="errores"
+  [loading]="loading"
+  (submitForm)="updateService($event)"
+/>

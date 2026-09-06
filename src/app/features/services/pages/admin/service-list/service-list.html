@@ -1,0 +1,40 @@
+<div class="cards-container">
+  <!-- HEADER -->
+  <div class="cards-header">
+    <h2>Gestión de Servicios</h2>
+    <button class="btn-create" (click)="goToCreate()">+ Crear Servicio</button>
+  </div>
+
+  <!-- SCROLL -->
+  <div class="cards-scroll">
+    <!-- GRID SIEMPRE EXISTE --> 
+    <div class="cards-grid">
+      <!-- ESTADO VACÍO -->
+      <div *ngIf="services.length === 0" class="empty">No hay servicios registrados</div>
+
+      <!-- TARJETAS -->
+      <div class="service-card" *ngFor="let s of services; trackBy: trackById">
+        <div class="card-content">
+          <h3 class="service-name">{{ s.nombreServicio }}</h3>
+
+          <p class="service-description">
+            {{ s.descripcion }} 
+          </p>
+
+          <p class="service-price">$ {{ s.precioBase | number: '1.0-0' }}</p>
+
+          <span class="status" [class.activo]="s.isActive" [class.inactivo]="!s.isActive">
+            {{ s.isActive ? 'Activo' : 'Inactivo' }}
+          </span>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-edit" (click)="goToEdit(s.idServicio)">Editar</button>
+          <button class="btn-state" (click)="toggleStatus(s)">
+            {{ s.isActive ? 'Desactivar' : 'Activar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
