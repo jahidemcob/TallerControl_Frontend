@@ -1,0 +1,118 @@
+/* CONTENEDOR PRINCIPAL */
+.cards-container {
+  width: 90%;
+  max-width: 1100px;
+  margin-top: -35px;
+  margin-left: 2px;
+  background: #f4f6f9;
+  padding: 25px;
+  border-radius: 15px;
+
+  border: 1px solid #dfe3e8;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+
+  overflow: hidden;
+}
+
+/* HEADER */
+.cards-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.cards-header h2 {
+  color: #303854;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 36px;
+  margin: 0;
+}
+
+/* SCROLL */
+.cards-scroll {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  padding-right: 8px;
+}
+
+/* GRID (3 POR FILA) */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* TARJETA */
+.service-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.25s;
+}
+
+/* SOLO EFECTO VISUAL SUAVE (SIN “CLICK INTENT”) */
+.service-card:hover {
+  transform: translateY(-3px);
+}
+
+/* CONTENIDO */
+.service-name {
+  color: #303854;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.service-description {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.service-price {
+  font-weight: bold;
+  color: #303854;
+  margin-bottom: 10px;
+}
+
+/* ESTADO */
+.status {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.activo {
+  color: green;
+}
+
+.inactivo {
+  color: red;
+}
+
+/* SERVICIOS INACTIVOS (VISUAL SOLO CLIENTE) */
+.inactive {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
