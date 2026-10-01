@@ -1,0 +1,189 @@
+/* CONTENEDOR PRINCIPAL */
+.cards-container {
+  width: calc(100% + 120px); /* 🔥 más ancho real */
+  max-width: none; /* elimina límite */
+
+  height: 70vh;
+
+  margin-top: -60px; /* ✅ lo conservas */
+  margin-left: -135px; /* ✅ lo conservas */
+
+  background: #f4f6f9;
+  padding: 25px;
+  border-radius: 15px;
+
+  border: 1px solid #dfe3e8;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* HEADER */
+.cards-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.cards-header h2 {
+  color: #303854;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 32px;
+  margin: 0;
+}
+
+/* BOTÓN CREAR */
+.btn-create {
+  background: #303854;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-create:hover {
+  background: #1f253d;
+}
+
+/* SCROLL */
+.cards-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  padding-right: 8px;
+}
+
+/* GRID (NO SE TOCA) */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* TARJETA */
+.service-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  transition: 0.25s;
+  position: relative;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ICONO */
+.icon-moto {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.icon-moto svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* CONTENIDO */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.service-name {
+  color: #303854;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+/* DATOS */
+.moto-data {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.moto-data span {
+  font-size: 13px;
+  color: #555;
+}
+
+/* ESTADO */
+.status {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.activo {
+  color: green;
+}
+
+.inactivo {
+  color: red;
+}
+
+/* ACCIONES */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+/* BOTONES */
+.btn-edit,
+.btn-state {
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  border: none;
+}
+
+.btn-edit {
+  background: #303854;
+  color: white;
+  transition: 0.2s;
+}
+
+.btn-edit:hover {
+  background: #1f253d;
+}
+
+.btn-state {
+  background: #C2CDD5;
+  transition: 0.2s;
+}
+
+.btn-state:hover {
+  background: #aab7c2;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

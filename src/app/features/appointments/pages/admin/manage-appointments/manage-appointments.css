@@ -1,0 +1,609 @@
+/* ── Layout ──────────────────────────────────────────────────── */
+.page-layout {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: 95%;
+  max-width: 1280px;
+  margin-top: -35px;
+  margin-left: 2px;
+}
+
+/* ── Tabla container ─────────────────────────────────────────── */
+.table-container {
+  flex: 1;
+  min-width: 0;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.table-header h2 { 
+  color: #303854;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 32px;
+  margin: 0;
+}
+
+/* ── Filtros ─────────────────────────────────────────────────── */
+.filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filtro-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  color: #666;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filtro-btn:hover {
+  border-color: #303854;
+  color: #303854;
+}
+
+.filtro-btn.activo {
+  background: #303854;
+  color: white;
+  border-color: #303854;
+}
+
+.filtro-btn.pendiente-btn.activo {
+  background: #fff3cd;
+  color: #856404;
+  border-color: #856404;
+}
+.filtro-btn.agendada-btn.activo {
+  background: #cce5ff;
+  color: #004085;
+  border-color: #004085;
+}
+.filtro-btn.en-proceso-btn.activo {
+  background: #d4edda;
+  color: #155724;
+  border-color: #155724;
+}
+.filtro-btn.completada-btn.activo {
+  background: #d1ecf1;
+  color: #0c5460;
+  border-color: #0c5460;
+}
+.filtro-btn.rechazada-btn.activo {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #721c24;
+}
+
+.filtro-fecha {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+}
+
+.input-fecha {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 2px solid #e0e0e0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.input-fecha:focus {
+  border-color: #303854;
+  color: #303854;
+}
+
+.btn-limpiar-fecha {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #767676;
+  padding: 2px 4px;
+  transition: color 0.2s;
+}
+
+.btn-limpiar-fecha:hover {
+  color: #303854;
+}
+
+/* ── Tabla ───────────────────────────────────────────────────── */
+.header-table {
+  width: calc(100% - 8px);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.header-table thead {
+  background: #303854;
+  color: white;
+}
+
+.header-table th {
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.table-scroll {
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.body-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.body-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.body-table tr:hover {
+  background: #f9f9f9;
+}
+.body-table tr.row-active {
+  background: #eef1f8;
+}
+
+.col-id {
+  font-weight: 700;
+  color: #303854;
+}
+
+/* Estado badge */
+.estado-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+.agendada {
+  background: #cce5ff;
+  color: #004085;
+}
+.en-proceso {
+  background: #d4edda;
+  color: #155724;
+}
+.completada {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+.rechazada {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Acciones */
+.acciones-cell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.acciones-inner {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.detalles-cell {
+  text-align: center;
+}
+
+.sin-accion {
+  color: #767676;
+}
+
+.btn-aceptar {
+  background: #1a7a32; /* era #28a745 — white sobre esto da ratio 5.1:1 ✅ */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-aceptar:hover:not(:disabled) {
+  background: #145a25;
+}
+
+.btn-rechazar {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-rechazar:hover:not(:disabled) {
+  background: #b02a37;
+}
+
+.btn-aceptar:disabled,
+.btn-rechazar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-detalle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f0f2f8;
+  color: #303854;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.btn-detalle:hover,
+.btn-detalle.active {
+  background: #303854;
+  color: white;
+}
+
+.empty {
+  text-align: center;
+  color: #767676;
+  font-size: 16px;
+  padding: 40px 0;
+}
+
+/* ── Panel Detalles ──────────────────────────────────────────── */
+.detail-panel {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 0;
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease,
+    padding 0.3s ease;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.detail-panel.visible {
+  width: 320px;
+  opacity: 1;
+  padding: 22px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.detail-header h3 {
+  color: #303854;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 20px;
+  margin: 0 0 5px 0;
+}
+
+.detail-id {
+  color: #6b7bb8;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  color: #767676;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.btn-close:hover {
+  color: #303854;
+}
+
+.detail-section {
+  margin-bottom: 12px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 14px;
+}
+.detail-row .detail-section {
+  flex: 1;
+}
+
+.detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5e5e72;
+  margin: 0 0 2px 0;
+}
+
+.detail-value {
+  font-size: 13px;
+  color: #303854;
+  font-weight: 500;
+  margin: 0;
+}
+
+.servicios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.servicio-item {
+  display: flex;
+  justify-content: space-between;
+  background: #f7f8fc;
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+.servicio-nombre {
+  color: #555;
+}
+.servicio-precio {
+  font-weight: 700;
+  color: #303854;
+}
+
+.detail-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #eee;
+  padding-top: 12px;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #303854;
+}
+
+.total-value {
+  font-size: 17px;
+}
+
+.detail-loading,
+.employees-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #767676;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #ddd;
+  border-top-color: #303854;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Modal ───────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.modal {
+  background: white;
+  border-radius: 15px;
+  padding: 26px;
+  width: 370px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal h3 {
+  color: #303854;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 20px;
+  margin: 0;
+}
+
+.modal-sub {
+  color: #767676;
+  font-size: 13px;
+  margin: -6px 0 0 0;
+}
+
+.employee-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.employee-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  border: 2px solid #eee;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+  background: white;
+  text-align: left;
+}
+
+.employee-option:hover {
+  border-color: #303854;
+  background: #f7f8fc;
+}
+.employee-option.selected {
+  border-color: #303854;
+  background: #eef1f8;
+}
+
+.emp-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #303854;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.emp-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.emp-nombre {
+  font-weight: 600;
+  font-size: 13px;
+  color: #303854;
+}
+.emp-correo {
+  font-size: 11px;
+  color: #767676;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.emp-check {
+  color: #28a745;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.no-employees {
+  text-align: center;
+  color: #767676;
+  font-size: 13px;
+  padding: 16px 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-cancelar {
+  background: #f0f0f0;
+  color: #303854;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-cancelar:hover {
+  background: #e0e0e0;
+}
+
+.btn-confirmar {
+  background: #303854;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-confirmar:hover:not(:disabled) {
+  background: #1f253d;
+}
+.btn-confirmar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
