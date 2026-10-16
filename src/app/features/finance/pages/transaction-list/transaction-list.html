@@ -1,0 +1,172 @@
+<div class="finance-wrapper">
+  <!-- ═════════ FORMULARIO ═════════ -->
+  <div class="table-container finance-form-container">
+    <div class="table-header center-header">
+      <h2>Gestión de Finanzas</h2>
+    </div>
+
+    <form #movimientoForm="ngForm">
+      <div class="form-row">
+        <!-- DESCRIPCIÓN -->
+        <div class="form-group">
+          <input
+            type="text"
+            name="descripcion"
+            [(ngModel)]="descripcion"
+            placeholder="Descripción"
+            required
+            minlength="3"
+            #descRef="ngModel"
+            class="form-input descripcion-input"
+          />
+
+          <span class="field-error" *ngIf="descRef.invalid && descRef.touched">
+            La descripción es obligatoria.
+          </span>
+        </div>
+
+        <!-- VALOR -->
+        <div class="form-group">
+          <input
+            type="number"
+            name="monto"
+            [(ngModel)]="monto"
+            placeholder="Valor"
+            required
+            min="1"
+            #montoRef="ngModel"
+            class="form-input valor-input"
+          />
+
+          <span class="field-error" *ngIf="montoRef.invalid && montoRef.touched">
+            Ingresa un valor mayor a 0.
+          </span>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="btn-group">
+          <button type="button" class="btn-ingreso" (click)="submitCon('Ingreso', movimientoForm)">
+            Ingreso
+          </button>
+
+          <button type="button" class="btn-salida" (click)="submitCon('Egreso', movimientoForm)">
+            Salida
+          </button>
+        </div>
+      </div>
+
+      <span class="field-error" *ngIf="errores.general">
+        {{ errores.general }}
+      </span>
+    </form>
+  </div>
+
+  <!-- ═════════ TABLA ═════════ -->
+  <div class="table-container">
+    <div class="table-header">
+      <h2>Movimientos</h2>
+
+      <!-- FILTRO -->
+      <div class="filtro-fecha-group">
+        <input
+          type="date"
+          name="filtroFecha"
+          [(ngModel)]="filtroFecha"
+          (ngModelChange)="aplicarFiltro()"
+          class="form-input input-fecha"
+        />
+
+        <button *ngIf="filtroFecha" type="button" class="btn-limpiar" (click)="limpiarFecha()">
+          Limpiar
+        </button>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <table class="header-table">
+      <colgroup>
+        <col style="width: 90px" />
+        <col />
+        <col style="width: 220px" />
+        <col style="width: 180px" />
+      </colgroup>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Descripción</th>
+          <th>Valor</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+    </table>
+
+    <!-- BODY -->
+    <div class="table-scroll">
+      <table class="body-table">
+        <colgroup>
+          <col style="width: 90px" />
+          <col />
+          <col style="width: 220px" />
+          <col style="width: 180px" />
+        </colgroup>
+
+        <!-- CORRECCIÓN SONAR: agregado thead oculto con th para accesibilidad -->
+        <thead style="display: none">
+          <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Valor</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- LOADING -->
+          <tr *ngIf="loading">
+            <td colspan="4" class="estado-celda">Cargando...</td>
+          </tr>
+
+          <!-- ERROR -->
+          <tr *ngIf="!loading && error">
+            <td colspan="4" class="estado-celda error-text">
+              {{ error }}
+            </td>
+          </tr>
+
+          <!-- VACÍO -->
+          <tr *ngIf="!loading && !error && movimientosFiltrados.length === 0">
+            <td colspan="4" class="estado-celda">No hay movimientos registrados.</td>
+          </tr>
+
+          <!-- FILAS -->
+          <tr *ngFor="let m of movimientosFiltrados">
+            <td>{{ m.idMovimiento }}</td>
+            <td>{{ m.descripcion }}</td>
+            <td>$ {{ m.monto | number: '1.0-0' }}</td>
+            <td>
+              <span
+                [class.tipo-ingreso]="m.tipoMovimiento === 'Ingreso'"
+                [class.tipo-salida]="m.tipoMovimiento === 'Egreso'"
+              >
+                {{ m.tipoMovimiento }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="total-row">
+      <span class="total-label">Total:</span>
+      <span
+        class="total-value"
+        [class.total-positivo]="totalFiltrado >= 0"
+        [class.total-negativo]="totalFiltrado < 0"
+      >
+        $ {{ totalFiltrado | number: '1.0-0' }}
+      </span>
+    </div>
+  </div>
+</div>

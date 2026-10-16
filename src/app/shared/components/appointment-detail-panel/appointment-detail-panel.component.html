@@ -1,0 +1,75 @@
+<div class="detail-panel" [class.visible]="!!selectedAppointment || loadingDetail">
+  @if (loadingDetail) {
+    <div class="detail-loading"><span class="spinner"></span> Cargando...</div>
+  }
+
+  @if (selectedAppointment && !loadingDetail) {
+    <div class="detail-header">
+      <div>
+        <h3>
+          Cita <span class="detail-id">{{ panelTitle }}</span>
+        </h3>
+        <span
+          class="estado-badge"
+          [class.pendiente]="selectedAppointment.estadoCita === 'Pendiente'"
+          [class.agendada]="selectedAppointment.estadoCita === 'Agendada'"
+          [class.en-proceso]="selectedAppointment.estadoCita === 'EnProceso'"
+          [class.completada]="selectedAppointment.estadoCita === 'Completada'"
+          [class.rechazada]="selectedAppointment.estadoCita === 'Rechazada'"
+        >
+          {{ getLabelEstado(selectedAppointment.estadoCita) }}
+        </span>
+      </div>
+      <button class="btn-close" (click)="closed.emit()">✕</button>
+    </div>
+
+    <div class="detail-section">
+      <p class="detail-label">Cliente</p>
+      <p class="detail-value">{{ selectedAppointment.nombreCliente }}</p>
+    </div>
+
+    @if (showEmpleado) {
+      <div class="detail-section">
+        <p class="detail-label">Empleado asignado</p>
+        <p class="detail-value">{{ selectedAppointment.nombreEmpleado || '—' }}</p>
+      </div>
+    }
+
+    <div class="detail-row">
+      <div class="detail-section">
+        <p class="detail-label">Motocicleta</p>
+        <!-- El padre pasa el nombre resuelto via Input o ng-content -->
+        <p class="detail-value"><ng-content select="[slot=moto]"></ng-content></p>
+      </div>
+      <div class="detail-section">
+        <p class="detail-label">Fecha creación</p>
+        <p class="detail-value">{{ selectedAppointment.fechaCreacionCita }}</p>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-section">
+        <p class="detail-label">Fecha cita</p>
+        <p class="detail-value">{{ selectedAppointment.fechaCita }}</p>
+      </div>
+      <div class="detail-section">
+        <p class="detail-label">Hora</p>
+        <p class="detail-value">{{ selectedAppointment.horaCita }}</p>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <p class="detail-label">Servicios</p>
+      <ng-content select="[slot=servicios]"></ng-content>
+    </div>
+
+    <div class="detail-total">
+      <span>Total</span>
+      <span class="total-value">$ {{ selectedAppointment.total | number: '1.0-0' }}</span>
+    </div>
+
+    @if (showAcciones) {
+      <ng-content select="[slot=acciones]"></ng-content>
+    }
+  }
+</div>

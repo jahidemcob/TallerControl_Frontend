@@ -1,0 +1,111 @@
+<div class="table-container">
+  <div class="table-header">
+    @if (errorMsg) {
+      <p class="error-msg">{{ errorMsg }}</p>
+    }
+    <h2>Mis Citas</h2>
+    <button class="btn-create" (click)="solicitarCita()">+ Solicitar Cita</button>
+  </div>
+
+  <div class="filtros">
+    @for (estado of estados; track estado) {
+      <button
+        class="filtro-btn"
+        [class.activo]="filtroEstado === estado"
+        [class.pendiente-btn]="estado === 'Pendiente'"
+        [class.agendada-btn]="estado === 'Agendada'"
+        [class.en-proceso-btn]="estado === 'EnProceso'"
+        [class.completada-btn]="estado === 'Completada'"
+        [class.rechazada-btn]="estado === 'Rechazada'"
+        (click)="cambiarFiltro(estado)"
+      >
+        {{ getLabelEstado(estado) }}
+      </button>
+    }
+  </div>
+
+  <table class="custom-table header-table">
+    <colgroup>
+      <col />
+      <col />
+      <col />
+      <col />
+      <col />
+      <col />
+      <col />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>N°</th>
+        <th>Motocicleta</th>
+        <th>Servicios</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Total</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+  </table>
+
+  <div class="table-scroll">
+    <table class="custom-table body-table">
+      <colgroup>
+        <col />
+        <col />
+        <col />
+        <col />
+        <col style="width: 130px" />
+        <col style="width: 170px" />
+        <col style="width: 120px" />
+      </colgroup>
+      <thead style="display: none">
+        <tr>
+          <th>N°</th>
+          <th>Motocicleta</th>
+          <th>Servicios</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Total</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (appointmentsFiltradas.length === 0) {
+          <tr>
+            <td colspan="7" class="empty">No tienes citas registradas</td>
+          </tr>
+        }
+
+        @for (a of appointmentsFiltradas; track trackById($index, a)) {
+          <tr>
+            <!-- Imprime el identificador visual secuencial (1, 2, 3...) -->
+            <td>{{ getIdVisual(a.idPedido) }}</td>
+            <td>{{ getNombreMoto(a.idMoto) }}</td>
+            <td class="servicios-cell">
+              @for (d of a.detalles; track d.idServicio) {
+                <span class="servicio-tag">- {{ getNombreServicio(d.idServicio) }}</span>
+              } @empty {
+                <span class="empty-small">—</span>
+              }
+            </td>
+            <td>{{ a.fechaCita }}</td>
+            <td>{{ a.horaCita }}</td>
+            <td>$ {{ a.total | number: '1.0-0' }}</td>
+            <td>
+              <span
+                class="estado-badge"
+                [class.pendiente]="a.estadoCita === 'Pendiente'"
+                [class.agendada]="a.estadoCita === 'Agendada'"
+                [class.en-proceso]="a.estadoCita === 'EnProceso'"
+                [class.completada]="a.estadoCita === 'Completada'"
+                [class.rechazada]="a.estadoCita === 'Rechazada'"
+              >
+                {{ getLabelEstado(a.estadoCita) }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,317 @@
+.finance-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ═════════ CONTENEDORES ═════════ */
+.table-container {
+  width: 90%;
+  max-width: 1100px;
+
+  margin-left: 2px;
+
+  background: white;
+
+  padding: 18px 22px;
+
+  border-radius: 15px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  overflow: hidden;
+}
+
+.finance-form-container {
+  margin-top: -35px;
+}
+
+/* ═════════ HEADERS ═════════ */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 16px;
+}
+
+.center-header {
+  justify-content: center;
+}
+
+.table-header h2 {
+  margin: 0;
+
+  color: #303854;
+
+  font-family: 'League Spartan', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* ═════════ FORM ═════════ */
+.form-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  gap: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  height: 42px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  padding: 0 16px;
+
+  outline: none;
+
+  color: #303854;
+
+  background: white;
+
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+}
+
+.form-input:focus {
+  border-color: #303854;
+}
+
+.descripcion-input {
+  width: 240px;
+}
+
+.valor-input {
+  width: 120px;
+}
+
+/* ═════════ BOTONES ═════════ */
+.btn-group {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-ingreso,
+.btn-salida,
+.btn-limpiar {
+  height: 42px;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 0 16px;
+
+  cursor: pointer;
+
+  color: white;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+
+  transition: 0.2s;
+}
+
+.btn-ingreso {
+  background: #38a169;
+}
+
+.btn-ingreso:hover {
+  background: #2f8a58;
+}
+
+.btn-salida {
+  background: #e53e3e;
+}
+
+.btn-salida:hover {
+  background: #c53030;
+}
+
+.btn-limpiar {
+  background: #c2cdd5;
+  color: #303854;
+}
+
+.btn-limpiar:hover {
+  background: #aab7c2;
+}
+
+/* ═════════ FILTRO ═════════ */
+.filtro-fecha-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-fecha {
+  width: 180px;
+  cursor: pointer;
+}
+
+/* ═════════ ERRORES ═════════ */
+.field-error {
+  margin-top: 4px;
+
+  color: #e53e3e;
+
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ═════════ TABLA HEADER ═════════ */
+.header-table {
+  width: calc(100% - 17px);
+
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.header-table thead {
+  background: #303854;
+  color: white;
+}
+
+.header-table th {
+  padding: 14px 12px;
+
+  text-align: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* ═════════ ALINEACIÓN PERFECTA ═════════ */
+.header-table th,
+.body-table td {
+  box-sizing: border-box;
+}
+
+/* ═════════ SCROLL ═════════ */
+.table-scroll {
+  max-height: 236px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ═════════ BODY TABLA ═════════ */
+.body-table {
+  width: 100%;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.body-table tr {
+  height: 59px;
+}
+
+.body-table td {
+  padding: 12px;
+
+  border-bottom: 1px solid #eee;
+
+  text-align: center;
+  vertical-align: middle;
+
+  color: #303854;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.body-table tbody tr td:nth-child(2) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body-table tr:hover {
+  background: #f9f9f9;
+}
+
+/* ═════════ ESTADOS ═════════ */
+.estado-celda {
+  padding: 24px 0;
+
+  text-align: center;
+
+  color: #a0aec0;
+
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.error-text {
+  color: #e53e3e;
+}
+
+/* ═════════ TIPOS ═════════ */
+.tipo-ingreso {
+  color: green;
+
+  font-weight: 700;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.tipo-salida {
+  color: red;
+
+  font-weight: 700;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+/* ═════════ TOTAL ═════════ */
+.total-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+
+  padding-top: 14px;
+
+  border-top: 1px solid #eee;
+}
+
+.total-label {
+  color: #303854;
+
+  font-family: 'League Spartan', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.total-value {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.total-positivo {
+  color: green;
+}
+
+.total-negativo {
+  color: red;
+}

@@ -1,0 +1,84 @@
+<div class="request-container">
+  <div class="request-header">
+    <h2>Solicitar Cita</h2>
+  </div>
+
+  <div class="datetime-row">
+    <div class="field">
+      <!-- CORRECCIÓN SONAR L9: for + id asociados -->
+      <label for="fechaCita">Fecha</label>
+      <input id="fechaCita" type="date" [(ngModel)]="fechaCita" [min]="minFecha" />
+    </div>
+    <div class="field">
+      <!-- CORRECCIÓN SONAR L13: for + id asociados -->
+      <label for="horaCita">Hora</label>
+      <select id="horaCita" [(ngModel)]="horaCita">
+        <option value="" disabled>Seleccione una hora</option>
+        @for (h of horasDisponibles; track h) {
+          <option [value]="h">{{ h }}</option>
+        }
+      </select>
+    </div>
+    <div class="field moto-field">
+      <!-- CORRECCIÓN SONAR L22: for + id asociados -->
+      <label for="idMotoSelected">Motocicleta</label>
+      <select id="idMotoSelected" [(ngModel)]="idMotoSelected">
+        <option [value]="0" disabled>Seleccione una motocicleta</option>
+        @for (m of motorbikes; track m.idMoto) {
+          <option [value]="m.idMoto">{{ m.marca }} {{ m.modelo }} - {{ m.placa }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="request-body">
+    <div class="services-section">
+      <h3>Servicios Disponibles</h3>
+      <div class="services-grid">
+        @for (s of services; track trackById($index, s)) {
+          <div class="service-card" [class.selected]="isSelected(s)">
+            <div class="card-content">
+              <h4>{{ s.nombreServicio }}</h4>
+              <p>{{ s.descripcion }}</p>
+              <span class="price">$ {{ s.precioBase | number: '1.0-0' }}</span>
+            </div>
+            <button class="btn-add" (click)="toggleService(s)">
+              {{ isSelected(s) ? 'Quitar' : 'Agregar' }}
+            </button>
+          </div>
+        } @empty {
+          <div class="empty">No hay servicios disponibles</div>
+        }
+      </div>
+    </div>
+
+    <div class="summary-panel" [class.has-items]="selectedServices.length > 0">
+      <div class="selected-services">
+        <h4>Servicios seleccionados</h4>
+
+        @for (s of selectedServices; track s.service.idServicio) {
+          <div class="selected-item">
+            <span>{{ s.service.nombreServicio }}</span>
+            <div class="selected-item-right">
+              <span>$ {{ s.precioUnitario | number: '1.0-0' }}</span>
+              <button class="btn-remove" (click)="removeService(s.service.idServicio)">✕</button>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-small">Ningún servicio agregado</div>
+        }
+
+        <div class="total-row">
+          <span>Total</span>
+          <span>$ {{ total | number: '1.0-0' }}</span>
+        </div>
+      </div>
+
+      @if (errores.general) {
+        <p class="error">{{ errores.general }}</p>
+      }
+
+      <button class="btn-solicitar" (click)="solicitarCita()">Solicitar cita</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="cards-container">
+  <!-- HEADER -->
+  <div class="cards-header">
+    <h2>Gestión de Motocicletas</h2>
+    <button class="btn-create" (click)="goToCreate()">+ Crear Motocicleta</button>
+  </div>
+
+  <!-- SCROLL -->
+  <div class="cards-scroll">
+    <div class="cards-grid">
+
+      <div 
+        class="service-card"  
+        *ngFor="let moto of motorbikes; trackBy: trackById"
+      >
+        
+        <!-- ICONO -->
+        <div class="icon-moto">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#303854"
+            stroke-width="2"
+          >
+            <circle cx="5.5" cy="17.5" r="3.5"></circle>
+            <circle cx="18.5" cy="17.5" r="3.5"></circle>
+            <path d="M5.5 17.5L9 10h4l3 7.5"></path>
+            <path d="M9 10l-2-3h4"></path>
+          </svg>
+        </div>
+
+        <!-- CONTENIDO -->
+        <div class="card-content">
+          <h3 class="service-name">
+            {{ moto.marca }} {{ moto.modelo }}
+          </h3>
+
+          <div class="moto-data">
+            <span><strong>Marca:</strong> {{ moto.marca }}</span>
+            <span><strong>Modelo:</strong> {{ moto.modelo }}</span>
+            <span><strong>Placa:</strong> {{ moto.placa }}</span>
+            <span><strong>Cilindraje:</strong> {{ moto.cilindraje }}cc</span>
+            <span><strong>Año:</strong> {{ moto.anio }}</span>
+          </div>
+
+          <!-- ESTADO -->
+          <span 
+            class="status"
+            [ngClass]="moto.activo ? 'activo' : 'inactivo'"
+          >
+            {{ moto.activo ? 'Activo' : 'Inactivo' }}
+          </span>
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="card-actions">
+          <button class="btn-edit" (click)="goToEdit(moto.idMoto)">+ Editar</button>
+          <button class="btn-state" (click)="toggleStatus(moto)">
+            {{ moto.activo ? 'Desactivar' : 'Activar' }}
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

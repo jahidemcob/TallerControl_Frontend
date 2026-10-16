@@ -1,0 +1,107 @@
+/* Mueve todo este bloque al CSS interno de appointment-detail-panel */
+.detail-panel {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 0;
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease,
+    padding 0.3s ease;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.detail-panel.visible {
+  width: 320px;
+  opacity: 1;
+  padding: 22px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.detail-header h3 {
+  color: #303854;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 20px;
+  margin: 0 0 5px 0;
+}
+
+.detail-id {
+  color: #6b7bb8;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  color: #767676;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.btn-close:hover {
+  color: #303854;
+}
+
+.detail-section {
+  margin-bottom: 12px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 14px;
+}
+.detail-row .detail-section {
+  flex: 1;
+}
+
+.detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5e5e72;
+  margin: 0 0 2px 0;
+}
+
+.detail-value {
+  font-size: 13px;
+  color: #303854;
+  font-weight: 500;
+  margin: 0;
+}
+
+.detail-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #eee;
+  padding-top: 12px;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #303854;
+}
+
+.total-value {
+  font-size: 17px;
+}
+
+.detail-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #767676;
+  font-size: 13px;
+  padding: 20px 0;
+}

@@ -26,7 +26,19 @@ export const routes: Routes = [
       {
         path: 'usuarios',
         loadChildren: () => import('./features/users/users.routes').then((m) => m.USUARIOS_ROUTES),
-      }
+      },
+      {
+        path: 'servicios',
+        loadChildren: () => import('./features/services/services.routes').then((m) => m.ADMIN_SERVICES_ROUTES),
+      },
+      {
+        path: "citas",
+        loadChildren: () => import('./features/appointments/appointments.routes').then((m) => m.ADMIN_APPOINTMENTS_ROUTES),
+      },
+      {
+        path: 'finanzas',
+        loadChildren: () => import('./features/finance/finance.routes').then((m) => m.FINANCE_ROUTES),
+      },
     ],
   },
 
@@ -36,6 +48,16 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { roles: ['cliente'] },
     children: [
+      {
+        path: 'citas',
+        loadChildren: () =>
+          import('./features/appointments/appointments.routes').then((m) => m.CLIENT_APPOINTMENTS_ROUTES),
+      },
+      {
+        path: "motocicletas",
+        loadChildren: () =>
+          import('./features/motorbikes/motorbikes.routes').then((m) => m.MOTORBIKES_ROUTES),
+      }
     ],
   },
 
@@ -45,6 +67,11 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { roles: ['empleado'] },
     children: [
+      {
+        path: 'citas',
+        loadChildren: () =>
+          import('./features/appointments/appointments.routes').then((m) => m.EMPLOYEE_APPOINTMENTS_ROUTES),
+      }
     ],
   },
 ];

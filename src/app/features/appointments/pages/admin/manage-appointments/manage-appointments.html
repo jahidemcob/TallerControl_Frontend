@@ -1,0 +1,210 @@
+<div class="page-layout">
+  <!-- ══ TABLA ══════════════════════════════════════════════════ -->
+  <div class="table-container" [class.panel-open]="selectedAppointment || loadingDetail">
+    <div class="table-header">
+      <h2>Gestión de Citas</h2>
+    </div>
+
+    <div class="filtros">
+      @for (estado of estados; track estado) {
+        <button
+          class="filtro-btn"
+          [class.activo]="filtroEstado === estado"
+          [class.pendiente-btn]="estado === 'Pendiente'"
+          [class.agendada-btn]="estado === 'Agendada'"
+          [class.en-proceso-btn]="estado === 'EnProceso'"
+          [class.completada-btn]="estado === 'Completada'"
+          [class.rechazada-btn]="estado === 'Rechazada'"
+          (click)="cambiarFiltro(estado)"
+        >
+          {{ getLabelEstado(estado) }}
+        </button>
+      }
+      <div class="filtro-fecha">
+        <input type="date" [(ngModel)]="filtroFecha" class="input-fecha" />
+        @if (filtroFecha) {
+          <button class="btn-limpiar-fecha" (click)="limpiarFecha()">✕</button>
+        }
+      </div>
+    </div>
+
+    <table class="custom-table header-table">
+      <colgroup>
+        <col style="width: 8%" />
+        <col style="width: 19%" />
+        <col style="width: 19%" />
+        <col style="width: 18%" />
+        <col style="width: 20%" />
+        <col style="width: 16%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Motocicleta</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+          <th>Detalles</th>
+        </tr>
+      </thead>
+    </table>
+
+    <div class="table-scroll">
+      <table class="custom-table body-table">
+        <colgroup>
+          <col style="width: 8%" />
+          <col style="width: 19%" />
+          <col style="width: 19%" />
+          <col style="width: 18%" />
+          <col style="width: 20%" />
+          <col style="width: 16%" />
+        </colgroup>
+        <thead style="display: none">
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Motocicleta</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+            <th>Detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (appointmentsFiltradas.length === 0) {
+            <tr>
+              <td colspan="6" class="empty">No hay citas registradas</td>
+            </tr>
+          }
+          @for (a of appointmentsFiltradas; track trackById($index, a)) {
+            <tr [class.row-active]="selectedAppointment?.idPedido === a.idPedido">
+              <td class="col-id">{{ a.idPedido }}</td>
+              <td>{{ a.nombreCliente }}</td>
+              <td>{{ getNombreMoto(a.idMoto) }}</td>
+              <td>
+                <span
+                  class="estado-badge"
+                  [class.pendiente]="a.estadoCita === 'Pendiente'"
+                  [class.agendada]="a.estadoCita === 'Agendada'"
+                  [class.en-proceso]="a.estadoCita === 'EnProceso'"
+                  [class.completada]="a.estadoCita === 'Completada'"
+                  [class.rechazada]="a.estadoCita === 'Rechazada'"
+                  >{{ getLabelEstado(a.estadoCita) }}</span
+                >
+              </td>
+              <td class="acciones-cell">
+                @if (a.estadoCita === 'Pendiente') {
+                  <div class="acciones-inner">
+                    <button
+                      class="btn-aceptar"
+                      [disabled]="isLoading(a.idPedido)"
+                      (click)="abrirAsignar(a.idPedido)"
+                    >
+                      Aceptar
+                    </button>
+                    <button
+                      class="btn-rechazar"
+                      [disabled]="isLoading(a.idPedido)"
+                      (click)="rechazar(a.idPedido)"
+                    >
+                      {{ isLoading(a.idPedido) ? '...' : 'Rechazar' }}
+                    </button>
+                  </div>
+                } @else {
+                  <span class="sin-accion">—</span>
+                }
+              </td>
+              <td class="detalles-cell">
+                <button
+                  class="btn-detalle"
+                  [class.active]="selectedAppointment?.idPedido === a.idPedido"
+                  (click)="openDetail(a.idPedido)"
+                >
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
+                  Ver
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ PANEL DETALLES (componente compartido) ════════════════ -->
+  <app-appointment-detail-panel
+    [selectedAppointment]="selectedAppointment"
+    [loadingDetail]="loadingDetail"
+    [panelTitle]="'#' + selectedAppointment?.idPedido"
+    [loadingIds]="loadingIds"
+    [showEmpleado]="true"
+    [showAcciones]="false"
+    (closed)="closeDetail()"
+  >
+    <span slot="moto">{{ getNombreMoto(selectedAppointment?.idMoto ?? 0) }}</span>
+
+    <div slot="servicios" class="servicios-list">
+      @for (d of selectedAppointment?.detalles ?? []; track d.idServicio) {
+        <div class="servicio-item">
+          <span class="servicio-nombre">{{ getNombreServicio(d.idServicio) }}</span>
+          <span class="servicio-precio">$ {{ d.subTotal | number: '1.0-0' }}</span>
+        </div>
+      }
+    </div>
+  </app-appointment-detail-panel>
+</div>
+
+<!-- ══ MODAL ASIGNAR EMPLEADO ══════════════════════════════════ -->
+@if (assigningId !== null) {
+  <button class="modal-overlay" (click)="cerrarAsignar()" (keydown.escape)="cerrarAsignar()">
+    <div class="modal" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+      <h3>Asignar Empleado</h3>
+      <p class="modal-sub">Cita #{{ assigningId }}</p>
+      @if (!loadingEmployees) {
+        <div class="employee-list">
+          @for (emp of employees; track emp.idUsuario) {
+            <button
+              class="employee-option"
+              [class.selected]="selectedEmployeeId === emp.idUsuario"
+              (click)="selectedEmployeeId = emp.idUsuario"
+            >
+              <div class="emp-avatar">{{ emp.nombre.charAt(0) }}</div>
+              <div class="emp-info">
+                <span class="emp-nombre">{{ emp.nombre }}</span>
+                <span class="emp-correo">{{ emp.correo }}</span>
+              </div>
+              @if (selectedEmployeeId === emp.idUsuario) {
+                <div class="emp-check">✓</div>
+              }
+            </button>
+          }
+          @if (employees.length === 0) {
+            <p class="no-employees">No hay empleados disponibles</p>
+          }
+        </div>
+      } @else {
+        <div class="employees-loading"><span class="spinner"></span> Cargando empleados...</div>
+      }
+      <div class="modal-actions">
+        <button class="btn-cancelar" (click)="cerrarAsignar()">Cancelar</button>
+        <button
+          class="btn-confirmar"
+          [disabled]="!selectedEmployeeId || isLoading(assigningId)"
+          (click)="confirmarAsignar()"
+        >
+          {{ isLoading(assigningId) ? 'Asignando...' : 'Confirmar' }}
+        </button>
+      </div>
+    </div>
+  </button>
+}

@@ -1,0 +1,133 @@
+<div class="form-container">
+  <h2>Crear Motocicleta</h2>
+
+  <form #form="ngForm" (ngSubmit)="createMotorbike(form)">
+    <!-- MARCA -->
+    <div class="form-group">
+      <label for="marca">Marca</label>
+      <input id="marca" [(ngModel)]="motorbike.marca" name="marca" required #marca="ngModel" />
+    </div>
+
+    <!-- MODELO -->
+    <div class="form-group">
+      <label for="modelo">Modelo</label>
+      <input id="modelo" [(ngModel)]="motorbike.modelo" name="modelo" required #modelo="ngModel" />
+    </div>
+
+    <!-- PLACA -->
+    <div class="form-group">
+      <label for="placa">Placa</label>
+      <input
+        id="placa"
+        [(ngModel)]="motorbike.placa"
+        name="placa"
+        required
+        pattern="^[A-Za-z]{3}[0-9]{2}[A-Za-z]$"
+        #placa="ngModel"
+      />
+    </div>
+
+    <!-- CILINDRAJE -->
+    <div class="form-group">
+      <label for="cilindraje">Cilindraje</label>
+      <input
+        id="cilindraje"
+        type="number"
+        [(ngModel)]="motorbike.cilindraje"
+        name="cilindraje"
+        required
+        min="1"
+        #cilindraje="ngModel"
+      />
+    </div>
+
+    <!-- AÑO -->
+    <div class="form-group">
+      <label for="anio">Año</label>
+      <input
+        id="anio"
+        type="number"
+        [(ngModel)]="motorbike.anio"
+        name="anio"
+        required
+        min="2010"
+        #anio="ngModel"
+      />
+    </div>
+
+    <!-- VALIDACIONES -->
+    <div class="error" *ngIf="form.touched || form.dirty">
+      <span
+        *ngIf="
+          marca.errors?.['required'] ||
+          modelo.errors?.['required'] ||
+          placa.errors?.['required'] ||
+          cilindraje.errors?.['required'] ||
+          anio.errors?.['required']
+        "
+      >
+        Todos los campos deben estar diligenciados correctamente
+      </span>
+
+      <span
+        *ngIf="
+          !marca.errors?.['required'] &&
+          !modelo.errors?.['required'] &&
+          !placa.errors?.['required'] &&
+          placa.errors?.['pattern']
+        "
+      >
+        La placa debe tener formato XXX11X
+      </span>
+
+      <span
+        *ngIf="
+          !marca.errors?.['required'] &&
+          !modelo.errors?.['required'] &&
+          !placa.errors?.['required'] &&
+          !placa.errors?.['pattern'] &&
+          !cilindraje.errors?.['required'] &&
+          cilindraje.errors?.['min']
+        "
+      >
+        El cilindraje debe ser mayor a 0
+      </span>
+
+      <span
+        *ngIf="
+          !marca.errors?.['required'] &&
+          !modelo.errors?.['required'] &&
+          !placa.errors?.['required'] &&
+          !placa.errors?.['pattern'] &&
+          !cilindraje.errors?.['required'] &&
+          !cilindraje.errors?.['min'] &&
+          !anio.errors?.['required'] &&
+          anio.errors?.['min']
+        "
+      >
+        El año debe ser mayor a 2009
+      </span>
+    </div>
+
+    <!-- ERROR BACKEND (FACADE) -->
+    <div
+      class="error"
+      *ngIf="errores.general || errores.placa || errores.cilindraje || errores.anio"
+    >
+      <span *ngIf="errores.placa">{{ errores.placa }}</span>
+      <span *ngIf="errores.cilindraje">{{ errores.cilindraje }}</span>
+      <span *ngIf="errores.anio">{{ errores.anio }}</span>
+      <span *ngIf="errores.general">{{ errores.general }}</span>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <!-- BOTÓN -->
+    <button class="btn-save" type="submit" [disabled]="form.invalid || loading">
+      Crear Motocicleta
+    </button>
+  </form>
+</div>
