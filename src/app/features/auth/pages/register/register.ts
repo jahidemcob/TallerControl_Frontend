@@ -2,13 +2,14 @@ import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthFacade, AuthErrors } from '../../../../core/services/auth.facade';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule],
+  imports: [RouterModule, FormsModule, CommonModule, TranslatePipe],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })

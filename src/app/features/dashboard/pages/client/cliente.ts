@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Router, RouterModule } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthService } from '../../../../core/services/auth'; 
 
 @Component({
   selector: 'app-cliente',
   standalone: true,
-  imports: [CommonModule, RouterModule], 
+  imports: [CommonModule, RouterModule, TranslatePipe], 
   templateUrl: './cliente.html',
   styleUrls: ['./cliente.css'],
 })
@@ -17,7 +18,7 @@ export class Cliente {
   menuAbierto: boolean = false;
 
   constructor(
-    private readonly authService: AuthService,
+    private readonly authService: AuthService, 
     public router: Router
   ) {}
 

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { AppointmentListBase } from '../../../../../shared/base/appointment-list.base';
 import { AppointmentDetailPanelComponent } from '../../../../../shared/components/appointment-detail-panel/appointment-detail-panel.component';
@@ -11,7 +12,7 @@ import { Usuario } from '../../../../users/models/user.model';
 @Component({
   selector: 'app-manage-appointments',
   standalone: true,
-  imports: [CommonModule, FormsModule, AppointmentDetailPanelComponent],
+  imports: [CommonModule, FormsModule, TranslatePipe, AppointmentDetailPanelComponent],
   templateUrl: './manage-appointments.html',
   styleUrl: './manage-appointments.css',
 })

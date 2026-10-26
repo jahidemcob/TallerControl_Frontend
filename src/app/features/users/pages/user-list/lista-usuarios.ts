@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { UsuarioFacade } from '../../services/user.facade';
 import { Usuario } from '../../models/user.model';
@@ -8,7 +9,7 @@ import { Usuario } from '../../models/user.model';
 @Component({
   selector: 'app-lista-usuarios',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './lista-usuarios.html',
   styleUrls: ['./lista-usuarios.css'],
 })

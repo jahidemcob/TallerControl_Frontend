@@ -1,16 +1,20 @@
 <div class="cards-container">
   <!-- HEADER -->
   <div class="cards-header">
-    <h2>Gestión de Servicios</h2>
-    <button class="btn-create" (click)="goToCreate()">+ Crear Servicio</button>
+    <h2>{{ 'SERVICES.TITLE' | translate }}</h2>
+    <button class="btn-create" (click)="goToCreate()">
+      + {{ 'SERVICES.CREATE' | translate }}
+    </button>
   </div>
 
   <!-- SCROLL -->
   <div class="cards-scroll">
-    <!-- GRID SIEMPRE EXISTE --> 
+    <!-- GRID SIEMPRE EXISTE -->
     <div class="cards-grid">
       <!-- ESTADO VACÍO -->
-      <div *ngIf="services.length === 0" class="empty">No hay servicios registrados</div>
+      <div *ngIf="services.length === 0" class="empty">
+        {{ 'SERVICES.EMPTY' | translate }}
+      </div>
 
       <!-- TARJETAS -->
       <div class="service-card" *ngFor="let s of services; trackBy: trackById">
@@ -18,20 +22,24 @@
           <h3 class="service-name">{{ s.nombreServicio }}</h3>
 
           <p class="service-description">
-            {{ s.descripcion }} 
+            {{ s.descripcion }}
           </p>
 
-          <p class="service-price">$ {{ s.precioBase | number: '1.0-0' }}</p>
+          <p class="service-price">
+            $ {{ s.precioBase | number: '1.0-0' }}
+          </p>
 
           <span class="status" [class.activo]="s.isActive" [class.inactivo]="!s.isActive">
-            {{ s.isActive ? 'Activo' : 'Inactivo' }}
+            {{ (s.isActive ? 'SERVICES.STATUS.ACTIVE' : 'SERVICES.STATUS.INACTIVE') | translate }}
           </span>
         </div>
 
         <div class="card-actions">
-          <button class="btn-edit" (click)="goToEdit(s.idServicio)">Editar</button>
+          <button class="btn-edit" (click)="goToEdit(s.idServicio)">
+            {{ 'COMMON.EDIT' | translate }}
+          </button>
           <button class="btn-state" (click)="toggleStatus(s)">
-            {{ s.isActive ? 'Desactivar' : 'Activar' }}
+            {{ (s.isActive ? 'SERVICES.DEACTIVATE' : 'SERVICES.ACTIVATE') | translate }}
           </button>
         </div>
       </div>

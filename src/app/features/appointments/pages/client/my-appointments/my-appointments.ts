@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { AppointmentFacade } from '../../../services/appointment.facade';
 import { MotorbikeFacade } from '../../../../motorbikes/services/motorbike.facade';
@@ -13,7 +14,7 @@ import { Service } from '../../../../services/models/service.model';
 @Component({
   selector: 'app-my-appointments',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './my-appointments.html',
   styleUrl: './my-appointments.css',
 })

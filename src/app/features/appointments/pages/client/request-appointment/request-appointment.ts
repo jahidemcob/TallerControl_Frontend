@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { AppointmentFacade } from '../../../services/appointment.facade';
 import { ServicesFacade } from '../../../../services/services/service.facade';
@@ -18,7 +19,7 @@ import {
 @Component({
   selector: 'app-request-appointment',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './request-appointment.html',
   styleUrl: './request-appointment.css',
 })

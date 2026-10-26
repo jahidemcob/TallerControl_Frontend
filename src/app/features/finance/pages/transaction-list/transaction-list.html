@@ -2,55 +2,40 @@
   <!-- ═════════ FORMULARIO ═════════ -->
   <div class="table-container finance-form-container">
     <div class="table-header center-header">
-      <h2>Gestión de Finanzas</h2>
+      <h2>{{ 'FINANCE.TITLE' | translate }}</h2>
     </div>
 
     <form #movimientoForm="ngForm">
       <div class="form-row">
         <!-- DESCRIPCIÓN -->
         <div class="form-group">
-          <input
-            type="text"
-            name="descripcion"
-            [(ngModel)]="descripcion"
-            placeholder="Descripción"
-            required
-            minlength="3"
-            #descRef="ngModel"
-            class="form-input descripcion-input"
-          />
+          <input type="text" name="descripcion" [(ngModel)]="descripcion"
+            [placeholder]="'FINANCE.DESCRIPTION' | translate" required minlength="3" #descRef="ngModel"
+            class="form-input descripcion-input" />
 
           <span class="field-error" *ngIf="descRef.invalid && descRef.touched">
-            La descripción es obligatoria.
+            {{ 'FINANCE.VALIDATION.DESCRIPTION_REQUIRED' | translate }}
           </span>
         </div>
 
         <!-- VALOR -->
         <div class="form-group">
-          <input
-            type="number"
-            name="monto"
-            [(ngModel)]="monto"
-            placeholder="Valor"
-            required
-            min="1"
-            #montoRef="ngModel"
-            class="form-input valor-input"
-          />
+          <input type="number" name="monto" [(ngModel)]="monto" [placeholder]="'FINANCE.AMOUNT' | translate" required
+            min="1" #montoRef="ngModel" class="form-input valor-input" />
 
           <span class="field-error" *ngIf="montoRef.invalid && montoRef.touched">
-            Ingresa un valor mayor a 0.
+            {{ 'FINANCE.VALIDATION.AMOUNT_MIN' | translate }}
           </span>
         </div>
 
         <!-- BOTONES -->
         <div class="btn-group">
           <button type="button" class="btn-ingreso" (click)="submitCon('Ingreso', movimientoForm)">
-            Ingreso
+            {{ 'FINANCE.INCOME' | translate }}
           </button>
 
           <button type="button" class="btn-salida" (click)="submitCon('Egreso', movimientoForm)">
-            Salida
+            {{ 'FINANCE.EXPENSE' | translate }}
           </button>
         </div>
       </div>
@@ -64,20 +49,15 @@
   <!-- ═════════ TABLA ═════════ -->
   <div class="table-container">
     <div class="table-header">
-      <h2>Movimientos</h2>
+      <h2>{{ 'FINANCE.MOVEMENTS' | translate }}</h2>
 
       <!-- FILTRO -->
       <div class="filtro-fecha-group">
-        <input
-          type="date"
-          name="filtroFecha"
-          [(ngModel)]="filtroFecha"
-          (ngModelChange)="aplicarFiltro()"
-          class="form-input input-fecha"
-        />
+        <input type="date" name="filtroFecha" [(ngModel)]="filtroFecha" (ngModelChange)="aplicarFiltro()"
+          class="form-input input-fecha" [attr.aria-label]="'FINANCE.FILTER_DATE' | translate" />
 
         <button *ngIf="filtroFecha" type="button" class="btn-limpiar" (click)="limpiarFecha()">
-          Limpiar
+          {{ 'FINANCE.CLEAR_DATE' | translate }}
         </button>
       </div>
     </div>
@@ -93,10 +73,10 @@
 
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Descripción</th>
-          <th>Valor</th>
-          <th>Tipo</th>
+          <th>{{ 'FINANCE.TABLE.ID' | translate }}</th>
+          <th>{{ 'FINANCE.DESCRIPTION' | translate }}</th>
+          <th>{{ 'FINANCE.AMOUNT' | translate }}</th>
+          <th>{{ 'FINANCE.TYPE' | translate }}</th>
         </tr>
       </thead>
     </table>
@@ -111,20 +91,22 @@
           <col style="width: 180px" />
         </colgroup>
 
-        <!-- CORRECCIÓN SONAR: agregado thead oculto con th para accesibilidad -->
+        <!-- CORRECCIÓN SONAR: encabezado oculto para accesibilidad -->
         <thead style="display: none">
           <tr>
-            <th>ID</th>
-            <th>Descripción</th>
-            <th>Valor</th>
-            <th>Tipo</th>
+            <th>{{ 'FINANCE.TABLE.ID' | translate }}</th>
+            <th>{{ 'FINANCE.DESCRIPTION' | translate }}</th>
+            <th>{{ 'FINANCE.AMOUNT' | translate }}</th>
+            <th>{{ 'FINANCE.TYPE' | translate }}</th>
           </tr>
         </thead>
 
         <tbody>
           <!-- LOADING -->
           <tr *ngIf="loading">
-            <td colspan="4" class="estado-celda">Cargando...</td>
+            <td colspan="4" class="estado-celda">
+              {{ 'COMMON.LOADING' | translate }}
+            </td>
           </tr>
 
           <!-- ERROR -->
@@ -136,7 +118,9 @@
 
           <!-- VACÍO -->
           <tr *ngIf="!loading && !error && movimientosFiltrados.length === 0">
-            <td colspan="4" class="estado-celda">No hay movimientos registrados.</td>
+            <td colspan="4" class="estado-celda">
+              {{ 'FINANCE.EMPTY' | translate }}
+            </td>
           </tr>
 
           <!-- FILAS -->
@@ -145,11 +129,13 @@
             <td>{{ m.descripcion }}</td>
             <td>$ {{ m.monto | number: '1.0-0' }}</td>
             <td>
-              <span
-                [class.tipo-ingreso]="m.tipoMovimiento === 'Ingreso'"
-                [class.tipo-salida]="m.tipoMovimiento === 'Egreso'"
-              >
-                {{ m.tipoMovimiento }}
+              <span [class.tipo-ingreso]="m.tipoMovimiento === 'Ingreso'"
+                [class.tipo-salida]="m.tipoMovimiento === 'Egreso'">
+                {{
+                (m.tipoMovimiento === 'Ingreso'
+                ? 'FINANCE.INCOME'
+                : 'FINANCE.EXPENSE') | translate
+                }}
               </span>
             </td>
           </tr>
@@ -159,12 +145,8 @@
 
     <!-- TOTAL -->
     <div class="total-row">
-      <span class="total-label">Total:</span>
-      <span
-        class="total-value"
-        [class.total-positivo]="totalFiltrado >= 0"
-        [class.total-negativo]="totalFiltrado < 0"
-      >
+      <span class="total-label">{{ 'FINANCE.TOTAL' | translate }}</span>
+      <span class="total-value" [class.total-positivo]="totalFiltrado >= 0" [class.total-negativo]="totalFiltrado < 0">
         $ {{ totalFiltrado | number: '1.0-0' }}
       </span>
     </div>

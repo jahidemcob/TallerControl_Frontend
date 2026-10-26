@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router'; 
-import { AuthService } from '../../../../core/services/auth'; // Asegúrate de que la ruta sea correcta
+import { TranslatePipe } from '@ngx-translate/core';
+import { AuthService } from '../../../../core/services/auth'; 
 
 @Component({
   selector: 'app-empleado',
-  imports: [CommonModule, RouterModule], 
+  imports: [CommonModule, RouterModule, TranslatePipe], 
   templateUrl: './empleado.html',
   styleUrl: './empleado.css', 
 })

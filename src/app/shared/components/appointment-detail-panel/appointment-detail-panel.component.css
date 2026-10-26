@@ -105,3 +105,44 @@
   font-size: 13px;
   padding: 20px 0;
 }
+
+/* Estado de la cita */
+.estado-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Pendiente: amarillo */
+.estado-badge.pendiente {
+  background-color: #fff0c2;
+  color: #8a6100;
+}
+
+/* Agendada: azul */
+.estado-badge.agendada {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* En proceso: naranja */
+.estado-badge.en-proceso {
+  background-color: #ffedd5;
+  color: #c2410c;
+}
+
+/* Completada: verde azulado */
+.estado-badge.completada {
+  background-color: #cfeef3;
+  color: #006477;
+}
+
+/* Rechazada: rojo */
+.estado-badge.rechazada {
+  background-color: #fbd5d8;
+  color: #991b1b;
+}

@@ -1,27 +1,29 @@
 <div class="page-layout">
-  <!-- ══ TABLA ══════════════════════════════════════════════════ -->
+  <!-- TABLA -->
   <div class="table-container" [class.panel-open]="selectedAppointment || loadingDetail">
     <div class="table-header">
-      <h2>Citas Asignadas</h2>
+      <h2>{{ 'APPOINTMENTS.EMPLOYEE.TITLE' | translate }}</h2>
     </div>
 
     <div class="filtros">
       @for (estado of estados; track estado) {
-        <button
-          class="filtro-btn"
-          [class.activo]="filtroEstado === estado"
-          [class.agendada-btn]="estado === 'Agendada'"
-          [class.en-proceso-btn]="estado === 'EnProceso'"
-          [class.completada-btn]="estado === 'Completada'"
-          (click)="cambiarFiltro(estado)"
-        >
-          {{ getLabelEstado(estado) }}
-        </button>
+      <button class="filtro-btn" [class.activo]="filtroEstado === estado" [class.agendada-btn]="estado === 'Agendada'"
+        [class.en-proceso-btn]="estado === 'EnProceso'" [class.completada-btn]="estado === 'Completada'"
+        (click)="cambiarFiltro(estado)">
+        {{
+        ('APPOINTMENTS.STATUS.' +
+        (estado === 'EnProceso' ? 'IN_PROGRESS' : estado.toUpperCase())) | translate
+        }}
+      </button>
       }
       <div class="filtro-fecha">
-        <input type="date" [(ngModel)]="filtroFecha" class="input-fecha" />
+        <input type="date" [(ngModel)]="filtroFecha" class="input-fecha"
+          [attr.aria-label]="'APPOINTMENTS.FILTER_DATE' | translate" />
         @if (filtroFecha) {
-          <button class="btn-limpiar-fecha" (click)="limpiarFecha()">✕</button>
+        <button class="btn-limpiar-fecha" (click)="limpiarFecha()"
+          [attr.aria-label]="'APPOINTMENTS.CLEAR_DATE' | translate">
+          ✕
+        </button>
         }
       </div>
     </div>
@@ -38,11 +40,11 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Cliente</th>
-          <th>Motocicleta</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-          <th>Detalles</th>
+          <th>{{ 'APPOINTMENTS.TABLE.CLIENT' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.TABLE.MOTORCYCLE' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.TABLE.STATUS' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.TABLE.ACTIONS' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.TABLE.DETAILS' | translate }}</th>
         </tr>
       </thead>
     </table>
@@ -60,137 +62,120 @@
         <thead style="display: none">
           <tr>
             <th>#</th>
-            <th>Cliente</th>
-            <th>Motocicleta</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-            <th>Detalles</th>
+            <th>{{ 'APPOINTMENTS.TABLE.CLIENT' | translate }}</th>
+            <th>{{ 'APPOINTMENTS.TABLE.MOTORCYCLE' | translate }}</th>
+            <th>{{ 'APPOINTMENTS.TABLE.STATUS' | translate }}</th>
+            <th>{{ 'APPOINTMENTS.TABLE.ACTIONS' | translate }}</th>
+            <th>{{ 'APPOINTMENTS.TABLE.DETAILS' | translate }}</th>
           </tr>
         </thead>
         <tbody>
           @if (appointmentsFiltradas.length === 0) {
-            <tr>
-              <td colspan="6" class="empty">No hay citas asignadas</td>
-            </tr>
+          <tr>
+            <td colspan="6" class="empty">
+              {{ 'APPOINTMENTS.EMPLOYEE.EMPTY' | translate }}
+            </td>
+          </tr>
           }
           @for (a of appointmentsFiltradas; track trackById($index, a); let i = $index) {
-            <tr [class.row-active]="selectedAppointment?.idPedido === a.idPedido">
-              <td class="col-id">{{ i + 1 }}</td>
-              <td>{{ a.nombreCliente }}</td>
-              <td>{{ getNombreMoto(a.idMoto) }}</td>
-              <td>
-                <span
-                  class="estado-badge"
-                  [class.agendada]="a.estadoCita === 'Agendada'"
-                  [class.en-proceso]="a.estadoCita === 'EnProceso'"
-                  [class.completada]="a.estadoCita === 'Completada'"
-                  >{{ getLabelEstado(a.estadoCita) }}</span
-                >
-              </td>
-              <td
-                class="acciones-cell"
-                [class.hidden-actions]="selectedAppointment || loadingDetail"
-              >
-                <div class="acciones-inner">
-                  @if (a.estadoCita === 'Agendada') {
-                    <button
-                      class="btn-desarrollo"
-                      [disabled]="isLoading(a.idPedido)"
-                      (click)="enDesarrollo(a.idPedido)"
-                    >
-                      {{ isLoading(a.idPedido) ? '...' : 'En Proceso' }}
-                    </button>
-                  }
-                  @if (a.estadoCita === 'Agendada' || a.estadoCita === 'EnProceso') {
-                    <button
-                      class="btn-terminado"
-                      [disabled]="isLoading(a.idPedido)"
-                      (click)="terminado(a.idPedido)"
-                    >
-                      {{ isLoading(a.idPedido) ? '...' : 'Terminado' }}
-                    </button>
-                  }
-                  @if (a.estadoCita === 'Completada') {
-                    <span class="sin-accion">—</span>
-                  }
-                </div>
-              </td>
-              <td class="detalles-cell">
-                <button
-                  class="btn-detalle"
-                  [class.active]="selectedAppointment?.idPedido === a.idPedido"
-                  (click)="openDetail(a.idPedido)"
-                >
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="8" x2="12" y2="12" />
-                    <line x1="12" y1="16" x2="12.01" y2="16" />
-                  </svg>
-                  Ver
+          <tr [class.row-active]="selectedAppointment?.idPedido === a.idPedido">
+            <td class="col-id">{{ i + 1 }}</td>
+            <td>{{ a.nombreCliente }}</td>
+            <td>{{ getNombreMoto(a.idMoto) }}</td>
+            <td>
+              <span class="estado-badge" [class.agendada]="a.estadoCita === 'Agendada'"
+                [class.en-proceso]="a.estadoCita === 'EnProceso'" [class.completada]="a.estadoCita === 'Completada'">
+                {{
+                ('APPOINTMENTS.STATUS.' +
+                (a.estadoCita === 'EnProceso'
+                ? 'IN_PROGRESS'
+                : a.estadoCita.toUpperCase())) | translate
+                }}
+              </span>
+            </td>
+            <td class="acciones-cell" [class.hidden-actions]="selectedAppointment || loadingDetail">
+              <div class="acciones-inner">
+                @if (a.estadoCita === 'Agendada') {
+                <button class="btn-desarrollo" [disabled]="isLoading(a.idPedido)" (click)="enDesarrollo(a.idPedido)">
+                  {{
+                  (isLoading(a.idPedido)
+                  ? 'APPOINTMENTS.LOADING_SHORT'
+                  : 'APPOINTMENTS.EMPLOYEE.IN_PROGRESS') | translate
+                  }}
                 </button>
-              </td>
-            </tr>
+                }
+                @if (a.estadoCita === 'Agendada' || a.estadoCita === 'EnProceso') {
+                <button class="btn-terminado" [disabled]="isLoading(a.idPedido)" (click)="terminado(a.idPedido)">
+                  {{
+                  (isLoading(a.idPedido)
+                  ? 'APPOINTMENTS.LOADING_SHORT'
+                  : 'APPOINTMENTS.EMPLOYEE.FINISHED') | translate
+                  }}
+                </button>
+                }
+                @if (a.estadoCita === 'Completada') {
+                <span class="sin-accion">—</span>
+                }
+              </div>
+            </td>
+            <td class="detalles-cell">
+              <button class="btn-detalle" [class.active]="selectedAppointment?.idPedido === a.idPedido"
+                (click)="openDetail(a.idPedido)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                {{ 'APPOINTMENTS.TABLE.VIEW' | translate }}
+              </button>
+            </td>
+          </tr>
           }
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- ══ PANEL DETALLES (componente compartido) ════════════════ -->
-  <app-appointment-detail-panel
-    [selectedAppointment]="selectedAppointment"
-    [loadingDetail]="loadingDetail"
-    [panelTitle]="'#' + getIndiceCita(selectedAppointment?.idPedido ?? 0)"
-    [loadingIds]="loadingIds"
-    [showEmpleado]="false"
-    [showAcciones]="true"
-    (closed)="closeDetail()"
-    (actionPrimary)="enDesarrollo($event)"
-    (actionSecondary)="terminado($event)"
-  >
-    <!-- slot moto -->
+  <!-- PANEL DE DETALLES -->
+  <app-appointment-detail-panel [selectedAppointment]="selectedAppointment" [loadingDetail]="loadingDetail"
+    [panelTitle]="'#' + getIndiceCita(selectedAppointment?.idPedido ?? 0)" [loadingIds]="loadingIds"
+    [showEmpleado]="false" [showAcciones]="true" (closed)="closeDetail()" (actionPrimary)="enDesarrollo($event)"
+    (actionSecondary)="terminado($event)">
     <span slot="moto">{{ getNombreMoto(selectedAppointment?.idMoto ?? 0) }}</span>
 
-    <!-- slot servicios -->
     <div slot="servicios" class="servicios-list">
       @for (d of selectedAppointment?.detalles ?? []; track d.idServicio) {
-        <div class="servicio-item">
-          <span class="servicio-nombre">{{ getNombreServicio(d.idServicio) }}</span>
-          <span class="servicio-precio">$ {{ d.subTotal | number: '1.0-0' }}</span>
-        </div>
+      <div class="servicio-item">
+        <span class="servicio-nombre">{{ getNombreServicio(d.idServicio) }}</span>
+        <span class="servicio-precio">$ {{ d.subTotal | number: '1.0-0' }}</span>
+      </div>
       }
     </div>
 
-    <!-- slot acciones -->
     @if (
-      selectedAppointment?.estadoCita === 'Agendada' ||
-      selectedAppointment?.estadoCita === 'EnProceso'
+    selectedAppointment?.estadoCita === 'Agendada' ||
+    selectedAppointment?.estadoCita === 'EnProceso'
     ) {
-      <div slot="acciones" class="detail-acciones">
-        @if (selectedAppointment?.estadoCita === 'Agendada') {
-          <button
-            class="btn-desarrollo full-width"
-            [disabled]="isLoading(selectedAppointment!.idPedido)"
-            (click)="enDesarrollo(selectedAppointment!.idPedido)"
-          >
-            {{ isLoading(selectedAppointment!.idPedido) ? '...' : 'Marcar En Proceso' }}
-          </button>
-        }
-        <button
-          class="btn-terminado full-width"
-          [disabled]="isLoading(selectedAppointment!.idPedido)"
-          (click)="terminado(selectedAppointment!.idPedido)"
-        >
-          {{ isLoading(selectedAppointment!.idPedido) ? '...' : 'Marcar Terminado' }}
-        </button>
-      </div>
+    <div slot="acciones" class="detail-acciones">
+      @if (selectedAppointment?.estadoCita === 'Agendada') {
+      <button class="btn-desarrollo full-width" [disabled]="isLoading(selectedAppointment!.idPedido)"
+        (click)="enDesarrollo(selectedAppointment!.idPedido)">
+        {{
+        (isLoading(selectedAppointment!.idPedido)
+        ? 'APPOINTMENTS.LOADING_SHORT'
+        : 'APPOINTMENTS.EMPLOYEE.MARK_IN_PROGRESS') | translate
+        }}
+      </button>
+      }
+      <button class="btn-terminado full-width" [disabled]="isLoading(selectedAppointment!.idPedido)"
+        (click)="terminado(selectedAppointment!.idPedido)">
+        {{
+        (isLoading(selectedAppointment!.idPedido)
+        ? 'APPOINTMENTS.LOADING_SHORT'
+        : 'APPOINTMENTS.EMPLOYEE.MARK_FINISHED') | translate
+        }}
+      </button>
+    </div>
     }
   </app-appointment-detail-panel>
 </div>

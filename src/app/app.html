@@ -1,1 +1,22 @@
+<!-- Selector global de idioma -->
+<div class="language-selector">
+    <button type="button" class="language-toggle" (click)="toggleLanguageMenu()" [attr.aria-expanded]="languageMenuOpen"
+        aria-label="Seleccionar idioma" title="Seleccionar idioma">
+        🌐
+    </button>
+
+    @if (languageMenuOpen) {
+    <div class="language-menu">
+        <button type="button" class="language-option" (click)="selectLanguage('es-CO')">
+            🇨🇴 Español
+        </button>
+
+        <button type="button" class="language-option" (click)="selectLanguage('en-US')">
+            🇺🇸 English
+        </button>
+    </div>
+    }
+</div>
+
+<!-- Aquí se muestra la pantalla correspondiente a la ruta -->
 <router-outlet></router-outlet>

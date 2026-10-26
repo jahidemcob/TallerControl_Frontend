@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { CreateService } from '../../../models/service.model';
 import { ServicesFacade, BackendErrors } from '../../../services/service.facade';
@@ -10,7 +11,7 @@ import { ServiceFormComponent } from '../../../../../shared/components/service-f
 @Component({
   selector: 'app-create-service',
   standalone: true,
-  imports: [CommonModule, FormsModule, ServiceFormComponent],
+  imports: [CommonModule, FormsModule, ServiceFormComponent, TranslatePipe],
   templateUrl: './create-service.html',
   styleUrls: ['./create-service.css'],
 })

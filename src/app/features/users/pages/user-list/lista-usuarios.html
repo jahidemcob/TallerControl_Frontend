@@ -1,7 +1,9 @@
 <div class="table-container">
   <div class="table-header">
-    <h2>Gestión de Usuarios</h2>
-    <button class="btn-create" (click)="crear()">+ Crear Usuario</button>
+    <h2>{{ 'USERS.TITLE' | translate }}</h2>
+    <button class="btn-create" (click)="crear()">
+      + {{ 'USERS.CREATE' | translate }}
+    </button>
   </div>
 
   <!-- HEADER -->
@@ -17,13 +19,13 @@
     </colgroup>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Usuario</th>
-        <th>Correo</th>
-        <th>Rol</th>
-        <th>Estado</th>
-        <th>Acciones</th>
+        <th>{{ 'USERS.TABLE.ID' | translate }}</th>
+        <th>{{ 'USERS.TABLE.NAME' | translate }}</th>
+        <th>{{ 'USERS.TABLE.USERNAME' | translate }}</th>
+        <th>{{ 'USERS.TABLE.EMAIL' | translate }}</th>
+        <th>{{ 'USERS.TABLE.ROLE' | translate }}</th>
+        <th>{{ 'USERS.TABLE.STATUS' | translate }}</th>
+        <th>{{ 'USERS.TABLE.ACTIONS' | translate }}</th>
       </tr>
     </thead>
   </table>
@@ -44,13 +46,13 @@
       <!-- THEAD OCULTO SOLO PARA ACCESIBILIDAD -->
       <thead style="display: none">
         <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Usuario</th>
-          <th>Correo</th>
-          <th>Rol</th>
-          <th>Estado</th>
-          <th>Acciones</th>
+          <th>{{ 'USERS.TABLE.ID' | translate }}</th>
+          <th>{{ 'USERS.TABLE.NAME' | translate }}</th>
+          <th>{{ 'USERS.TABLE.USERNAME' | translate }}</th>
+          <th>{{ 'USERS.TABLE.EMAIL' | translate }}</th>
+          <th>{{ 'USERS.TABLE.ROLE' | translate }}</th>
+          <th>{{ 'USERS.TABLE.STATUS' | translate }}</th>
+          <th>{{ 'USERS.TABLE.ACTIONS' | translate }}</th>
         </tr>
       </thead>
 
@@ -63,32 +65,38 @@
 
           <td>
             {{
-              u.idRol === 1
-                ? 'Admin'
-                : u.idRol === 2
-                  ? 'Empleado'
-                  : u.idRol === 3
-                    ? 'Cliente'
-                    : 'Sin rol'
+            (u.idRol === 1
+            ? 'USERS.ROLES.ADMIN'
+            : u.idRol === 2
+            ? 'USERS.ROLES.EMPLOYEE'
+            : u.idRol === 3
+            ? 'USERS.ROLES.CLIENT'
+            : 'USERS.ROLES.NONE') | translate
             }}
           </td>
 
           <td>
             <span [class.activo]="u.activo" [class.inactivo]="!u.activo">
-              {{ u.activo ? 'Activo' : 'Inactivo' }}
+              {{
+              (u.activo
+              ? 'USERS.STATUS.ACTIVE'
+              : 'USERS.STATUS.INACTIVE') | translate
+              }}
             </span>
           </td>
 
           <td class="acciones">
             <div class="acciones-inner">
-              <button class="btn-edit" (click)="editar(u.idUsuario)">Editar</button>
+              <button class="btn-edit" (click)="editar(u.idUsuario)">
+                {{ 'USERS.EDIT' | translate }}
+              </button>
 
-              <button
-                class="btn-state"
-                (click)="toggleEstado(u)"
-                [disabled]="loadingIds.includes(u.idUsuario)"
-              >
-                {{ u.activo ? 'Desactivar' : 'Activar' }}
+              <button class="btn-state" (click)="toggleEstado(u)" [disabled]="loadingIds.includes(u.idUsuario)">
+                {{
+                (u.activo
+                ? 'USERS.DEACTIVATE'
+                : 'USERS.ACTIVATE') | translate
+                }}
               </button>
             </div>
           </td>

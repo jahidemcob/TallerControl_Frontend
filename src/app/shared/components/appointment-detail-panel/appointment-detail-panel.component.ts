@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   Appointment,
   AppointmentState,
@@ -8,7 +9,7 @@ import {
 @Component({
   selector: 'app-appointment-detail-panel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './appointment-detail-panel.component.html',
   styleUrl: './appointment-detail-panel.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
