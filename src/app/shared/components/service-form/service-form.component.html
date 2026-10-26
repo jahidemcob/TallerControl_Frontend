@@ -4,65 +4,42 @@
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <!-- NOMBRE -->
     <div class="form-group">
-      <label for="nombreServicio">Nombre del Servicio</label>
-      <input
-        id="nombreServicio"
-        [(ngModel)]="service.nombreServicio"
-        name="nombreServicio"
-        required
-        #nombreServicio="ngModel"
-      />
+      <label for="nombreServicio">{{ 'SERVICES.FORM.NAME' | translate }}</label>
+      <input id="nombreServicio" [(ngModel)]="service.nombreServicio" name="nombreServicio" required
+        #nombreServicio="ngModel" />
     </div>
 
     <!-- DESCRIPCIÓN -->
     <div class="form-group">
-      <label for="descripcion">Descripción</label>
-      <textarea
-        id="descripcion"
-        [(ngModel)]="service.descripcion"
-        name="descripcion"
-        required
-        rows="3"
-        style="height: auto"
-        #descripcion="ngModel"
-      ></textarea>
+      <label for="descripcion">{{ 'SERVICES.FORM.DESCRIPTION' | translate }}</label>
+      <textarea id="descripcion" [(ngModel)]="service.descripcion" name="descripcion" required rows="3"
+        style="height: auto" #descripcion="ngModel"></textarea>
     </div>
 
     <!-- PRECIO -->
     <div class="form-group">
-      <label for="precioBase">Precio Base</label>
-      <input
-        id="precioBase"
-        type="number"
-        [(ngModel)]="service.precioBase"
-        name="precioBase"
-        required
-        min="1"
-        #precioBase="ngModel"
-      />
+      <label for="precioBase">{{ 'SERVICES.FORM.BASE_PRICE' | translate }}</label>
+      <input id="precioBase" type="number" [(ngModel)]="service.precioBase" name="precioBase" required min="1"
+        #precioBase="ngModel" />
     </div>
 
     <!-- VALIDACIONES FRONT -->
     <div class="error" *ngIf="form.invalid && (form.touched || form.dirty)">
-      <span
-        *ngIf="
+      <span *ngIf="
           nombreServicio.errors?.['required'] ||
           descripcion.errors?.['required'] ||
           precioBase.errors?.['required']
-        "
-      >
-        Todos los campos deben estar diligenciados correctamente
+        ">
+        {{ 'SERVICES.VALIDATION.REQUIRED_FIELDS' | translate }}
       </span>
 
-      <span
-        *ngIf="
+      <span *ngIf="
           !nombreServicio.errors?.['required'] &&
           !descripcion.errors?.['required'] &&
           !precioBase.errors?.['required'] &&
           precioBase.errors?.['min']
-        "
-      >
-        El precio debe ser mayor a 0
+        ">
+        {{ 'SERVICES.VALIDATION.PRICE_MIN' | translate }}
       </span>
     </div>
 

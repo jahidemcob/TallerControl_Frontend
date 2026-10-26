@@ -1,0 +1,306 @@
+{
+  "APP": {
+    "NAME": "TallerControl",
+    "WELCOME": "Bienvenido a TallerControl"
+  },
+  "NAVBAR": {
+    "DASHBOARD": "Panel principal",
+    "APPOINTMENTS": "Citas",
+    "MOTORBIKES": "Motocicletas",
+    "SERVICES": "Servicios",
+    "FINANCE": "Finanzas",
+    "USERS": "Usuarios",
+    "LOGOUT": "Cerrar sesión"
+  },
+  "COMMON": {
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar",
+    "DELETE": "Eliminar",
+    "EDIT": "Editar",
+    "SEARCH": "Buscar",
+    "ADD": "Agregar",
+    "UPDATE": "Actualizar",
+    "ACTIONS": "Acciones",
+    "LOADING": "Cargando...",
+    "YES": "Sí",
+    "NO": "No",
+    "BACK": "Volver",
+    "CLOSE": "Cerrar",
+    "CONFIRM": "Confirmar"
+  },
+  "AUTH": {
+    "WELCOME": "Bienvenido",
+    "WELCOME_DESCRIPTION": "Gestiona servicios y citas de forma rápida y eficiente. Ahorra tiempo y mejora tu productividad.",
+    "LOGIN_TITLE": "Iniciar Sesión",
+    "LOGIN_SUBTITLE": "Accede a tu cuenta",
+    "USERNAME": "Usuario",
+    "PASSWORD": "Contraseña",
+    "LOGIN_BUTTON": "Ingresar",
+    "NO_ACCOUNT": "¿No tienes cuenta?",
+    "REGISTER_LINK": "Regístrate",
+    "CREATE_ACCOUNT": "Crea tu cuenta",
+    "FULL_NAME": "Nombre completo",
+    "ENTER_NAME": "Ingresa tu nombre",
+    "CREATE_USERNAME": "Crea un usuario",
+    "PHONE": "Teléfono",
+    "ENTER_PHONE": "Ingresa tu teléfono",
+    "EMAIL": "Correo electrónico",
+    "ENTER_EMAIL": "Ingresa tu correo",
+    "PASSWORD_MIN": "Clave (mínimo 6 caracteres)",
+    "CREATE_PASSWORD": "Crea una contraseña",
+    "CONFIRM_PASSWORD": "Confirmar contraseña",
+    "REPEAT_PASSWORD": "Repite la contraseña",
+    "REGISTER_BUTTON": "Registrarse",
+    "COMPLETE_ACCOUNT": "Completa tu cuenta",
+    "COMPLETE_BUTTON": "Completar cuenta",
+    "ALL_FIELDS_REQUIRED": "Todos los campos deben estar diligenciados correctamente",
+    "PHONE_INVALID": "El teléfono debe tener 10 dígitos numéricos",
+    "EMAIL_INVALID": "El correo no es válido",
+    "PASSWORD_MIN_ERROR": "La contraseña debe tener al menos 6 caracteres",
+    "PASSWORDS_MISMATCH": "Las contraseñas no coinciden",
+    "HAVE_ACCOUNT": "¿Ya tienes cuenta?",
+    "LOGIN_LINK": "Inicia sesión",
+    "SELECT_LANGUAGE": "Seleccionar idioma",
+    "GOOGLE_LOGIN": "Continuar con Google",
+    "ACCOUNT_CREATED": "Cuenta creada correctamente. Por favor inicia sesión.",
+    "GOOGLE_ACCOUNT_EXISTS": "Tu cuenta ya existe. Por favor inicia sesión."
+  },
+  "DASHBOARD": {
+    "USERS": "Usuarios",
+    "APPOINTMENTS": "Citas",
+    "SERVICES": "Servicios",
+    "FINANCES": "Finanzas",
+    "ADMINISTRATOR": "Administrador",
+    "CLIENT": "Cliente",
+    "EMPLOYEE": "Empleado",
+    "LOGOUT": "Cerrar sesión",
+    "ADMIN_WELCOME": "Bienvenido Administrador/a",
+    "WELCOME": "Bienvenido",
+    "SELECT_ACTION": "Selecciona una acción en el panel",
+    "MOTORCYCLES": "Motocicletas"
+  },
+  "APPOINTMENTS": {
+    "TITLE": "Gestión de citas",
+    "NEW": "Nueva cita",
+    "DATE": "Fecha",
+    "TIME": "Hora",
+    "STATUS": "Estado",
+    "SCHEDULED": "Programada",
+    "COMPLETED": "Completada",
+    "CANCELLED": "Cancelada",
+    "DETAILS": "Detalles de la cita",
+    "STATUS": {
+      "TODAS": "Todas",
+      "PENDIENTE": "Pendiente",
+      "AGENDADA": "Agendada",
+      "IN_PROGRESS": "En proceso",
+      "COMPLETADA": "Completada",
+      "RECHAZADA": "Rechazada"
+    },
+    "TABLE": {
+      "ID": "ID",
+      "CLIENT": "Cliente",
+      "MOTORCYCLE": "Motocicleta",
+      "STATUS": "Estado",
+      "ACTIONS": "Acciones",
+      "DETAILS": "Detalles",
+      "VIEW": "Ver"
+    },
+    "FILTER_DATE": "Filtrar por fecha",
+    "CLEAR_DATE": "Limpiar fecha",
+    "LOADING_SHORT": "...",
+    "ADMIN": {
+      "TITLE": "Gestión de citas",
+      "EMPTY": "No hay citas registradas",
+      "ACCEPT": "Aceptar",
+      "REJECT": "Rechazar",
+      "ASSIGN_EMPLOYEE": "Asignar empleado",
+      "APPOINTMENT_NUMBER": "Cita",
+      "NO_EMPLOYEES": "No hay empleados disponibles",
+      "LOADING_EMPLOYEES": "Cargando empleados...",
+      "ASSIGNING": "Asignando..."
+    },
+    "CLIENT": {
+      "TITLE": "Mis citas",
+      "REQUEST": "Solicitar cita",
+      "EMPTY": "No tienes citas registradas",
+      "TABLE": {
+        "NUMBER": "N.º",
+        "SERVICES": "Servicios",
+        "DATE": "Fecha",
+        "TIME": "Hora",
+        "TOTAL": "Total"
+      },
+      "DETAIL": {
+        "TITLE": "Cita",
+        "CLIENT": "Cliente",
+        "ASSIGNED_EMPLOYEE": "Empleado asignado",
+        "MOTORCYCLE": "Motocicleta",
+        "CREATED_DATE": "Fecha de creación",
+        "APPOINTMENT_DATE": "Fecha de la cita",
+        "TIME": "Hora",
+        "SERVICES": "Servicios",
+        "TOTAL": "Total"
+      }
+    },
+    "REQUEST": {
+      "TITLE": "Solicitar cita",
+      "DATE": "Fecha",
+      "TIME": "Hora",
+      "SELECT_TIME": "Seleccione una hora",
+      "SELECT_MOTORCYCLE": "Seleccione una motocicleta",
+      "AVAILABLE_SERVICES": "Servicios disponibles",
+      "ADD": "Agregar",
+      "REMOVE": "Quitar",
+      "NO_SERVICES": "No hay servicios disponibles",
+      "SELECTED_SERVICES": "Servicios seleccionados",
+      "NO_SELECTED_SERVICES": "Ningún servicio agregado",
+      "SUBMIT": "Solicitar cita"
+    },
+    "EMPLOYEE": {
+      "TITLE": "Citas asignadas",
+      "EMPTY": "No hay citas asignadas",
+      "IN_PROGRESS": "En proceso",
+      "FINISHED": "Terminar",
+      "MARK_IN_PROGRESS": "Marcar en proceso",
+      "MARK_FINISHED": "Marcar como terminado"
+    }
+  },
+  "MOTORBIKES": {
+    "TITLE": "Gestión de motocicletas",
+    "NEW": "Registrar motocicleta",
+    "PLATE": "Placa",
+    "BRAND": "Marca",
+    "MODEL": "Modelo",
+    "YEAR": "Año",
+    "OWNER": "Propietario",
+    "CREATE_TITLE": "Crear Motocicleta",
+    "EDIT_TITLE": "Editar Motocicleta",
+    "UPDATE_TITLE": "Actualizar Motocicleta",
+    "STATUS": {
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo"
+    },
+    "ACTIVATE": "Activar",
+    "DEACTIVATE": "Desactivar",
+    "FORM": {
+      "BRAND": "Marca",
+      "MODEL": "Modelo",
+      "PLATE": "Placa",
+      "ENGINE_CAPACITY": "Cilindraje",
+      "YEAR": "Año"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "Todos los campos deben estar diligenciados correctamente",
+      "PLATE_FORMAT": "La placa debe tener formato XXX11X",
+      "ENGINE_CAPACITY_MIN": "El cilindraje debe ser mayor a 0",
+      "YEAR_MIN": "El año debe ser mayor a 2009"
+    }
+  },
+  "SERVICES": {
+    "TITLE": "Gestión de servicios",
+    "NEW": "Nuevo servicio",
+    "NAME": "Nombre",
+    "DESCRIPTION": "Descripción",
+    "PRICE": "Precio",
+    "DURATION": "Duración",
+    "CREATE": "Crear Servicio",
+    "CREATE_TITLE": "Crear Servicio",
+    "EDIT_TITLE": "Editar Servicio",
+    "EMPTY": "No hay servicios registrados",
+    "ACTIVATE": "Activar",
+    "DEACTIVATE": "Desactivar",
+    "STATUS": {
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo"
+    },
+    "FORM": {
+      "NAME": "Nombre del Servicio",
+      "DESCRIPTION": "Descripción",
+      "BASE_PRICE": "Precio Base"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "Todos los campos deben estar diligenciados correctamente",
+      "PRICE_MIN": "El precio debe ser mayor a 0"
+    }
+  },
+  "FINANCE": {
+    "TITLE": "Gestión financiera",
+    "INCOME": "Ingresos",
+    "EXPENSES": "Gastos",
+    "BALANCE": "Balance",
+    "TRANSACTIONS": "Transacciones",
+    "AMOUNT": "Valor",
+    "DATE": "Fecha",
+    "DESCRIPTION": "Descripción",
+    "EXPENSE": "Salida",
+    "MOVEMENTS": "Movimientos",
+    "TYPE": "Tipo",
+    "FILTER_DATE": "Filtrar por fecha",
+    "CLEAR_DATE": "Limpiar",
+    "EMPTY": "No hay movimientos registrados.",
+    "TOTAL": "Total:",
+    "TABLE": {
+      "ID": "ID"
+    },
+    "VALIDATION": {
+      "DESCRIPTION_REQUIRED": "La descripción es obligatoria.",
+      "AMOUNT_MIN": "Ingresa un valor mayor a 0."
+    }
+  },
+  "USERS": {
+    "TITLE": "Gestión de Usuarios",
+    "CREATE": "Crear Usuario",
+    "CREATE_TITLE": "Crear Usuario",
+    "EDIT_TITLE": "Editar Usuario",
+    "SAVE": "Guardar",
+    "SAVE_CHANGES": "Guardar cambios",
+    "EDIT": "Editar",
+    "ACTIVATE": "Activar",
+    "DEACTIVATE": "Desactivar",
+    "TABLE": {
+      "ID": "ID",
+      "NAME": "Nombre",
+      "USERNAME": "Usuario",
+      "EMAIL": "Correo",
+      "ROLE": "Rol",
+      "STATUS": "Estado",
+      "ACTIONS": "Acciones"
+    },
+    "ROLES": {
+      "ADMIN": "Admin",
+      "EMPLOYEE": "Empleado",
+      "CLIENT": "Cliente",
+      "NONE": "Sin rol"
+    },
+    "STATUS": {
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo"
+    },
+    "FORM": {
+      "NAME": "Nombre",
+      "USERNAME": "Usuario",
+      "PHONE": "Teléfono",
+      "EMAIL": "Correo",
+      "PASSWORD_CREATE": "Clave (mínimo 6 caracteres)",
+      "PASSWORD_EDIT": "Nueva contraseña",
+      "PASSWORD_PLACEHOLDER": "Ingrese nueva contraseña si desea cambiarla",
+      "ROLE": "Rol",
+      "SELECT_ROLE": "Seleccione un rol"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "Todos los campos deben estar diligenciados correctamente",
+      "PHONE_LENGTH": "El teléfono debe tener 10 dígitos numéricos",
+      "INVALID_EMAIL": "El correo no es válido",
+      "PASSWORD_LENGTH": "La contraseña debe tener al menos 6 caracteres"
+    }
+  },
+  "MESSAGES": {
+    "SAVE_SUCCESS": "Registro guardado correctamente",
+    "UPDATE_SUCCESS": "Registro actualizado correctamente",
+    "DELETE_SUCCESS": "Registro eliminado correctamente",
+    "ERROR": "Ocurrió un error. Inténtalo nuevamente",
+    "REQUIRED": "Este campo es obligatorio",
+    "NO_RESULTS": "No se encontraron resultados"
+  }
+}

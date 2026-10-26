@@ -1,8 +1,2 @@
-<app-user-form
-  title="Editar Usuario"
-  buttonLabel="Guardar cambios"
-  mode="edit"
-  [usuario]="user"
-  [errores]="errores"
-  (submitForm)="guardar($event)"
-/>
+<app-user-form [title]="'USERS.EDIT_TITLE' | translate" [buttonLabel]="'USERS.SAVE_CHANGES' | translate" mode="edit"
+  [usuario]="user" [errores]="errores" (submitForm)="guardar($event)" />

@@ -2,13 +2,15 @@
   <!-- LADO IZQUIERDO -->
   <div class="left-panel">
     <div class="overlay">
-      <img src="assets/logo.png" alt="logo" class="logo" />
+      <img src="assets/logo.png" [attr.alt]="'APP.NAME' | translate" class="logo" />
 
-      <h1>Bienvenido<br /><span>TallerControl</span></h1>
+      <h1>
+        {{ 'AUTH.WELCOME' | translate }}<br />
+        <span>TallerControl</span>
+      </h1>
 
       <p>
-        Gestiona servicios y citas de forma rápida y eficiente. Ahorra tiempo y mejora tu
-        productividad.
+        {{ 'AUTH.WELCOME_DESCRIPTION' | translate }}
       </p>
     </div>
   </div>
@@ -16,8 +18,8 @@
   <!-- LADO DERECHO -->
   <div class="right-panel">
     <div class="login-card">
-      <h2>Iniciar Sesión</h2>
-      <p class="subtitle">Accede a tu cuenta</p>
+      <h2>{{ 'AUTH.LOGIN_TITLE' | translate }}</h2>
+      <p class="subtitle">{{ 'AUTH.LOGIN_SUBTITLE' | translate }}</p>
 
       <div class="aviso" *ngIf="mensajeGoogle">
         {{ mensajeGoogle }}
@@ -29,23 +31,22 @@
 
       <form (submit)="login(); $event.preventDefault()">
         <div class="form-group">
-          <input type="text" placeholder="Usuario" [(ngModel)]="username" name="username" />
+          <input type="text" [placeholder]="'AUTH.USERNAME' | translate" [(ngModel)]="username" name="username" />
         </div>
 
         <div class="form-group">
-          <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="password" />
+          <input type="password" [placeholder]="'AUTH.PASSWORD' | translate" [(ngModel)]="password" name="password" />
         </div>
 
-        <button type="submit">Ingresar</button>
+        <button type="submit">
+          {{ 'AUTH.LOGIN_BUTTON' | translate }}
+        </button>
 
-        <div
-          id="google-signin-btn"
-          style="margin-top: 15px; display: flex; justify-content: center"
-        ></div>
+        <div id="google-signin-btn" style="margin-top: 15px; display: flex; justify-content: center"></div>
 
         <p class="register-link">
-          ¿No tienes cuenta?
-          <a routerLink="/register">Regístrate</a>
+          {{ 'AUTH.NO_ACCOUNT' | translate }}
+          <a routerLink="/register">{{ 'AUTH.REGISTER_LINK' | translate }}</a>
         </p>
       </form>
     </div>

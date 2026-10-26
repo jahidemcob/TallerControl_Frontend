@@ -2,6 +2,8 @@ import { Component, inject, NgZone, OnInit, ChangeDetectorRef } from '@angular/c
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../../../core/services/language.service';
 
 import { AuthFacade, AuthErrors } from '../../../../core/services/auth.facade';
 
@@ -10,7 +12,7 @@ declare const google: any;
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule],
+  imports: [RouterModule, FormsModule, CommonModule, TranslatePipe],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit {
   private readonly facade = inject(AuthFacade);
   private readonly ngZone = inject(NgZone);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly languageService = inject(LanguageService);
 
   ngOnInit() {
     // Detectar si viene de completar perfil
@@ -59,12 +62,16 @@ export class LoginComponent implements OnInit {
       },
     });
 
+    const currentLanguage = this.languageService.getCurrentLanguage();
+
+    const googleLocale = currentLanguage === 'en-US' ? 'en' : 'es';
+
     google.accounts.id.renderButton(document.getElementById('google-signin-btn'), {
       theme: 'outline',
       size: 'large',
       width: 330,
       text: 'continue_with',
-      locale: 'es',
+      locale: googleLocale,
     });
   }
 

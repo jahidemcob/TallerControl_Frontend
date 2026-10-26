@@ -1,9 +1,3 @@
-<app-service-form
-  title="Crear Servicio"
-  buttonLabel="Guardar"
-  [service]="service"
-  [errores]="errores"
-  [loading]="loading"
-  [successMessage]="successMessage"
-  (submitForm)="createService($event)"
-/>
+<app-service-form [title]="'SERVICES.CREATE_TITLE' | translate" [buttonLabel]="'COMMON.SAVE' | translate"
+  [service]="service" [errores]="errores" [loading]="loading" [successMessage]="successMessage"
+  (submitForm)="createService($event)" />

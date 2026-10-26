@@ -4,92 +4,61 @@
   <form *ngIf="usuario" #form="ngForm" (ngSubmit)="onSubmit(form)">
     <!-- NOMBRE -->
     <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input
-        id="nombre"
-        type="text"
-        [(ngModel)]="usuario.nombre"
-        name="nombre"
-        required
-        #nombre="ngModel"
-      />
+      <label for="nombre">{{ 'USERS.FORM.NAME' | translate }}</label>
+      <input id="nombre" type="text" [(ngModel)]="usuario.nombre" name="nombre" required #nombre="ngModel" />
     </div>
 
     <!-- USUARIO -->
     <div class="form-group">
-      <label for="nombreUsuario">Usuario</label>
-      <input
-        id="nombreUsuario"
-        type="text"
-        [(ngModel)]="usuario.nombreUsuario"
-        name="nombreUsuario"
-        required
-        #nombreUsuario="ngModel"
-      />
+      <label for="nombreUsuario">{{ 'USERS.FORM.USERNAME' | translate }}</label>
+      <input id="nombreUsuario" type="text" [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required
+        #nombreUsuario="ngModel" />
     </div>
 
     <!-- TELÉFONO -->
     <div class="form-group">
-      <label for="telefono">Teléfono</label>
-      <input
-        id="telefono"
-        type="text"
-        [(ngModel)]="usuario.telefono"
-        name="telefono"
-        required
-        pattern="[0-9]{10}"
-        #telefono="ngModel"
-      />
+      <label for="telefono">{{ 'USERS.FORM.PHONE' | translate }}</label>
+      <input id="telefono" type="text" [(ngModel)]="usuario.telefono" name="telefono" required pattern="[0-9]{10}"
+        #telefono="ngModel" />
     </div>
 
     <!-- CORREO -->
     <div class="form-group">
-      <label for="correo">Correo</label>
-      <input
-        id="correo"
-        type="email"
-        [(ngModel)]="usuario.correo"
-        name="correo"
-        required
-        email
-        #correo="ngModel"
-      />
+      <label for="correo">{{ 'USERS.FORM.EMAIL' | translate }}</label>
+      <input id="correo" type="email" [(ngModel)]="usuario.correo" name="correo" required email #correo="ngModel" />
     </div>
 
     <!-- CONTRASEÑA -->
     <div class="form-group">
       <label for="clave">
-        {{ mode === 'create' ? 'Clave (mínimo 6 caracteres)' : 'Nueva Contraseña' }}
+        {{
+        (mode === 'create'
+        ? 'USERS.FORM.PASSWORD_CREATE'
+        : 'USERS.FORM.PASSWORD_EDIT') | translate
+        }}
       </label>
-      <input
-        id="clave"
-        type="password"
-        [(ngModel)]="usuario.clave"
-        name="clave"
-        [required]="mode === 'create'"
-        minlength="6"
-        [placeholder]="mode === 'edit' ? 'Ingrese nueva contraseña si desea cambiarla' : ''"
-        #claveModel="ngModel"
-      />
+      <input id="clave" type="password" [(ngModel)]="usuario.clave" name="clave" [required]="mode === 'create'"
+        minlength="6" [placeholder]="
+          (mode === 'edit' ? 'USERS.FORM.PASSWORD_PLACEHOLDER' : '') | translate
+        " #claveModel="ngModel" />
     </div>
 
     <!-- ROL -->
     <div class="form-group">
-      <label for="idRol">Rol</label>
+      <label for="idRol">{{ 'USERS.FORM.ROLE' | translate }}</label>
       <select id="idRol" [(ngModel)]="usuario.idRol" name="idRol" required #rol="ngModel">
-        <option [ngValue]="null" disabled>Seleccione un rol</option>
-        <option [value]="2">Empleado</option>
-        <option [value]="3">Cliente</option>
+        <option [ngValue]="null" disabled>
+          {{ 'USERS.FORM.SELECT_ROLE' | translate }}
+        </option>
+        <option [value]="2">{{ 'USERS.ROLES.EMPLOYEE' | translate }}</option>
+        <option [value]="3">{{ 'USERS.ROLES.CLIENT' | translate }}</option>
       </select>
     </div>
 
     <!-- ERRORES -->
-    <div
-      class="error"
-      *ngIf="
+    <div class="error" *ngIf="
         form.touched || form.dirty || errores.general || errores.nombreUsuario || errores.correo
-      "
-    >
+      ">
       <span *ngIf="errores.nombreUsuario">
         {{ errores.nombreUsuario }}
       </span>
@@ -102,8 +71,7 @@
         {{ errores.general }}
       </span>
 
-      <span
-        *ngIf="
+      <span *ngIf="
           !errores.nombreUsuario &&
           !errores.correo &&
           !errores.general &&
@@ -113,13 +81,11 @@
             correo.errors?.['required'] ||
             (mode === 'create' && claveModel.errors?.['required']) ||
             rol.errors?.['required'])
-        "
-      >
-        Todos los campos deben estar diligenciados correctamente
+        ">
+        {{ 'USERS.VALIDATION.REQUIRED_FIELDS' | translate }}
       </span>
 
-      <span
-        *ngIf="
+      <span *ngIf="
           !errores.nombreUsuario &&
           !errores.correo &&
           !errores.general &&
@@ -127,13 +93,11 @@
           !nombreUsuario.errors?.['required'] &&
           !telefono.errors?.['required'] &&
           telefono.errors?.['pattern']
-        "
-      >
-        El teléfono debe tener 10 dígitos numéricos
+        ">
+        {{ 'USERS.VALIDATION.PHONE_LENGTH' | translate }}
       </span>
 
-      <span
-        *ngIf="
+      <span *ngIf="
           !errores.nombreUsuario &&
           !errores.correo &&
           !errores.general &&
@@ -143,29 +107,22 @@
           !telefono.errors?.['pattern'] &&
           !correo.errors?.['required'] &&
           correo.invalid
-        "
-      >
-        El correo no es válido
+        ">
+        {{ 'USERS.VALIDATION.INVALID_EMAIL' | translate }}
       </span>
 
-      <span
-        *ngIf="
+      <span *ngIf="
           !errores.general && usuario.clave && usuario.clave.length > 0 && usuario.clave.length < 6
-        "
-      >
-        La contraseña debe tener al menos 6 caracteres
+        ">
+        {{ 'USERS.VALIDATION.PASSWORD_LENGTH' | translate }}
       </span>
     </div>
 
     <!-- BOTÓN -->
-    <button
-      class="btn-save"
-      type="submit"
-      [disabled]="
+    <button class="btn-save" type="submit" [disabled]="
         form.invalid ||
         (mode === 'edit' && usuario.clave && usuario.clave.length > 0 && usuario.clave.length < 6)
-      "
-    >
+      ">
       {{ buttonLabel }}
     </button>
   </form>

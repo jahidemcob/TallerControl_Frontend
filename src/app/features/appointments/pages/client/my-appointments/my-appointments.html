@@ -1,26 +1,25 @@
 <div class="table-container">
   <div class="table-header">
     @if (errorMsg) {
-      <p class="error-msg">{{ errorMsg }}</p>
+    <p class="error-msg">{{ errorMsg }}</p>
     }
-    <h2>Mis Citas</h2>
-    <button class="btn-create" (click)="solicitarCita()">+ Solicitar Cita</button>
+    <h2>{{ 'APPOINTMENTS.CLIENT.TITLE' | translate }}</h2>
+    <button class="btn-create" (click)="solicitarCita()">
+      + {{ 'APPOINTMENTS.CLIENT.REQUEST' | translate }}
+    </button>
   </div>
 
   <div class="filtros">
     @for (estado of estados; track estado) {
-      <button
-        class="filtro-btn"
-        [class.activo]="filtroEstado === estado"
-        [class.pendiente-btn]="estado === 'Pendiente'"
-        [class.agendada-btn]="estado === 'Agendada'"
-        [class.en-proceso-btn]="estado === 'EnProceso'"
-        [class.completada-btn]="estado === 'Completada'"
-        [class.rechazada-btn]="estado === 'Rechazada'"
-        (click)="cambiarFiltro(estado)"
-      >
-        {{ getLabelEstado(estado) }}
-      </button>
+    <button class="filtro-btn" [class.activo]="filtroEstado === estado" [class.pendiente-btn]="estado === 'Pendiente'"
+      [class.agendada-btn]="estado === 'Agendada'" [class.en-proceso-btn]="estado === 'EnProceso'"
+      [class.completada-btn]="estado === 'Completada'" [class.rechazada-btn]="estado === 'Rechazada'"
+      (click)="cambiarFiltro(estado)">
+      {{
+      ('APPOINTMENTS.STATUS.' +
+      (estado === 'EnProceso' ? 'IN_PROGRESS' : estado.toUpperCase())) | translate
+      }}
+    </button>
     }
   </div>
 
@@ -36,13 +35,13 @@
     </colgroup>
     <thead>
       <tr>
-        <th>N°</th>
-        <th>Motocicleta</th>
-        <th>Servicios</th>
-        <th>Fecha</th>
-        <th>Hora</th>
-        <th>Total</th>
-        <th>Estado</th>
+        <th>{{ 'APPOINTMENTS.CLIENT.TABLE.NUMBER' | translate }}</th>
+        <th>{{ 'APPOINTMENTS.TABLE.MOTORCYCLE' | translate }}</th>
+        <th>{{ 'APPOINTMENTS.CLIENT.TABLE.SERVICES' | translate }}</th>
+        <th>{{ 'APPOINTMENTS.CLIENT.TABLE.DATE' | translate }}</th>
+        <th>{{ 'APPOINTMENTS.CLIENT.TABLE.TIME' | translate }}</th>
+        <th>{{ 'APPOINTMENTS.CLIENT.TABLE.TOTAL' | translate }}</th>
+        <th>{{ 'APPOINTMENTS.TABLE.STATUS' | translate }}</th>
       </tr>
     </thead>
   </table>
@@ -60,50 +59,51 @@
       </colgroup>
       <thead style="display: none">
         <tr>
-          <th>N°</th>
-          <th>Motocicleta</th>
-          <th>Servicios</th>
-          <th>Fecha</th>
-          <th>Hora</th>
-          <th>Total</th>
-          <th>Estado</th>
+          <th>{{ 'APPOINTMENTS.CLIENT.TABLE.NUMBER' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.TABLE.MOTORCYCLE' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.CLIENT.TABLE.SERVICES' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.CLIENT.TABLE.DATE' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.CLIENT.TABLE.TIME' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.CLIENT.TABLE.TOTAL' | translate }}</th>
+          <th>{{ 'APPOINTMENTS.TABLE.STATUS' | translate }}</th>
         </tr>
       </thead>
       <tbody>
         @if (appointmentsFiltradas.length === 0) {
-          <tr>
-            <td colspan="7" class="empty">No tienes citas registradas</td>
-          </tr>
+        <tr>
+          <td colspan="7" class="empty">
+            {{ 'APPOINTMENTS.CLIENT.EMPTY' | translate }}
+          </td>
+        </tr>
         }
 
         @for (a of appointmentsFiltradas; track trackById($index, a)) {
-          <tr>
-            <!-- Imprime el identificador visual secuencial (1, 2, 3...) -->
-            <td>{{ getIdVisual(a.idPedido) }}</td>
-            <td>{{ getNombreMoto(a.idMoto) }}</td>
-            <td class="servicios-cell">
-              @for (d of a.detalles; track d.idServicio) {
-                <span class="servicio-tag">- {{ getNombreServicio(d.idServicio) }}</span>
-              } @empty {
-                <span class="empty-small">—</span>
-              }
-            </td>
-            <td>{{ a.fechaCita }}</td>
-            <td>{{ a.horaCita }}</td>
-            <td>$ {{ a.total | number: '1.0-0' }}</td>
-            <td>
-              <span
-                class="estado-badge"
-                [class.pendiente]="a.estadoCita === 'Pendiente'"
-                [class.agendada]="a.estadoCita === 'Agendada'"
-                [class.en-proceso]="a.estadoCita === 'EnProceso'"
-                [class.completada]="a.estadoCita === 'Completada'"
-                [class.rechazada]="a.estadoCita === 'Rechazada'"
-              >
-                {{ getLabelEstado(a.estadoCita) }}
-              </span>
-            </td>
-          </tr>
+        <tr>
+          <td>{{ getIdVisual(a.idPedido) }}</td>
+          <td>{{ getNombreMoto(a.idMoto) }}</td>
+          <td class="servicios-cell">
+            @for (d of a.detalles; track d.idServicio) {
+            <span class="servicio-tag">- {{ getNombreServicio(d.idServicio) }}</span>
+            } @empty {
+            <span class="empty-small">—</span>
+            }
+          </td>
+          <td>{{ a.fechaCita }}</td>
+          <td>{{ a.horaCita }}</td>
+          <td>$ {{ a.total | number: '1.0-0' }}</td>
+          <td>
+            <span class="estado-badge" [class.pendiente]="a.estadoCita === 'Pendiente'"
+              [class.agendada]="a.estadoCita === 'Agendada'" [class.en-proceso]="a.estadoCita === 'EnProceso'"
+              [class.completada]="a.estadoCita === 'Completada'" [class.rechazada]="a.estadoCita === 'Rechazada'">
+              {{
+              ('APPOINTMENTS.STATUS.' +
+              (a.estadoCita === 'EnProceso'
+              ? 'IN_PROGRESS'
+              : a.estadoCita.toUpperCase())) | translate
+              }}
+            </span>
+          </td>
+        </tr>
         }
       </tbody>
     </table>

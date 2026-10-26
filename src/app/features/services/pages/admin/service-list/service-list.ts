@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { Service } from '../../../models/service.model';
 import { ServicesFacade } from '../../../services/service.facade';
@@ -8,7 +9,7 @@ import { ServicesFacade } from '../../../services/service.facade';
 @Component({
   selector: 'app-service-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './service-list.html',
   styleUrls: ['./service-list.css'],
 })

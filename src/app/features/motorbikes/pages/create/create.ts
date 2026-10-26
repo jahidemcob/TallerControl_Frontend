@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { CreateMotorbike } from '../../models/motorbike.model';
 import { MotorbikeFacade, BackendErrors } from '../../services/motorbike.facade';
@@ -9,7 +10,7 @@ import { CreateFormBase } from '../../../../shared/base/create-form.base';
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './create.html',
   styleUrl: './create.css',
 })

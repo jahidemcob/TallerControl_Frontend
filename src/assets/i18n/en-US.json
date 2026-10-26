@@ -1,0 +1,306 @@
+{
+  "APP": {
+    "NAME": "TallerControl",
+    "WELCOME": "Welcome to TallerControl"
+  },
+  "NAVBAR": {
+    "DASHBOARD": "Dashboard",
+    "APPOINTMENTS": "Appointments",
+    "MOTORBIKES": "Motorcycles",
+    "SERVICES": "Services",
+    "FINANCE": "Finance",
+    "USERS": "Users",
+    "LOGOUT": "Log out"
+  },
+  "COMMON": {
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "SEARCH": "Search",
+    "ADD": "Add",
+    "UPDATE": "Update",
+    "ACTIONS": "Actions",
+    "LOADING": "Loading...",
+    "YES": "Yes",
+    "NO": "No",
+    "BACK": "Back",
+    "CLOSE": "Close",
+    "CONFIRM": "Confirm"
+  },
+  "AUTH": {
+    "WELCOME": "Welcome",
+    "WELCOME_DESCRIPTION": "Manage services and appointments quickly and efficiently. Save time and improve your productivity.",
+    "LOGIN_TITLE": "Log In",
+    "LOGIN_SUBTITLE": "Access your account",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "LOGIN_BUTTON": "Log In",
+    "NO_ACCOUNT": "Don't have an account?",
+    "REGISTER_LINK": "Sign up",
+    "CREATE_ACCOUNT": "Create your account",
+    "FULL_NAME": "Full name",
+    "ENTER_NAME": "Enter your name",
+    "CREATE_USERNAME": "Create a username",
+    "PHONE": "Phone number",
+    "ENTER_PHONE": "Enter your phone number",
+    "EMAIL": "Email address",
+    "ENTER_EMAIL": "Enter your email",
+    "PASSWORD_MIN": "Password (at least 6 characters)",
+    "CREATE_PASSWORD": "Create a password",
+    "CONFIRM_PASSWORD": "Confirm password",
+    "REPEAT_PASSWORD": "Repeat your password",
+    "REGISTER_BUTTON": "Sign up",
+    "COMPLETE_ACCOUNT": "Complete your account",
+    "COMPLETE_BUTTON": "Complete account",
+    "ALL_FIELDS_REQUIRED": "All fields must be completed correctly",
+    "PHONE_INVALID": "The phone number must contain 10 digits",
+    "EMAIL_INVALID": "The email address is invalid",
+    "PASSWORD_MIN_ERROR": "The password must contain at least 6 characters",
+    "PASSWORDS_MISMATCH": "The passwords do not match",
+    "HAVE_ACCOUNT": "Already have an account?",
+    "LOGIN_LINK": "Log in",
+    "SELECT_LANGUAGE": "Select language",
+    "GOOGLE_LOGIN": "Continue with Google",
+    "ACCOUNT_CREATED": "Account created successfully. Please log in.",
+    "GOOGLE_ACCOUNT_EXISTS": "Your account already exists. Please log in."
+  },
+  "DASHBOARD": {
+    "USERS": "Users",
+    "APPOINTMENTS": "Appointments",
+    "SERVICES": "Services",
+    "FINANCES": "Finances",
+    "ADMINISTRATOR": "Administrator",
+    "CLIENT": "Client",
+    "EMPLOYEE": "Employee",
+    "LOGOUT": "Log out",
+    "ADMIN_WELCOME": "Welcome, Administrator",
+    "WELCOME": "Welcome",
+    "SELECT_ACTION": "Select an action from the dashboard",
+    "MOTORCYCLES": "Motorcycles"
+  },
+  "APPOINTMENTS": {
+    "TITLE": "Appointment Management",
+    "NEW": "New Appointment",
+    "DATE": "Date",
+    "TIME": "Time",
+    "STATUS": "Status",
+    "SCHEDULED": "Scheduled",
+    "COMPLETED": "Completed",
+    "CANCELLED": "Cancelled",
+    "DETAILS": "Appointment Details",
+    "STATUS": {
+      "TODAS": "All",
+      "PENDIENTE": "Pending",
+      "AGENDADA": "Scheduled",
+      "IN_PROGRESS": "In Progress",
+      "COMPLETADA": "Completed",
+      "RECHAZADA": "Rejected"
+    },
+    "TABLE": {
+      "ID": "ID",
+      "CLIENT": "Client",
+      "MOTORCYCLE": "Motorcycle",
+      "STATUS": "Status",
+      "ACTIONS": "Actions",
+      "DETAILS": "Details",
+      "VIEW": "View"
+    },
+    "FILTER_DATE": "Filter by date",
+    "CLEAR_DATE": "Clear date",
+    "LOADING_SHORT": "...",
+    "ADMIN": {
+      "TITLE": "Appointment Management",
+      "EMPTY": "No appointments registered",
+      "ACCEPT": "Accept",
+      "REJECT": "Reject",
+      "ASSIGN_EMPLOYEE": "Assign Employee",
+      "APPOINTMENT_NUMBER": "Appointment",
+      "NO_EMPLOYEES": "No employees available",
+      "LOADING_EMPLOYEES": "Loading employees...",
+      "ASSIGNING": "Assigning..."
+    },
+    "CLIENT": {
+      "TITLE": "My Appointments",
+      "REQUEST": "Request Appointment",
+      "EMPTY": "You have no appointments registered",
+      "TABLE": {
+        "NUMBER": "No.",
+        "SERVICES": "Services",
+        "DATE": "Date",
+        "TIME": "Time",
+        "TOTAL": "Total"
+      }
+    },
+    "REQUEST": {
+      "TITLE": "Request Appointment",
+      "DATE": "Date",
+      "TIME": "Time",
+      "SELECT_TIME": "Select a time",
+      "SELECT_MOTORCYCLE": "Select a motorcycle",
+      "AVAILABLE_SERVICES": "Available Services",
+      "ADD": "Add",
+      "REMOVE": "Remove",
+      "NO_SERVICES": "No services available",
+      "SELECTED_SERVICES": "Selected Services",
+      "NO_SELECTED_SERVICES": "No services added",
+      "SUBMIT": "Request Appointment"
+    },
+    "EMPLOYEE": {
+      "TITLE": "Assigned Appointments",
+      "EMPTY": "No appointments assigned",
+      "IN_PROGRESS": "In Progress",
+      "FINISHED": "Finish",
+      "MARK_IN_PROGRESS": "Mark as In Progress",
+      "MARK_FINISHED": "Mark as Finished"
+    },
+    "DETAIL": {
+      "TITLE": "Appointment",
+      "CLIENT": "Client",
+      "ASSIGNED_EMPLOYEE": "Assigned employee",
+      "MOTORCYCLE": "Motorcycle",
+      "CREATED_DATE": "Creation date",
+      "APPOINTMENT_DATE": "Appointment date",
+      "TIME": "Time",
+      "SERVICES": "Services",
+      "TOTAL": "Total"
+    }
+  },
+  "MOTORBIKES": {
+    "TITLE": "Motorcycle Management",
+    "NEW": "Register Motorcycle",
+    "PLATE": "License Plate",
+    "BRAND": "Brand",
+    "MODEL": "Model",
+    "YEAR": "Year",
+    "OWNER": "Owner",
+    "CREATE_TITLE": "Create Motorcycle",
+    "EDIT_TITLE": "Edit Motorcycle",
+    "UPDATE_TITLE": "Update Motorcycle",
+    "STATUS": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
+    "ACTIVATE": "Activate",
+    "DEACTIVATE": "Deactivate",
+    "FORM": {
+      "BRAND": "Brand",
+      "MODEL": "Model",
+      "PLATE": "License Plate",
+      "ENGINE_CAPACITY": "Engine Capacity",
+      "YEAR": "Year"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "All fields must be completed correctly",
+      "PLATE_FORMAT": "The license plate must follow the XXX11X format",
+      "ENGINE_CAPACITY_MIN": "Engine capacity must be greater than 0",
+      "YEAR_MIN": "The year must be later than 2009"
+    }
+  },
+  "SERVICES": {
+    "TITLE": "Service Management",
+    "NEW": "New Service",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "PRICE": "Price",
+    "DURATION": "Duration",
+    "CREATE": "Create Service",
+    "CREATE_TITLE": "Create Service",
+    "EDIT_TITLE": "Edit Service",
+    "EMPTY": "No services registered",
+    "ACTIVATE": "Activate",
+    "DEACTIVATE": "Deactivate",
+    "STATUS": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
+    "FORM": {
+      "NAME": "Service Name",
+      "DESCRIPTION": "Description",
+      "BASE_PRICE": "Base Price"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "All fields must be completed correctly",
+      "PRICE_MIN": "The price must be greater than 0"
+    }
+  },
+  "FINANCE": {
+    "TITLE": "Financial Management",
+    "INCOME": "Income",
+    "EXPENSES": "Expenses",
+    "BALANCE": "Balance",
+    "TRANSACTIONS": "Transactions",
+    "AMOUNT": "Amount",
+    "DATE": "Date",
+    "DESCRIPTION": "Description",
+    "EXPENSE": "Expense",
+    "MOVEMENTS": "Transactions",
+    "TYPE": "Type",
+    "FILTER_DATE": "Filter by date",
+    "CLEAR_DATE": "Clear",
+    "EMPTY": "No transactions recorded.",
+    "TOTAL": "Total:",
+    "TABLE": {
+      "ID": "ID"
+    },
+    "VALIDATION": {
+      "DESCRIPTION_REQUIRED": "Description is required.",
+      "AMOUNT_MIN": "Enter an amount greater than 0."
+    }
+  },
+  "USERS": {
+    "TITLE": "User Management",
+    "CREATE": "Create User",
+    "CREATE_TITLE": "Create User",
+    "EDIT_TITLE": "Edit User",
+    "SAVE": "Save",
+    "SAVE_CHANGES": "Save Changes",
+    "EDIT": "Edit",
+    "ACTIVATE": "Activate",
+    "DEACTIVATE": "Deactivate",
+    "TABLE": {
+      "ID": "ID",
+      "NAME": "Name",
+      "USERNAME": "Username",
+      "EMAIL": "Email",
+      "ROLE": "Role",
+      "STATUS": "Status",
+      "ACTIONS": "Actions"
+    },
+    "ROLES": {
+      "ADMIN": "Admin",
+      "EMPLOYEE": "Employee",
+      "CLIENT": "Client",
+      "NONE": "No role"
+    },
+    "STATUS": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
+    "FORM": {
+      "NAME": "Name",
+      "USERNAME": "Username",
+      "PHONE": "Phone",
+      "EMAIL": "Email",
+      "PASSWORD_CREATE": "Password (at least 6 characters)",
+      "PASSWORD_EDIT": "New password",
+      "PASSWORD_PLACEHOLDER": "Enter a new password if you want to change it",
+      "ROLE": "Role",
+      "SELECT_ROLE": "Select a role"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "All fields must be completed correctly",
+      "PHONE_LENGTH": "The phone number must contain 10 digits",
+      "INVALID_EMAIL": "The email address is invalid",
+      "PASSWORD_LENGTH": "The password must contain at least 6 characters"
+    }
+  },
+  "MESSAGES": {
+    "SAVE_SUCCESS": "Record saved successfully",
+    "UPDATE_SUCCESS": "Record updated successfully",
+    "DELETE_SUCCESS": "Record deleted successfully",
+    "ERROR": "An error occurred. Please try again",
+    "REQUIRED": "This field is required",
+    "NO_RESULTS": "No results found"
+  }
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { Motorbike } from '../../models/motorbike.model';
 import { MotorbikeFacade } from '../../services/motorbike.facade';
@@ -8,7 +9,7 @@ import { MotorbikeFacade } from '../../services/motorbike.facade';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './list.html',
   styleUrl: './list.css',
 })

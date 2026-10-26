@@ -2,6 +2,7 @@ import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { UsuarioFacade } from '../../services/user.facade';
 import { Usuario, UsuarioUpdate, BackendErrors } from '../../models/user.model';
@@ -10,7 +11,7 @@ import { UserFormComponent } from '../../../../shared/components/user-form/user-
 @Component({
   selector: 'app-editar-usuario',
   standalone: true,
-  imports: [FormsModule, CommonModule, UserFormComponent],
+  imports: [FormsModule, CommonModule, UserFormComponent, TranslatePipe],
   templateUrl: './editar-usuario.html',
   styleUrls: ['./editar-usuario.css'],
 })

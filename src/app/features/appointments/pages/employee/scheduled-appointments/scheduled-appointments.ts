@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { AppointmentListBase } from '../../../../../shared/base/appointment-list.base';
 import { AppointmentDetailPanelComponent } from '../../../../../shared/components/appointment-detail-panel/appointment-detail-panel.component';
@@ -9,7 +10,7 @@ import { AppointmentState } from '../../../models/appointment.model';
 @Component({
   selector: 'app-scheduled-appointments',
   standalone: true,
-  imports: [CommonModule, FormsModule, AppointmentDetailPanelComponent],
+  imports: [CommonModule, FormsModule, TranslatePipe, AppointmentDetailPanelComponent],
   templateUrl: './scheduled-appointments.html',
   styleUrl: './scheduled-appointments.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

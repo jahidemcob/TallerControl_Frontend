@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { UpdateMotorbike } from '../../models/motorbike.model';
 import { MotorbikeFacade, BackendErrors } from '../../services/motorbike.facade';
@@ -9,7 +10,7 @@ import { MotorbikeFacade, BackendErrors } from '../../services/motorbike.facade'
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './edit.html',
   styleUrl: './edit.css',
 })

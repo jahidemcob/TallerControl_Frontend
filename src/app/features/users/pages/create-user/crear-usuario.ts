@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { UsuarioFacade } from '../../services/user.facade';
 import { UsuarioCreate, BackendErrors } from '../../models/user.model';
@@ -10,7 +11,7 @@ import { UserFormComponent } from '../../../../shared/components/user-form/user-
 @Component({
   selector: 'app-crear-usuario',
   standalone: true,
-  imports: [FormsModule, CommonModule, UserFormComponent],
+  imports: [FormsModule, CommonModule, UserFormComponent, TranslatePipe],
   templateUrl: './crear-usuario.html',
   styleUrls: ['./crear-usuario.css'],
 })

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { FinanceFacade } from '../../services/finance.facade';
 import { FinancesSummary, FinanceErrors, Movement } from '../../models/finance.model';
@@ -8,7 +9,7 @@ import { FinancesSummary, FinanceErrors, Movement } from '../../models/finance.m
 @Component({
   selector: 'app-transaction-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './transaction-list.html',
   styleUrls: ['./transaction-list.css'],
 })
