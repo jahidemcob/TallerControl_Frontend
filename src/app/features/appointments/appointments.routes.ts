@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 // ADMIN
 import { ManageAppointmentsComponent } from './pages/admin/manage-appointments/manage-appointments';
+import { AppointmentInventoryComponent } from '../inventory/pages/appointment-inventory/appointment-inventory';
 
 // EMPLOYEE
 import { ScheduledAppointmentsComponent } from './pages/employee/scheduled-appointments/scheduled-appointments';
@@ -12,12 +13,26 @@ import { RequestAppointmentComponent } from './pages/client/request-appointment/
 
 // ADMIN ROUTES
 export const ADMIN_APPOINTMENTS_ROUTES: Routes = [
-  { path: '', component: ManageAppointmentsComponent },
+  {
+    path: ':appointmentId/inventario',
+    component: AppointmentInventoryComponent,
+  },
+  {
+    path: '',
+    component: ManageAppointmentsComponent,
+  },
 ];
 
 // EMPLOYEE ROUTES
 export const EMPLOYEE_APPOINTMENTS_ROUTES: Routes = [
-  { path: '', component: ScheduledAppointmentsComponent },
+  {
+    path: ':appointmentId/inventario',
+    component: AppointmentInventoryComponent,
+  },
+  {
+    path: '',
+    component: ScheduledAppointmentsComponent,
+  },
 ];
 
 // CLIENT ROUTES

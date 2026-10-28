@@ -175,6 +175,12 @@
         : 'APPOINTMENTS.EMPLOYEE.MARK_FINISHED') | translate
         }}
       </button>
+      @if (selectedAppointment?.estadoCita === 'EnProceso') {
+      <button type="button" class="btn-desarrollo full-width"
+        (click)="gestionarRepuestos(selectedAppointment!.idPedido)">
+        {{ 'INVENTORY.APPOINTMENT.MANAGE_ITEMS' | translate }}
+      </button>
+      }
     </div>
     }
   </app-appointment-detail-panel>

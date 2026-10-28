@@ -11,14 +11,14 @@ import { Cliente } from './features/dashboard/pages/client/cliente';
 import { Empleado } from './features/dashboard/pages/employee/empleado';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, 
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'complete-profile', component: CompleteProfileComponent },
 
   {
-    path: 'admin', 
+    path: 'admin',
     component: Administrador,
     canActivate: [authGuard],
     data: { roles: ['admin'] },
@@ -29,35 +29,47 @@ export const routes: Routes = [
       },
       {
         path: 'servicios',
-        loadChildren: () => import('./features/services/services.routes').then((m) => m.ADMIN_SERVICES_ROUTES),
+        loadChildren: () =>
+          import('./features/services/services.routes').then((m) => m.ADMIN_SERVICES_ROUTES),
       },
       {
-        path: "citas",
-        loadChildren: () => import('./features/appointments/appointments.routes').then((m) => m.ADMIN_APPOINTMENTS_ROUTES),
+        path: 'citas',
+        loadChildren: () =>
+          import('./features/appointments/appointments.routes').then(
+            (m) => m.ADMIN_APPOINTMENTS_ROUTES,
+          ),
       },
       {
         path: 'finanzas',
-        loadChildren: () => import('./features/finance/finance.routes').then((m) => m.FINANCE_ROUTES),
+        loadChildren: () =>
+          import('./features/finance/finance.routes').then((m) => m.FINANCE_ROUTES),
+      },
+      {
+        path: 'inventario',
+        loadChildren: () =>
+          import('./features/inventory/inventory.routes').then((m) => m.INVENTORY_ROUTES),
       },
     ],
   },
 
   {
     path: 'cliente',
-    component: Cliente, 
+    component: Cliente,
     canActivate: [authGuard],
     data: { roles: ['cliente'] },
     children: [
       {
         path: 'citas',
         loadChildren: () =>
-          import('./features/appointments/appointments.routes').then((m) => m.CLIENT_APPOINTMENTS_ROUTES),
+          import('./features/appointments/appointments.routes').then(
+            (m) => m.CLIENT_APPOINTMENTS_ROUTES,
+          ),
       },
       {
-        path: "motocicletas",
+        path: 'motocicletas',
         loadChildren: () =>
           import('./features/motorbikes/motorbikes.routes').then((m) => m.MOTORBIKES_ROUTES),
-      }
+      },
     ],
   },
 
@@ -70,8 +82,15 @@ export const routes: Routes = [
       {
         path: 'citas',
         loadChildren: () =>
-          import('./features/appointments/appointments.routes').then((m) => m.EMPLOYEE_APPOINTMENTS_ROUTES),
-      }
+          import('./features/appointments/appointments.routes').then(
+            (m) => m.EMPLOYEE_APPOINTMENTS_ROUTES,
+          ),
+      },
+      {
+        path: 'inventario',
+        loadChildren: () =>
+          import('./features/inventory/inventory.routes').then((m) => m.INVENTORY_ROUTES),
+      },
     ],
   },
 ];

@@ -1,0 +1,210 @@
+<div class="appointment-inventory-page">
+    <header class="page-header">
+        <button type="button" class="btn-back" (click)="goBack()">
+            ← {{ 'COMMON.BACK' | translate }}
+        </button>
+
+        <div class="page-title">
+            <p class="eyebrow">TALLERCONTROL / INVENTORY</p>
+            <h1>
+                {{ 'INVENTORY.APPOINTMENT.TITLE' | translate }}
+                #{{ appointmentId }}
+            </h1>
+            <p>{{ 'INVENTORY.APPOINTMENT.SUBTITLE' | translate }}</p>
+        </div>
+
+        <div class="appointment-badge">
+            {{ 'INVENTORY.APPOINTMENT.ACTUAL_USE' | translate }}
+        </div>
+    </header>
+
+    @if (errorMessage) {
+    <div class="notice notice-error" role="alert">
+        <span>{{ errorMessage }}</span>
+        <button type="button" (click)="errorMessage = ''" aria-label="Cerrar">×</button>
+    </div>
+    }
+
+    @if (successMessage) {
+    <div class="notice notice-success" role="status">
+        <span>{{ successMessage | translate }}</span>
+        <button type="button" (click)="successMessage = ''" aria-label="Cerrar">×</button>
+    </div>
+    }
+
+    <div class="info-banner">
+        <span class="info-icon" aria-hidden="true">i</span>
+        <p>{{ 'INVENTORY.APPOINTMENT.INFO' | translate }}</p>
+    </div>
+
+    @if (!hasProcessedItems) {
+    <section class="form-card">
+        <div class="section-heading">
+            <div>
+                <h2>{{ 'INVENTORY.APPOINTMENT.ADD_TITLE' | translate }}</h2>
+                <p>{{ 'INVENTORY.APPOINTMENT.ADD_DESCRIPTION' | translate }}</p>
+            </div>
+        </div>
+
+        @if (loadingItems) {
+        <p class="loading-state">{{ 'COMMON.LOADING' | translate }}</p>
+        } @else if (items.length === 0) {
+        <p class="empty-state">
+            {{ 'INVENTORY.APPOINTMENT.NO_ACTIVE_ITEMS' | translate }}
+        </p>
+        } @else {
+        <form #addItemForm="ngForm" (ngSubmit)="addItem(addItemForm)" class="add-item-form" novalidate>
+            <div class="form-field form-field-item">
+                <label for="consumedItem">
+                    {{ 'INVENTORY.FIELDS.ARTICLE' | translate }} *
+                </label>
+                <select id="consumedItem" name="inventoryItemId" [(ngModel)]="selectedItemId" required>
+                    @for (item of items; track item.id) {
+                    <option [ngValue]="item.id">
+                        {{ item.code }} — {{ item.name }}
+                        · {{ 'INVENTORY.FIELDS.STOCK' | translate }}:
+                        {{ item.availableQuantity | number: '1.0-2' }}
+                    </option>
+                    }
+                </select>
+
+                @if (selectedItem; as item) {
+                <small>
+                    {{ 'INVENTORY.FIELDS.SALE_PRICE' | translate }}:
+                    $ {{ item.salePrice | number: '1.0-2' }}
+                </small>
+                }
+            </div>
+
+            <div class="form-field form-field-quantity">
+                <label for="consumedQuantity">
+                    {{ 'INVENTORY.FIELDS.QUANTITY' | translate }} *
+                </label>
+                <input id="consumedQuantity" type="number" name="quantity" [(ngModel)]="quantity" required min="0.01"
+                    max="99999999.99" step="0.01" #quantityRef="ngModel" />
+
+                @if (quantityRef.invalid && quantityRef.touched) {
+                <small class="field-error">
+                    {{ 'INVENTORY.VALIDATION.QUANTITY_POSITIVE' | translate }}
+                </small>
+                }
+            </div>
+
+            <button type="submit" class="btn-primary" [disabled]="saving || addItemForm.invalid || items.length === 0">
+                {{
+                (saving ? 'COMMON.SAVING' : 'INVENTORY.APPOINTMENT.ADD_ITEM')
+                | translate
+                }}
+            </button>
+        </form>
+        }
+    </section>
+    } @else {
+    <div class="info-banner processed-banner">
+        <span class="info-icon" aria-hidden="true">✓</span>
+        <p>{{ 'INVENTORY.APPOINTMENT.PROCESSED_INFO' | translate }}</p>
+    </div>
+    }
+
+    <section class="table-card">
+        <div class="section-heading table-heading">
+            <div>
+                <h2>{{ 'INVENTORY.APPOINTMENT.REGISTERED_TITLE' | translate }}</h2>
+                <p>
+                    {{ 'INVENTORY.APPOINTMENT.REGISTERED_DESCRIPTION' | translate }}
+                </p>
+            </div>
+
+            <div class="total-box">
+                <span>{{ 'INVENTORY.APPOINTMENT.TOTAL' | translate }}</span>
+                <strong>$ {{ totalConsumption | number: '1.0-2' }}</strong>
+            </div>
+        </div>
+
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'INVENTORY.FIELDS.ARTICLE' | translate }}</th>
+                        <th>{{ 'INVENTORY.FIELDS.QUANTITY' | translate }}</th>
+                        <th>{{ 'INVENTORY.FIELDS.UNIT_COST' | translate }}</th>
+                        <th>{{ 'INVENTORY.FIELDS.SALE_PRICE' | translate }}</th>
+                        <th>{{ 'INVENTORY.FIELDS.SUBTOTAL' | translate }}</th>
+                        <th>{{ 'INVENTORY.FIELDS.STATUS' | translate }}</th>
+                        <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (loadingLines) {
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            {{ 'COMMON.LOADING' | translate }}
+                        </td>
+                    </tr>
+                    } @else if (lines.length === 0) {
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            {{ 'INVENTORY.APPOINTMENT.EMPTY' | translate }}
+                        </td>
+                    </tr>
+                    } @else {
+                    @for (line of lines; track line.id) {
+                    <tr>
+                        <td>
+                            <div class="item-cell">
+                                <strong>{{ line.itemName }}</strong>
+                                <span>{{ line.itemCode }}</span>
+                            </div>
+                        </td>
+
+                        <td>
+                            @if (!line.inventoryProcessed && !hasProcessedItems) {
+                            <input class="quantity-edit" type="number" [name]="'quantity-' + line.id"
+                                [(ngModel)]="draftQuantities[line.id]" min="0.01" step="0.01" />
+                            } @else {
+                            {{ line.quantity | number: '1.0-2' }}
+                            }
+                        </td>
+
+                        <td>$ {{ line.unitCost | number: '1.0-2' }}</td>
+                        <td>$ {{ line.unitPrice | number: '1.0-2' }}</td>
+                        <td class="subtotal-cell">
+                            $ {{ line.subtotal | number: '1.0-2' }}
+                        </td>
+
+                        <td>
+                            <span class="status-badge" [class.status-processed]="line.inventoryProcessed"
+                                [class.status-pending]="!line.inventoryProcessed">
+                                {{
+                                (line.inventoryProcessed
+                                ? 'INVENTORY.APPOINTMENT.PROCESSED'
+                                : 'INVENTORY.APPOINTMENT.PENDING') | translate
+                                }}
+                            </span>
+                        </td>
+
+                        <td>
+                            @if (!line.inventoryProcessed && !hasProcessedItems) {
+                            <div class="row-actions">
+                                <button type="button" class="btn-row" [disabled]="saving"
+                                    (click)="updateQuantity(line)">
+                                    {{ 'COMMON.SAVE' | translate }}
+                                </button>
+                                <button type="button" class="btn-row btn-row-danger" [disabled]="saving"
+                                    (click)="removeItem(line)">
+                                    {{ 'COMMON.DELETE' | translate }}
+                                </button>
+                            </div>
+                            } @else {
+                            <span class="locked-action">—</span>
+                            }
+                        </td>
+                    </tr>
+                    }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

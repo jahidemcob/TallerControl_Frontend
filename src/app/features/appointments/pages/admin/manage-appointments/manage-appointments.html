@@ -134,7 +134,7 @@
   <!-- PANEL DE DETALLES -->
   <app-appointment-detail-panel [selectedAppointment]="selectedAppointment" [loadingDetail]="loadingDetail"
     [panelTitle]="'#' + selectedAppointment?.idPedido" [loadingIds]="loadingIds" [showEmpleado]="true"
-    [showAcciones]="false" (closed)="closeDetail()">
+    [showAcciones]="true" (closed)="closeDetail()">
     <span slot="moto">{{ getNombreMoto(selectedAppointment?.idMoto ?? 0) }}</span>
 
     <div slot="servicios" class="servicios-list">
@@ -145,6 +145,14 @@
       </div>
       }
     </div>
+
+    @if (selectedAppointment?.estadoCita === 'EnProceso') {
+    <div slot="acciones" class="detail-acciones">
+      <button type="button" class="btn-aceptar" (click)="gestionarRepuestos(selectedAppointment!.idPedido)">
+        {{ 'INVENTORY.APPOINTMENT.MANAGE_ITEMS' | translate }}
+      </button>
+    </div>
+    }
   </app-appointment-detail-panel>
 </div>
 

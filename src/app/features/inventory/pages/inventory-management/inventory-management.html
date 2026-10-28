@@ -1,0 +1,849 @@
+<div class="inventory-page">
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">TALLERCONTROL / INVENTORY</p>
+            <h1>{{ 'INVENTORY.TITLE' | translate }}</h1>
+            <p class="page-description">
+                {{ 'INVENTORY.SUBTITLE' | translate }}
+            </p>
+        </div>
+
+        <button type="button" class="btn-refresh" (click)="refreshAll()" [disabled]="loadingItems || loadingMovements">
+            <span aria-hidden="true">↻</span>
+            {{ 'INVENTORY.REFRESH' | translate }}
+        </button>
+    </header>
+
+    @if (errorMessage) {
+    <div class="notice notice-error" role="alert">
+        <span class="notice-icon" aria-hidden="true">!</span>
+        <span>{{ errorMessage }}</span>
+        <button type="button" class="notice-close" (click)="errorMessage = ''" aria-label="Cerrar">×</button>
+    </div>
+    }
+
+    @if (successMessage) {
+    <div class="notice notice-success" role="status">
+        <span class="notice-icon" aria-hidden="true">✓</span>
+        <span>{{ successMessage | translate }}</span>
+        <button type="button" class="notice-close" (click)="successMessage = ''" aria-label="Cerrar">×</button>
+    </div>
+    }
+
+    <!-- RESUMEN -->
+    <section class="summary-grid" aria-label="Resumen de inventario">
+        <article class="summary-card summary-primary">
+            <div class="summary-icon" aria-hidden="true">▦</div>
+            <div>
+                <p>{{ 'INVENTORY.SUMMARY.ACTIVE_ITEMS' | translate }}</p>
+                <strong>{{ activeItemsCount }}</strong>
+            </div>
+        </article>
+
+        <article class="summary-card" [class.summary-warning]="lowStockCount > 0">
+            <div class="summary-icon" aria-hidden="true">⚠</div>
+            <div>
+                <p>{{ 'INVENTORY.SUMMARY.LOW_STOCK' | translate }}</p>
+                <strong>{{ lowStockCount }}</strong>
+            </div>
+        </article>
+
+        <article class="summary-card">
+            <div class="summary-icon" aria-hidden="true">$</div>
+            <div>
+                <p>{{ 'INVENTORY.SUMMARY.STOCK_VALUE' | translate }}</p>
+                <strong>$ {{ totalStockValue | number: '1.0-0' }}</strong>
+            </div>
+        </article>
+    </section>
+
+    <!-- PESTAÑAS -->
+    <nav class="section-tabs" aria-label="Secciones del inventario">
+        <button type="button" [class.active]="section === 'items'" (click)="setSection('items')">
+            <span aria-hidden="true">▦</span>
+            {{ 'INVENTORY.TABS.ITEMS' | translate }}
+        </button>
+
+        @if (isAdmin) {
+        <button type="button" [class.active]="section === 'categories'" (click)="setSection('categories')">
+            <span aria-hidden="true">▤</span>
+            {{ 'INVENTORY.TABS.CATEGORIES' | translate }}
+        </button>
+        }
+
+        <button type="button" [class.active]="section === 'movements'" (click)="setSection('movements')">
+            <span aria-hidden="true">⇄</span>
+            {{ 'INVENTORY.TABS.MOVEMENTS' | translate }}
+        </button>
+    </nav>
+
+    <!-- ARTÍCULOS -->
+    @if (section === 'items') {
+    <section class="content-panel">
+        <div class="panel-heading">
+            <div>
+                <h2>{{ 'INVENTORY.ITEMS.HEADING' | translate }}</h2>
+                <p>{{ 'INVENTORY.ITEMS.DESCRIPTION' | translate }}</p>
+            </div>
+
+            @if (isAdmin) {
+            <button type="button" class="btn-primary" (click)="openItemForm()">
+                <span aria-hidden="true">＋</span>
+                {{ 'INVENTORY.ITEMS.NEW' | translate }}
+            </button>
+            }
+        </div>
+
+        <!-- FILTROS DE ARTÍCULOS -->
+        <div class="filters-card">
+            <div class="filter-search">
+                <label for="inventorySearch">
+                    {{ 'COMMON.SEARCH' | translate }}
+                </label>
+                <input id="inventorySearch" type="search" [(ngModel)]="itemFilters.search"
+                    [placeholder]="'INVENTORY.ITEMS.SEARCH_PLACEHOLDER' | translate" />
+            </div>
+
+            <div class="filter-field">
+                <label for="itemCategoryFilter">
+                    {{ 'INVENTORY.FIELDS.CATEGORY' | translate }}
+                </label>
+                <select id="itemCategoryFilter" [(ngModel)]="itemFilters.categoryId">
+                    <option [ngValue]="0">
+                        {{ 'INVENTORY.FILTERS.ALL_CATEGORIES' | translate }}
+                    </option>
+                    @for (category of categories; track category.id) {
+                    <option [ngValue]="category.id">
+                        {{ category.name }}
+                        {{ category.isActive ? '' : ' · ' + ('INVENTORY.STATUS.INACTIVE' | translate) }}
+                    </option>
+                    }
+                </select>
+            </div>
+
+            <div class="filter-field">
+                <label for="itemTypeFilter">
+                    {{ 'INVENTORY.FIELDS.TYPE' | translate }}
+                </label>
+                <select id="itemTypeFilter" [(ngModel)]="itemFilters.itemType">
+                    <option value="">
+                        {{ 'INVENTORY.FILTERS.ALL_TYPES' | translate }}
+                    </option>
+                    <option value="Repuesto">
+                        {{ 'INVENTORY.TYPES.PART' | translate }}
+                    </option>
+                    <option value="Consumible">
+                        {{ 'INVENTORY.TYPES.CONSUMABLE' | translate }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="filter-checks">
+                <label class="check-control">
+                    <input type="checkbox" [(ngModel)]="itemFilters.onlyLowStock" />
+                    <span>{{ 'INVENTORY.FILTERS.LOW_STOCK_ONLY' | translate }}</span>
+                </label>
+
+                @if (isAdmin) {
+                <label class="check-control">
+                    <input type="checkbox" [(ngModel)]="itemFilters.includeInactive" />
+                    <span>{{ 'INVENTORY.FILTERS.SHOW_INACTIVE' | translate }}</span>
+                </label>
+                }
+            </div>
+
+            <div class="filter-actions">
+                <button type="button" class="btn-primary" (click)="searchItems()">
+                    {{ 'COMMON.SEARCH' | translate }}
+                </button>
+                <button type="button" class="btn-ghost" (click)="clearItemFilters()">
+                    {{ 'COMMON.CLEAR' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <!-- FORMULARIO DE ARTÍCULO -->
+        @if (itemFormVisible && isAdmin) {
+        <div class="form-card">
+            <div class="panel-heading form-heading">
+                <div>
+                    <h3>
+                        {{
+                        (editingItemId === null
+                        ? 'INVENTORY.ITEMS.CREATE_TITLE'
+                        : 'INVENTORY.ITEMS.EDIT_TITLE') | translate
+                        }}
+                    </h3>
+                    <p>{{ 'INVENTORY.ITEMS.FORM_HELP' | translate }}</p>
+                </div>
+                <button type="button" class="btn-icon" (click)="cancelItemForm()"
+                    [attr.aria-label]="'COMMON.CLOSE' | translate">×</button>
+            </div>
+
+            <form #itemNgForm="ngForm" (ngSubmit)="saveItem(itemNgForm)" novalidate>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="itemCode">
+                            {{ 'INVENTORY.FIELDS.CODE' | translate }} *
+                        </label>
+                        <input id="itemCode" name="code" [(ngModel)]="itemForm.code" required maxlength="50"
+                            #codeRef="ngModel" />
+                        @if (codeRef.invalid && codeRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.CODE_REQUIRED' | translate }}
+                        </small>
+                        }
+                    </div>
+
+                    <div class="form-field">
+                        <label for="itemName">
+                            {{ 'INVENTORY.FIELDS.NAME' | translate }} *
+                        </label>
+                        <input id="itemName" name="name" [(ngModel)]="itemForm.name" required maxlength="150"
+                            #nameRef="ngModel" />
+                        @if (nameRef.invalid && nameRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.NAME_REQUIRED' | translate }}
+                        </small>
+                        }
+                    </div>
+
+                    <div class="form-field">
+                        <label for="itemCategory">
+                            {{ 'INVENTORY.FIELDS.CATEGORY' | translate }} *
+                        </label>
+                        <select id="itemCategory" name="categoryId" [(ngModel)]="itemForm.categoryId" required>
+                            @for (category of activeCategories; track category.id) {
+                            <option [ngValue]="category.id">
+                                {{ category.name }}
+                            </option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="itemType">
+                            {{ 'INVENTORY.FIELDS.TYPE' | translate }} *
+                        </label>
+                        <select id="itemType" name="itemType" [(ngModel)]="itemForm.itemType" required>
+                            <option value="Repuesto">
+                                {{ 'INVENTORY.TYPES.PART' | translate }}
+                            </option>
+                            <option value="Consumible">
+                                {{ 'INVENTORY.TYPES.CONSUMABLE' | translate }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="itemBrand">
+                            {{ 'INVENTORY.FIELDS.BRAND' | translate }}
+                        </label>
+                        <input id="itemBrand" name="brand" [(ngModel)]="itemForm.brand" maxlength="100" />
+                    </div>
+
+                    <div class="form-field">
+                        <label for="itemMinimumStock">
+                            {{ 'INVENTORY.FIELDS.MINIMUM_STOCK' | translate }} *
+                        </label>
+                        <input id="itemMinimumStock" name="minimumStock" type="number"
+                            [(ngModel)]="itemForm.minimumStock" min="0" max="99999999.99" step="0.01" required
+                            #minimumRef="ngModel" />
+                        @if (minimumRef.invalid && minimumRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.NON_NEGATIVE' | translate }}
+                        </small>
+                        }
+                    </div>
+
+                    <div class="form-field">
+                        <label for="itemPurchaseCost">
+                            {{ 'INVENTORY.FIELDS.PURCHASE_COST' | translate }} *
+                        </label>
+                        <input id="itemPurchaseCost" name="purchaseCost" type="number"
+                            [(ngModel)]="itemForm.purchaseCost" min="0" max="9999999999.99" step="0.01" required
+                            #purchaseRef="ngModel" />
+                        @if (purchaseRef.invalid && purchaseRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.NON_NEGATIVE' | translate }}
+                        </small>
+                        }
+                    </div>
+
+                    <div class="form-field">
+                        <label for="itemSalePrice">
+                            {{ 'INVENTORY.FIELDS.SALE_PRICE' | translate }} *
+                        </label>
+                        <input id="itemSalePrice" name="salePrice" type="number" [(ngModel)]="itemForm.salePrice"
+                            min="0" max="9999999999.99" step="0.01" required #saleRef="ngModel" />
+                        @if (saleRef.invalid && saleRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.NON_NEGATIVE' | translate }}
+                        </small>
+                        }
+                    </div>
+
+                    <div class="form-field form-field-wide">
+                        <label for="itemDescription">
+                            {{ 'INVENTORY.FIELDS.DESCRIPTION' | translate }}
+                        </label>
+                        <textarea id="itemDescription" name="description" [(ngModel)]="itemForm.description"
+                            maxlength="500" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <p class="form-note">
+                        {{ 'INVENTORY.ITEMS.ZERO_STOCK_NOTE' | translate }}
+                    </p>
+                    <div class="form-actions">
+                        <button type="button" class="btn-ghost" (click)="cancelItemForm()">
+                            {{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                        <button type="submit" class="btn-primary" [disabled]="savingItem || itemNgForm.invalid">
+                            {{
+                            (savingItem ? 'COMMON.SAVING' : 'COMMON.SAVE') | translate
+                            }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        }
+
+        <!-- TABLA DE ARTÍCULOS -->
+        <div class="table-card">
+            <div class="table-heading">
+                <h3>{{ 'INVENTORY.ITEMS.TABLE_TITLE' | translate }}</h3>
+                <span class="result-count">
+                    {{ items.length }} {{ 'INVENTORY.ITEMS.RESULTS' | translate }}
+                </span>
+            </div>
+
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'INVENTORY.FIELDS.ARTICLE' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.CATEGORY' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.TYPE' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.STOCK' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.PURCHASE_COST' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.SALE_PRICE' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.STATUS' | translate }}</th>
+                            @if (isAdmin) {
+                            <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                            }
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (loadingItems) {
+                        <tr>
+                            <td [attr.colspan]="isAdmin ? 8 : 7" class="table-state">
+                                {{ 'COMMON.LOADING' | translate }}
+                            </td>
+                        </tr>
+                        } @else if (items.length === 0) {
+                        <tr>
+                            <td [attr.colspan]="isAdmin ? 8 : 7" class="table-state">
+                                {{ 'INVENTORY.ITEMS.EMPTY' | translate }}
+                            </td>
+                        </tr>
+                        } @else {
+                        @for (item of items; track item.id) {
+                        <tr>
+                            <td>
+                                <div class="article-cell">
+                                    <strong>{{ item.name }}</strong>
+                                    <span>
+                                        {{ item.code }}{{ item.brand ? ' · ' + item.brand : '' }}
+                                    </span>
+                                </div>
+                            </td>
+                            <td>{{ item.categoryName }}</td>
+                            <td>
+                                <span class="type-pill">
+                                    {{
+                                    (item.itemType === 'Repuesto'
+                                    ? 'INVENTORY.TYPES.PART'
+                                    : 'INVENTORY.TYPES.CONSUMABLE') | translate
+                                    }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="stock-cell">
+                                    <strong>{{ item.availableQuantity | number: '1.0-2' }}</strong>
+                                    <small>
+                                        {{ 'INVENTORY.FIELDS.MINIMUM' | translate }}:
+                                        {{ item.minimumStock | number: '1.0-2' }}
+                                    </small>
+                                    @if (item.isLowStock) {
+                                    <span class="status-badge status-low">
+                                        {{ 'INVENTORY.STATUS.LOW_STOCK' | translate }}
+                                    </span>
+                                    }
+                                </div>
+                            </td>
+                            <td>$ {{ item.purchaseCost | number: '1.0-2' }}</td>
+                            <td>$ {{ item.salePrice | number: '1.0-2' }}</td>
+                            <td>
+                                <span class="status-badge" [class.status-active]="item.isActive"
+                                    [class.status-inactive]="!item.isActive">
+                                    {{
+                                    (item.isActive
+                                    ? 'INVENTORY.STATUS.ACTIVE'
+                                    : 'INVENTORY.STATUS.INACTIVE') | translate
+                                    }}
+                                </span>
+                            </td>
+                            @if (isAdmin) {
+                            <td>
+                                <div class="row-actions">
+                                    @if (item.isActive) {
+                                    <button type="button" class="btn-table-action" (click)="openItemForm(item)">
+                                        {{ 'COMMON.EDIT' | translate }}
+                                    </button>
+                                    }
+                                    <button type="button" class="btn-table-action" [class.action-danger]="item.isActive"
+                                        (click)="toggleItem(item)">
+                                        {{
+                                        (item.isActive
+                                        ? 'INVENTORY.ACTIONS.DEACTIVATE'
+                                        : 'INVENTORY.ACTIONS.ACTIVATE') | translate
+                                        }}
+                                    </button>
+                                </div>
+                            </td>
+                            }
+                        </tr>
+                        }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    }
+
+    <!-- CATEGORÍAS: SOLO ADMINISTRADOR -->
+    @if (section === 'categories' && isAdmin) {
+    <section class="content-panel">
+        <div class="panel-heading">
+            <div>
+                <h2>{{ 'INVENTORY.CATEGORIES.HEADING' | translate }}</h2>
+                <p>{{ 'INVENTORY.CATEGORIES.DESCRIPTION' | translate }}</p>
+            </div>
+            <button type="button" class="btn-primary" (click)="openCategoryForm()">
+                <span aria-hidden="true">＋</span>
+                {{ 'INVENTORY.CATEGORIES.NEW' | translate }}
+            </button>
+        </div>
+
+        @if (categoryFormVisible) {
+        <div class="form-card compact-form">
+            <div class="panel-heading form-heading">
+                <div>
+                    <h3>
+                        {{
+                        (editingCategoryId === null
+                        ? 'INVENTORY.CATEGORIES.CREATE_TITLE'
+                        : 'INVENTORY.CATEGORIES.EDIT_TITLE') | translate
+                        }}
+                    </h3>
+                </div>
+                <button type="button" class="btn-icon" (click)="cancelCategoryForm()"
+                    [attr.aria-label]="'COMMON.CLOSE' | translate">×</button>
+            </div>
+
+            <form #categoryNgForm="ngForm" (ngSubmit)="saveCategory(categoryNgForm)" novalidate>
+                <div class="form-grid category-form-grid">
+                    <div class="form-field">
+                        <label for="categoryName">
+                            {{ 'INVENTORY.CATEGORIES.NAME' | translate }} *
+                        </label>
+                        <input id="categoryName" name="categoryName" [(ngModel)]="categoryForm.name" required
+                            maxlength="100" #categoryNameRef="ngModel" />
+                        @if (categoryNameRef.invalid && categoryNameRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.CATEGORY_NAME_REQUIRED' | translate }}
+                        </small>
+                        }
+                    </div>
+
+                    <div class="form-field">
+                        <label for="categoryDescription">
+                            {{ 'INVENTORY.FIELDS.DESCRIPTION' | translate }}
+                        </label>
+                        <input id="categoryDescription" name="categoryDescription"
+                            [(ngModel)]="categoryForm.description" maxlength="250" />
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <span></span>
+                    <div class="form-actions">
+                        <button type="button" class="btn-ghost" (click)="cancelCategoryForm()">
+                            {{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                        <button type="submit" class="btn-primary" [disabled]="savingCategory || categoryNgForm.invalid">
+                            {{
+                            (savingCategory ? 'COMMON.SAVING' : 'COMMON.SAVE') | translate
+                            }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        }
+
+        <div class="category-grid">
+            @if (loadingCategories) {
+            <div class="empty-card">{{ 'COMMON.LOADING' | translate }}</div>
+            } @else if (categories.length === 0) {
+            <div class="empty-card">
+                {{ 'INVENTORY.CATEGORIES.EMPTY' | translate }}
+            </div>
+            } @else {
+            @for (category of categories; track category.id) {
+            <article class="category-card" [class.category-inactive]="!category.isActive">
+                <div class="category-card-top">
+                    <div class="category-icon" aria-hidden="true">▤</div>
+                    <span class="status-badge" [class.status-active]="category.isActive"
+                        [class.status-inactive]="!category.isActive">
+                        {{
+                        (category.isActive
+                        ? 'INVENTORY.STATUS.ACTIVE'
+                        : 'INVENTORY.STATUS.INACTIVE') | translate
+                        }}
+                    </span>
+                </div>
+                <h3>{{ category.name }}</h3>
+                <p>
+                    {{
+                    category.description ||
+                    ('INVENTORY.CATEGORIES.NO_DESCRIPTION' | translate)
+                    }}
+                </p>
+                <div class="category-actions">
+                    @if (category.isActive) {
+                    <button type="button" class="btn-table-action" (click)="openCategoryForm(category)">
+                        {{ 'COMMON.EDIT' | translate }}
+                    </button>
+                    }
+                    <button type="button" class="btn-table-action" [class.action-danger]="category.isActive"
+                        (click)="toggleCategory(category)">
+                        {{
+                        (category.isActive
+                        ? 'INVENTORY.ACTIONS.DEACTIVATE'
+                        : 'INVENTORY.ACTIONS.ACTIVATE') | translate
+                        }}
+                    </button>
+                </div>
+            </article>
+            }
+            }
+        </div>
+    </section>
+    }
+
+    <!-- MOVIMIENTOS -->
+    @if (section === 'movements') {
+    <section class="content-panel">
+        <div class="panel-heading">
+            <div>
+                <h2>{{ 'INVENTORY.MOVEMENTS.HEADING' | translate }}</h2>
+                <p>{{ 'INVENTORY.MOVEMENTS.DESCRIPTION' | translate }}</p>
+            </div>
+
+            <div class="operation-buttons">
+                <button type="button" class="btn-operation btn-entry" (click)="openOperation('entry')">
+                    ＋ {{ 'INVENTORY.OPERATIONS.ENTRY' | translate }}
+                </button>
+                <button type="button" class="btn-operation btn-adjust" (click)="openOperation('adjustment')">
+                    ↔ {{ 'INVENTORY.OPERATIONS.ADJUSTMENT' | translate }}
+                </button>
+                <button type="button" class="btn-operation btn-exit" (click)="openOperation('exit')">
+                    − {{ 'INVENTORY.OPERATIONS.EXIT' | translate }}
+                </button>
+            </div>
+        </div>
+
+        @if (activeOperation) {
+        <div class="form-card operation-form-card">
+            <div class="panel-heading form-heading">
+                <div>
+                    <h3>
+                        {{
+                        ('INVENTORY.OPERATIONS.' +
+                        (activeOperation === 'entry'
+                        ? 'ENTRY_TITLE'
+                        : activeOperation === 'adjustment'
+                        ? 'ADJUSTMENT_TITLE'
+                        : 'EXIT_TITLE')) | translate
+                        }}
+                    </h3>
+                    <p>{{ 'INVENTORY.OPERATIONS.FORM_HELP' | translate }}</p>
+                </div>
+                <button type="button" class="btn-icon" (click)="cancelOperation()"
+                    [attr.aria-label]="'COMMON.CLOSE' | translate">×</button>
+            </div>
+
+            @if (activeItems.length === 0) {
+            <div class="notice notice-error">
+                {{ 'INVENTORY.OPERATIONS.NO_ACTIVE_ITEMS' | translate }}
+            </div>
+            } @else {
+            <form #operationNgForm="ngForm" (ngSubmit)="saveOperation(operationNgForm)" novalidate>
+                <div class="form-grid">
+                    <div class="form-field form-field-wide">
+                        <label for="operationItem">
+                            {{ 'INVENTORY.FIELDS.ARTICLE' | translate }} *
+                        </label>
+                        <select id="operationItem" name="inventoryItemId" [(ngModel)]="operationForm.inventoryItemId"
+                            (ngModelChange)="onOperationItemChange()" required>
+                            @for (item of activeItems; track item.id) {
+                            <option [ngValue]="item.id">
+                                {{ item.code }} — {{ item.name }}
+                                ({{ 'INVENTORY.FIELDS.STOCK' | translate }}:
+                                {{ item.availableQuantity | number: '1.0-2' }})
+                            </option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="operationQuantity">
+                            {{ 'INVENTORY.FIELDS.QUANTITY' | translate }} *
+                        </label>
+                        <input id="operationQuantity" name="quantity" type="number" [(ngModel)]="operationForm.quantity"
+                            required min="0.01" max="99999999.99" step="0.01" #quantityRef="ngModel" />
+                        @if (quantityRef.invalid && quantityRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.QUANTITY_POSITIVE' | translate }}
+                        </small>
+                        }
+                    </div>
+
+                    @if (activeOperation === 'entry') {
+                    <div class="form-field">
+                        <label for="operationCost">
+                            {{ 'INVENTORY.FIELDS.UNIT_COST' | translate }} *
+                        </label>
+                        <input id="operationCost" name="unitCost" type="number" [(ngModel)]="operationForm.unitCost"
+                            required min="0" max="9999999999.99" step="0.01" #costRef="ngModel" />
+                        @if (costRef.invalid && costRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.NON_NEGATIVE' | translate }}
+                        </small>
+                        }
+                    </div>
+                    }
+
+                    @if (activeOperation === 'adjustment') {
+                    <div class="form-field form-field-wide">
+                        <span class="field-label">
+                            {{ 'INVENTORY.OPERATIONS.ADJUSTMENT_DIRECTION' | translate }} *
+                        </span>
+                        <div class="radio-row">
+                            <label>
+                                <input type="radio" name="increaseStock" [(ngModel)]="operationForm.increaseStock"
+                                    [value]="true" />
+                                {{ 'INVENTORY.OPERATIONS.INCREASE' | translate }}
+                            </label>
+                            <label>
+                                <input type="radio" name="increaseStock" [(ngModel)]="operationForm.increaseStock"
+                                    [value]="false" />
+                                {{ 'INVENTORY.OPERATIONS.DECREASE' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                    }
+
+                    <div class="form-field form-field-wide">
+                        <label for="operationReason">
+                            {{ 'INVENTORY.FIELDS.REASON' | translate }} *
+                        </label>
+                        <textarea id="operationReason" name="reason" [(ngModel)]="operationForm.reason" required
+                            minlength="3" maxlength="250" rows="3" #reasonRef="ngModel"></textarea>
+                        @if (reasonRef.invalid && reasonRef.touched) {
+                        <small class="field-error">
+                            {{ 'INVENTORY.VALIDATION.REASON_REQUIRED' | translate }}
+                        </small>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <p class="form-note">
+                        {{ 'INVENTORY.OPERATIONS.STOCK_IS_UPDATED' | translate }}
+                    </p>
+                    <div class="form-actions">
+                        <button type="button" class="btn-ghost" (click)="cancelOperation()">
+                            {{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                        <button type="submit" class="btn-primary"
+                            [disabled]="savingOperation || operationNgForm.invalid">
+                            {{
+                            (savingOperation
+                            ? 'COMMON.SAVING'
+                            : 'INVENTORY.OPERATIONS.CONFIRM') | translate
+                            }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+            }
+        </div>
+        }
+
+        <!-- FILTROS DEL HISTORIAL -->
+        <div class="filters-card movement-filters">
+            <div class="filter-field">
+                <label for="movementItemFilter">
+                    {{ 'INVENTORY.FIELDS.ARTICLE' | translate }}
+                </label>
+                <select id="movementItemFilter" [(ngModel)]="movementFilters.inventoryItemId">
+                    <option [ngValue]="0">
+                        {{ 'INVENTORY.FILTERS.ALL_ITEMS' | translate }}
+                    </option>
+                    @for (item of activeItems; track item.id) {
+                    <option [ngValue]="item.id">
+                        {{ item.code }} — {{ item.name }}
+                    </option>
+                    }
+                </select>
+            </div>
+
+            <div class="filter-field">
+                <label for="movementTypeFilter">
+                    {{ 'INVENTORY.FIELDS.MOVEMENT_TYPE' | translate }}
+                </label>
+                <select id="movementTypeFilter" [(ngModel)]="movementFilters.movementType">
+                    <option value="">
+                        {{ 'INVENTORY.FILTERS.ALL_MOVEMENTS' | translate }}
+                    </option>
+                    <option value="Entrada">
+                        {{ 'INVENTORY.MOVEMENT_TYPES.ENTRY' | translate }}
+                    </option>
+                    <option value="Salida">
+                        {{ 'INVENTORY.MOVEMENT_TYPES.EXIT' | translate }}
+                    </option>
+                    <option value="AjustePositivo">
+                        {{ 'INVENTORY.MOVEMENT_TYPES.POSITIVE_ADJUSTMENT' | translate }}
+                    </option>
+                    <option value="AjusteNegativo">
+                        {{ 'INVENTORY.MOVEMENT_TYPES.NEGATIVE_ADJUSTMENT' | translate }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="filter-field">
+                <label for="movementFrom">
+                    {{ 'INVENTORY.FILTERS.FROM' | translate }}
+                </label>
+                <input id="movementFrom" type="date" [(ngModel)]="movementFilters.from" />
+            </div>
+
+            <div class="filter-field">
+                <label for="movementTo">
+                    {{ 'INVENTORY.FILTERS.TO' | translate }}
+                </label>
+                <input id="movementTo" type="date" [(ngModel)]="movementFilters.to" />
+            </div>
+
+            <div class="filter-actions">
+                <button type="button" class="btn-primary" (click)="loadMovements()">
+                    {{ 'COMMON.FILTER' | translate }}
+                </button>
+                <button type="button" class="btn-ghost" (click)="clearMovementFilters()">
+                    {{ 'COMMON.CLEAR' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <!-- HISTORIAL -->
+        <div class="table-card">
+            <div class="table-heading">
+                <h3>{{ 'INVENTORY.MOVEMENTS.HISTORY_TITLE' | translate }}</h3>
+                <span class="result-count">
+                    {{ movements.length }} {{ 'INVENTORY.MOVEMENTS.RESULTS' | translate }}
+                </span>
+            </div>
+
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'INVENTORY.FIELDS.DATE' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.ARTICLE' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.MOVEMENT_TYPE' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.QUANTITY' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.UNIT_COST' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.REASON' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.USER' | translate }}</th>
+                            <th>{{ 'INVENTORY.FIELDS.APPOINTMENT' | translate }}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (loadingMovements) {
+                        <tr>
+                            <td colspan="8" class="table-state">
+                                {{ 'COMMON.LOADING' | translate }}
+                            </td>
+                        </tr>
+                        } @else if (movements.length === 0) {
+                        <tr>
+                            <td colspan="8" class="table-state">
+                                {{ 'INVENTORY.MOVEMENTS.EMPTY' | translate }}
+                            </td>
+                        </tr>
+                        } @else {
+                        @for (movement of movements; track movement.id) {
+                        <tr>
+                            <td>
+                                {{ movement.movementDate | date: 'dd/MM/yyyy HH:mm' }}
+                            </td>
+                            <td>
+                                <div class="article-cell">
+                                    <strong>{{ movement.itemName }}</strong>
+                                    <span>{{ movement.itemCode }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="movement-badge"
+                                    [ngClass]="'movement-' + movement.movementType.toLowerCase()">
+                                    {{
+                                    ('INVENTORY.MOVEMENT_TYPES.' +
+                                    (movement.movementType === 'Entrada'
+                                    ? 'ENTRY'
+                                    : movement.movementType === 'Salida'
+                                    ? 'EXIT'
+                                    : movement.movementType === 'AjustePositivo'
+                                    ? 'POSITIVE_ADJUSTMENT'
+                                    : 'NEGATIVE_ADJUSTMENT')) | translate
+                                    }}
+                                </span>
+                            </td>
+                            <td>{{ movement.quantity | number: '1.0-2' }}</td>
+                            <td>
+                                {{
+                                movement.unitCost === null
+                                ? '—'
+                                : ('$ ' + (movement.unitCost | number: '1.0-2'))
+                                }}
+                            </td>
+                            <td class="reason-cell">{{ movement.reason }}</td>
+                            <td>{{ movement.userId }}</td>
+                            <td>{{ movement.appointmentId ?? '—' }}</td>
+                        </tr>
+                        }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    }
+</div>
