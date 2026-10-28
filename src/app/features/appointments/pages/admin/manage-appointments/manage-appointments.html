@@ -80,10 +80,19 @@
           }
           @for (a of appointmentsFiltradas; track trackById($index, a)) {
           <tr [class.row-active]="selectedAppointment?.idPedido === a.idPedido">
-            <td class="col-id">{{ a.idPedido }}</td>
-            <td>{{ a.nombreCliente }}</td>
-            <td>{{ getNombreMoto(a.idMoto) }}</td>
-            <td>
+            <td class="col-id" [attr.data-label]="'APPOINTMENTS.TABLE.ID' | translate">
+              {{ a.idPedido }}
+            </td>
+
+            <td [attr.data-label]="'APPOINTMENTS.TABLE.CLIENT' | translate">
+              {{ a.nombreCliente }}
+            </td>
+
+            <td [attr.data-label]="'APPOINTMENTS.TABLE.MOTORCYCLE' | translate">
+              {{ getNombreMoto(a.idMoto) }}
+            </td>
+
+            <td [attr.data-label]="'APPOINTMENTS.TABLE.STATUS' | translate">
               <span class="estado-badge" [class.pendiente]="a.estadoCita === 'Pendiente'"
                 [class.agendada]="a.estadoCita === 'Agendada'" [class.en-proceso]="a.estadoCita === 'EnProceso'"
                 [class.completada]="a.estadoCita === 'Completada'" [class.rechazada]="a.estadoCita === 'Rechazada'">
@@ -95,12 +104,14 @@
                 }}
               </span>
             </td>
-            <td class="acciones-cell">
+
+            <td class="acciones-cell" [attr.data-label]="'APPOINTMENTS.TABLE.ACTIONS' | translate">
               @if (a.estadoCita === 'Pendiente') {
               <div class="acciones-inner">
                 <button class="btn-aceptar" [disabled]="isLoading(a.idPedido)" (click)="abrirAsignar(a.idPedido)">
                   {{ 'APPOINTMENTS.ADMIN.ACCEPT' | translate }}
                 </button>
+
                 <button class="btn-rechazar" [disabled]="isLoading(a.idPedido)" (click)="rechazar(a.idPedido)">
                   {{
                   (isLoading(a.idPedido)
@@ -113,7 +124,8 @@
               <span class="sin-accion">—</span>
               }
             </td>
-            <td class="detalles-cell">
+
+            <td class="detalles-cell" [attr.data-label]="'APPOINTMENTS.TABLE.DETAILS' | translate">
               <button class="btn-detalle" [class.active]="selectedAppointment?.idPedido === a.idPedido"
                 (click)="openDetail(a.idPedido)">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -132,16 +144,31 @@
   </div>
 
   <!-- PANEL DE DETALLES -->
-  <app-appointment-detail-panel [selectedAppointment]="selectedAppointment" [loadingDetail]="loadingDetail"
+  <!-- PANEL DE DETALLES -->
+  @if (selectedAppointment || loadingDetail) {
+  <button type="button" class="detail-backdrop" aria-label="Cerrar detalles" (click)="closeDetail()">
+  </button>
+  }
+
+  <app-appointment-detail-panel [class.panel-open]="!!selectedAppointment || loadingDetail"
+    [selectedAppointment]="selectedAppointment" [loadingDetail]="loadingDetail"
     [panelTitle]="'#' + selectedAppointment?.idPedido" [loadingIds]="loadingIds" [showEmpleado]="true"
     [showAcciones]="true" (closed)="closeDetail()">
-    <span slot="moto">{{ getNombreMoto(selectedAppointment?.idMoto ?? 0) }}</span>
+
+    <span slot="moto">
+      {{ getNombreMoto(selectedAppointment?.idMoto ?? 0) }}
+    </span>
 
     <div slot="servicios" class="servicios-list">
       @for (d of selectedAppointment?.detalles ?? []; track d.idServicio) {
       <div class="servicio-item">
-        <span class="servicio-nombre">{{ getNombreServicio(d.idServicio) }}</span>
-        <span class="servicio-precio">$ {{ d.subTotal | number: '1.0-0' }}</span>
+        <span class="servicio-nombre">
+          {{ getNombreServicio(d.idServicio) }}
+        </span>
+
+        <span class="servicio-precio">
+          $ {{ d.subTotal | number: '1.0-0' }}
+        </span>
       </div>
       }
     </div>
@@ -154,56 +181,55 @@
     </div>
     }
   </app-appointment-detail-panel>
-</div>
 
-<!-- MODAL ASIGNAR EMPLEADO -->
-@if (assigningId !== null) {
-<button class="modal-overlay" (click)="cerrarAsignar()" (keydown.escape)="cerrarAsignar()">
-  <div class="modal" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
-    <h3>{{ 'APPOINTMENTS.ADMIN.ASSIGN_EMPLOYEE' | translate }}</h3>
-    <p class="modal-sub">
-      {{ 'APPOINTMENTS.ADMIN.APPOINTMENT_NUMBER' | translate }} #{{ assigningId }}
-    </p>
-    @if (!loadingEmployees) {
-    <div class="employee-list">
-      @for (emp of employees; track emp.idUsuario) {
-      <button class="employee-option" [class.selected]="selectedEmployeeId === emp.idUsuario"
-        (click)="selectedEmployeeId = emp.idUsuario">
-        <div class="emp-avatar">{{ emp.nombre.charAt(0) }}</div>
-        <div class="emp-info">
-          <span class="emp-nombre">{{ emp.nombre }}</span>
-          <span class="emp-correo">{{ emp.correo }}</span>
-        </div>
-        @if (selectedEmployeeId === emp.idUsuario) {
-        <div class="emp-check">✓</div>
-        }
-      </button>
-      }
-      @if (employees.length === 0) {
-      <p class="no-employees">
-        {{ 'APPOINTMENTS.ADMIN.NO_EMPLOYEES' | translate }}
+  <!-- MODAL ASIGNAR EMPLEADO -->
+  @if (assigningId !== null) {
+  <button class="modal-overlay" (click)="cerrarAsignar()" (keydown.escape)="cerrarAsignar()">
+    <div class="modal" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+      <h3>{{ 'APPOINTMENTS.ADMIN.ASSIGN_EMPLOYEE' | translate }}</h3>
+      <p class="modal-sub">
+        {{ 'APPOINTMENTS.ADMIN.APPOINTMENT_NUMBER' | translate }} #{{ assigningId }}
       </p>
+      @if (!loadingEmployees) {
+      <div class="employee-list">
+        @for (emp of employees; track emp.idUsuario) {
+        <button class="employee-option" [class.selected]="selectedEmployeeId === emp.idUsuario"
+          (click)="selectedEmployeeId = emp.idUsuario">
+          <div class="emp-avatar">{{ emp.nombre.charAt(0) }}</div>
+          <div class="emp-info">
+            <span class="emp-nombre">{{ emp.nombre }}</span>
+            <span class="emp-correo">{{ emp.correo }}</span>
+          </div>
+          @if (selectedEmployeeId === emp.idUsuario) {
+          <div class="emp-check">✓</div>
+          }
+        </button>
+        }
+        @if (employees.length === 0) {
+        <p class="no-employees">
+          {{ 'APPOINTMENTS.ADMIN.NO_EMPLOYEES' | translate }}
+        </p>
+        }
+      </div>
+      } @else {
+      <div class="employees-loading">
+        <span class="spinner"></span>
+        {{ 'APPOINTMENTS.ADMIN.LOADING_EMPLOYEES' | translate }}
+      </div>
       }
+      <div class="modal-actions">
+        <button class="btn-cancelar" (click)="cerrarAsignar()">
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+        <button class="btn-confirmar" [disabled]="!selectedEmployeeId || isLoading(assigningId)"
+          (click)="confirmarAsignar()">
+          {{
+          (isLoading(assigningId)
+          ? 'APPOINTMENTS.ADMIN.ASSIGNING'
+          : 'COMMON.CONFIRM') | translate
+          }}
+        </button>
+      </div>
     </div>
-    } @else {
-    <div class="employees-loading">
-      <span class="spinner"></span>
-      {{ 'APPOINTMENTS.ADMIN.LOADING_EMPLOYEES' | translate }}
-    </div>
-    }
-    <div class="modal-actions">
-      <button class="btn-cancelar" (click)="cerrarAsignar()">
-        {{ 'COMMON.CANCEL' | translate }}
-      </button>
-      <button class="btn-confirmar" [disabled]="!selectedEmployeeId || isLoading(assigningId)"
-        (click)="confirmarAsignar()">
-        {{
-        (isLoading(assigningId)
-        ? 'APPOINTMENTS.ADMIN.ASSIGNING'
-        : 'COMMON.CONFIRM') | translate
-        }}
-      </button>
-    </div>
-  </div>
-</button>
-}
+  </button>
+  }

@@ -2,21 +2,21 @@
 .dashboard {
   display: flex;
   height: 100vh;
-  background: #F4F7FB;
+  background: #f4f7fb;
   font-family: 'Inter', sans-serif;
 }
- 
+
 /* SIDEBAR */
 .sidebar {
   position: fixed;
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
-  background: #303854; 
+  background: #303854;
   border-radius: 25px;
   padding: 15px 0;
   width: 70px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar ul {
@@ -60,7 +60,7 @@
 .sidebar li:hover {
   width: 180px;
   background: #303854;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar li:hover .text {
@@ -92,7 +92,7 @@
 .avatar {
   width: 35px;
   height: 35px;
-  background: #C2CDD5;
+  background: #c2cdd5;
   border-radius: 50%;
 }
 
@@ -115,7 +115,7 @@
   border-radius: 10px;
   padding: 10px;
   width: 160px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   z-index: 100;
 }
 
@@ -126,7 +126,7 @@
 }
 
 .dropdown p:hover {
-  background: #F4F7FB;
+  background: #f4f7fb;
 }
 
 /* CONTENIDO */
@@ -140,8 +140,7 @@
 /* 👇 NUEVO */
 .welcome {
   text-align: center;
-    transform: translate(-80px, -60px);
-
+  transform: translate(-80px, -60px);
 }
 
 .welcome h1 {
@@ -184,5 +183,155 @@
 
 /* HOVER DROPDOWN */
 .dropdown button:hover {
-  background: #F4F7FB;
+  background: #f4f7fb;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    flex-direction: column;
+  }
+
+  /* Barra de navegación inferior */
+  .sidebar {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transform: none;
+    box-sizing: border-box;
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+    border-radius: 16px 16px 0 0;
+    z-index: 900;
+    overflow-x: auto;
+  }
+
+  .sidebar ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .sidebar li {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    margin: 0;
+    padding: 7px 2px;
+    white-space: normal;
+    overflow: visible;
+  }
+
+  .sidebar li:hover,
+  .sidebar li button:hover {
+    width: auto;
+  }
+
+  .sidebar li button {
+    width: 100%;
+    white-space: normal;
+  }
+
+  .sidebar .icon {
+    width: 23px;
+    height: 23px;
+  }
+
+  .sidebar .text {
+    opacity: 1;
+    display: block;
+    margin-top: 3px;
+    font-size: 9px;
+    line-height: 1.1;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Contenido principal */
+  .main-content {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    padding-bottom: 80px;
+    box-sizing: border-box;
+  }
+
+  .topbar {
+    padding: 14px 12px 12px 60px;
+  }
+
+  .profile-box {
+    gap: 6px;
+    max-width: 100%;
+  }
+
+  .avatar {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+  }
+
+  .username {
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .dropdown {
+    top: 52px;
+    right: 8px;
+    max-width: calc(100vw - 16px);
+  }
+
+  .content {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 8px 8px calc(90px + env(safe-area-inset-bottom));
+  }
+
+  .welcome {
+    width: 100%;
+    box-sizing: border-box;
+    transform: none;
+    padding: 24px 12px;
+  }
+
+  .welcome h1 {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .welcome p {
+    font-size: 15px;
+  }
+
+  router-outlet + * {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .sidebar {
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+
+  .sidebar .text {
+    font-size: 8px;
+  }
+
+  .sidebar .icon {
+    width: 21px;
+    height: 21px;
+  }
 }

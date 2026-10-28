@@ -47,7 +47,6 @@
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16);
 }
 
-
 .language-menu {
   position: absolute;
   top: 54px;
@@ -78,4 +77,28 @@
 
 .language-option:hover {
   background: #f0f3f8;
+}
+
+@media (max-width: 480px) {
+  .language-selector {
+    top: 10px;
+    left: 10px;
+  }
+
+  .language-toggle {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .language-menu {
+    top: 48px;
+    min-width: 150px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .language-option {
+    padding: 10px;
+    font-size: 13px;
+  }
 }
