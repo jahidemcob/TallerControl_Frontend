@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -95,5 +96,11 @@ export class ScheduledAppointmentsComponent extends AppointmentListBase {
 
   getIndiceCita(idPedido: number): number {
     return this.appointmentsFiltradas.findIndex((a) => a.idPedido === idPedido) + 1;
+  }
+
+  private readonly router = inject(Router);
+
+  gestionarRepuestos(idPedido: number): void {
+    this.router.navigate(['/empleado/citas', idPedido, 'inventario']);
   }
 }

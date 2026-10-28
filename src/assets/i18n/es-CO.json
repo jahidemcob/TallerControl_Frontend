@@ -26,7 +26,10 @@
     "NO": "No",
     "BACK": "Volver",
     "CLOSE": "Cerrar",
-    "CONFIRM": "Confirmar"
+    "CONFIRM": "Confirmar",
+    "CLEAR": "Limpiar",
+    "FILTER": "Filtrar",
+    "SAVING": "Guardando..."
   },
   "AUTH": {
     "WELCOME": "Bienvenido",
@@ -77,7 +80,8 @@
     "ADMIN_WELCOME": "Bienvenido Administrador/a",
     "WELCOME": "Bienvenido",
     "SELECT_ACTION": "Selecciona una acción en el panel",
-    "MOTORCYCLES": "Motocicletas"
+    "MOTORCYCLES": "Motocicletas",
+    "INVENTORY": "Inventario"
   },
   "APPOINTMENTS": {
     "TITLE": "Gestión de citas",
@@ -164,6 +168,17 @@
       "FINISHED": "Terminar",
       "MARK_IN_PROGRESS": "Marcar en proceso",
       "MARK_FINISHED": "Marcar como terminado"
+    },
+    "DETAIL": {
+      "TITLE": "Cita",
+      "CLIENT": "Cliente",
+      "ASSIGNED_EMPLOYEE": "Empleado asignado",
+      "MOTORCYCLE": "Motocicleta",
+      "CREATED_DATE": "Fecha de creación",
+      "APPOINTMENT_DATE": "Fecha de la cita",
+      "TIME": "Hora",
+      "SERVICES": "Servicios",
+      "TOTAL": "Total"
     }
   },
   "MOTORBIKES": {
@@ -302,5 +317,160 @@
     "ERROR": "Ocurrió un error. Inténtalo nuevamente",
     "REQUIRED": "Este campo es obligatorio",
     "NO_RESULTS": "No se encontraron resultados"
+  },
+  "INVENTORY": {
+    "TITLE": "Inventario del taller",
+    "SUBTITLE": "Administra repuestos, consumibles y movimientos de existencias.",
+    "REFRESH": "Actualizar",
+    "SUMMARY": {
+      "ACTIVE_ITEMS": "Artículos activos",
+      "LOW_STOCK": "Artículos con stock bajo",
+      "STOCK_VALUE": "Valor estimado del stock"
+    },
+    "TABS": {
+      "ITEMS": "Artículos",
+      "CATEGORIES": "Categorías",
+      "MOVEMENTS": "Movimientos"
+    },
+    "ITEMS": {
+      "HEADING": "Catálogo de artículos",
+      "DESCRIPTION": "Consulta las existencias y administra los repuestos y consumibles.",
+      "NEW": "Nuevo artículo",
+      "SEARCH_PLACEHOLDER": "Buscar por código, nombre o marca",
+      "CREATE_TITLE": "Registrar artículo",
+      "EDIT_TITLE": "Editar artículo",
+      "FORM_HELP": "Completa los datos del repuesto o consumible.",
+      "ZERO_STOCK_NOTE": "Los artículos nuevos comienzan con stock cero. Registra una entrada para sumar existencias.",
+      "TABLE_TITLE": "Artículos registrados",
+      "RESULTS": "resultados",
+      "EMPTY": "No se encontraron artículos con los filtros seleccionados."
+    },
+    "CATEGORIES": {
+      "HEADING": "Categorías de inventario",
+      "DESCRIPTION": "Agrupa los artículos para mantener organizado el catálogo.",
+      "NEW": "Nueva categoría",
+      "CREATE_TITLE": "Crear categoría",
+      "EDIT_TITLE": "Editar categoría",
+      "NAME": "Nombre de la categoría",
+      "EMPTY": "Todavía no hay categorías registradas.",
+      "NO_DESCRIPTION": "Sin descripción"
+    },
+    "FIELDS": {
+      "CATEGORY": "Categoría",
+      "TYPE": "Tipo",
+      "CODE": "Código interno",
+      "NAME": "Nombre",
+      "BRAND": "Marca",
+      "MINIMUM_STOCK": "Stock mínimo",
+      "PURCHASE_COST": "Costo de compra",
+      "SALE_PRICE": "Precio de venta",
+      "DESCRIPTION": "Descripción",
+      "STOCK": "Existencias",
+      "MINIMUM": "Mínimo",
+      "STATUS": "Estado",
+      "ARTICLE": "Artículo",
+      "QUANTITY": "Cantidad",
+      "UNIT_COST": "Costo unitario",
+      "REASON": "Motivo",
+      "MOVEMENT_TYPE": "Tipo de movimiento",
+      "DATE": "Fecha",
+      "USER": "Usuario",
+      "APPOINTMENT": "Cita",
+      "SUBTOTAL": "Subtotal"
+    },
+    "FILTERS": {
+      "ALL_CATEGORIES": "Todas las categorías",
+      "ALL_TYPES": "Todos los tipos",
+      "LOW_STOCK_ONLY": "Solo stock bajo",
+      "SHOW_INACTIVE": "Mostrar inactivos",
+      "ALL_ITEMS": "Todos los artículos",
+      "ALL_MOVEMENTS": "Todos los movimientos",
+      "FROM": "Desde",
+      "TO": "Hasta"
+    },
+    "TYPES": {
+      "PART": "Repuesto",
+      "CONSUMABLE": "Consumible"
+    },
+    "STATUS": {
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo",
+      "LOW_STOCK": "Stock bajo"
+    },
+    "ACTIONS": {
+      "DEACTIVATE": "Desactivar",
+      "ACTIVATE": "Reactivar"
+    },
+    "VALIDATION": {
+      "CODE_REQUIRED": "El código es obligatorio.",
+      "NAME_REQUIRED": "El nombre es obligatorio.",
+      "NON_NEGATIVE": "El valor debe ser mayor o igual a cero.",
+      "CATEGORY_NAME_REQUIRED": "El nombre de la categoría es obligatorio.",
+      "QUANTITY_POSITIVE": "La cantidad debe ser mayor que cero.",
+      "REASON_REQUIRED": "Escribe el motivo de la operación."
+    },
+    "OPERATIONS": {
+      "ENTRY": "Entrada",
+      "ADJUSTMENT": "Ajuste",
+      "EXIT": "Salida",
+      "ENTRY_TITLE": "Registrar entrada de inventario",
+      "ADJUSTMENT_TITLE": "Ajustar existencias",
+      "EXIT_TITLE": "Registrar salida manual",
+      "FORM_HELP": "El usuario y la fecha se registran automáticamente.",
+      "NO_ACTIVE_ITEMS": "No hay artículos activos disponibles para movimientos.",
+      "ADJUSTMENT_DIRECTION": "Tipo de ajuste",
+      "INCREASE": "Aumentar existencias",
+      "DECREASE": "Disminuir existencias",
+      "CONFIRM": "Registrar movimiento",
+      "STOCK_IS_UPDATED": "Las existencias y el historial se actualizarán juntos."
+    },
+    "MOVEMENT_TYPES": {
+      "ENTRY": "Entrada",
+      "EXIT": "Salida",
+      "POSITIVE_ADJUSTMENT": "Ajuste positivo",
+      "NEGATIVE_ADJUSTMENT": "Ajuste negativo"
+    },
+    "MOVEMENTS": {
+      "HEADING": "Movimientos de inventario",
+      "DESCRIPTION": "Registra entradas, salidas y ajustes, y consulta el historial de cambios.",
+      "HISTORY_TITLE": "Historial de movimientos",
+      "RESULTS": "movimientos",
+      "EMPTY": "No hay movimientos que coincidan con los filtros."
+    },
+    "MESSAGES": {
+      "CATEGORY_CREATED": "Categoría creada correctamente.",
+      "CATEGORY_UPDATED": "Categoría actualizada correctamente.",
+      "CATEGORY_DEACTIVATED": "Categoría desactivada correctamente.",
+      "CATEGORY_ACTIVATED": "Categoría reactivada correctamente.",
+      "ITEM_CREATED": "Artículo creado correctamente.",
+      "ITEM_UPDATED": "Artículo actualizado correctamente.",
+      "ITEM_DEACTIVATED": "Artículo desactivado correctamente.",
+      "ITEM_ACTIVATED": "Artículo reactivado correctamente.",
+      "ENTRY_CREATED": "Entrada registrada y existencias actualizadas.",
+      "ADJUSTMENT_INCREASED": "Ajuste positivo registrado.",
+      "ADJUSTMENT_DECREASED": "Ajuste negativo registrado.",
+      "EXIT_CREATED": "Salida registrada y existencias actualizadas."
+    },
+    "APPOINTMENT": {
+      "TITLE": "Repuestos de la reparación",
+      "SUBTITLE": "Registra los artículos que realmente se utilizaron durante el trabajo.",
+      "ACTUAL_USE": "Consumo real",
+      "INFO": "Los artículos se registran como pendientes. Las existencias solo se descuentan cuando la reparación se marca como completada.",
+      "ADD_TITLE": "Agregar repuesto utilizado",
+      "ADD_DESCRIPTION": "Selecciona el artículo y registra la cantidad real consumida.",
+      "NO_ACTIVE_ITEMS": "No hay artículos activos en el inventario.",
+      "ADD_ITEM": "Agregar a la reparación",
+      "PROCESSED_INFO": "Los consumos de esta reparación ya fueron procesados y no pueden modificarse.",
+      "REGISTERED_TITLE": "Artículos de esta reparación",
+      "REGISTERED_DESCRIPTION": "Los precios se conservan como estaban cuando se registró cada consumo.",
+      "TOTAL": "Total de repuestos",
+      "EMPTY": "Todavía no se han registrado repuestos para esta reparación.",
+      "PROCESSED": "Descontado del inventario",
+      "PENDING": "Pendiente de descuento",
+      "ITEM_ADDED": "Artículo agregado a la reparación.",
+      "ITEM_UPDATED": "Cantidad actualizada.",
+      "ITEM_REMOVED": "Artículo retirado de la reparación.",
+      "MANAGE_ITEMS": "Gestionar repuestos"
+    }
   }
 }

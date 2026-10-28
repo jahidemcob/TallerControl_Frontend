@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 import { AppointmentListBase } from '../../../../../shared/base/appointment-list.base';
 import { AppointmentDetailPanelComponent } from '../../../../../shared/components/appointment-detail-panel/appointment-detail-panel.component';
@@ -161,5 +162,11 @@ export class ManageAppointmentsComponent extends AppointmentListBase {
         this.cdr.detectChanges();
       },
     });
+  }
+
+  private readonly router = inject(Router);
+
+  gestionarRepuestos(idPedido: number): void {
+    this.router.navigate(['/admin/citas', idPedido, 'inventario']);
   }
 }
