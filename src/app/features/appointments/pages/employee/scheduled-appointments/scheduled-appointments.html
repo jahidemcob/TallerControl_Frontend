@@ -79,10 +79,19 @@
           }
           @for (a of appointmentsFiltradas; track trackById($index, a); let i = $index) {
           <tr [class.row-active]="selectedAppointment?.idPedido === a.idPedido">
-            <td class="col-id">{{ i + 1 }}</td>
-            <td>{{ a.nombreCliente }}</td>
-            <td>{{ getNombreMoto(a.idMoto) }}</td>
-            <td>
+            <td data-label="#">
+              {{ i + 1 }}
+            </td>
+
+            <td [attr.data-label]="'APPOINTMENTS.TABLE.CLIENT' | translate">
+              {{ a.nombreCliente }}
+            </td>
+
+            <td [attr.data-label]="'APPOINTMENTS.TABLE.MOTORCYCLE' | translate">
+              {{ getNombreMoto(a.idMoto) }}
+            </td>
+
+            <td [attr.data-label]="'APPOINTMENTS.TABLE.STATUS' | translate">
               <span class="estado-badge" [class.agendada]="a.estadoCita === 'Agendada'"
                 [class.en-proceso]="a.estadoCita === 'EnProceso'" [class.completada]="a.estadoCita === 'Completada'">
                 {{
@@ -93,7 +102,9 @@
                 }}
               </span>
             </td>
-            <td class="acciones-cell" [class.hidden-actions]="selectedAppointment || loadingDetail">
+
+            <td class="acciones-cell" [class.hidden-actions]="selectedAppointment || loadingDetail"
+              [attr.data-label]="'APPOINTMENTS.TABLE.ACTIONS' | translate">
               <div class="acciones-inner">
                 @if (a.estadoCita === 'Agendada') {
                 <button class="btn-desarrollo" [disabled]="isLoading(a.idPedido)" (click)="enDesarrollo(a.idPedido)">
@@ -104,7 +115,11 @@
                   }}
                 </button>
                 }
-                @if (a.estadoCita === 'Agendada' || a.estadoCita === 'EnProceso') {
+
+                @if (
+                a.estadoCita === 'Agendada' ||
+                a.estadoCita === 'EnProceso'
+                ) {
                 <button class="btn-terminado" [disabled]="isLoading(a.idPedido)" (click)="terminado(a.idPedido)">
                   {{
                   (isLoading(a.idPedido)
@@ -113,12 +128,14 @@
                   }}
                 </button>
                 }
+
                 @if (a.estadoCita === 'Completada') {
                 <span class="sin-accion">—</span>
                 }
               </div>
             </td>
-            <td class="detalles-cell">
+
+            <td class="detalles-cell" [attr.data-label]="'APPOINTMENTS.TABLE.DETAILS' | translate">
               <button class="btn-detalle" [class.active]="selectedAppointment?.idPedido === a.idPedido"
                 (click)="openDetail(a.idPedido)">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -137,17 +154,32 @@
   </div>
 
   <!-- PANEL DE DETALLES -->
-  <app-appointment-detail-panel [selectedAppointment]="selectedAppointment" [loadingDetail]="loadingDetail"
+  <!-- PANEL DE DETALLES -->
+  @if (selectedAppointment || loadingDetail) {
+  <button type="button" class="detail-backdrop" aria-label="Cerrar detalles" (click)="closeDetail()">
+  </button>
+  }
+
+  <app-appointment-detail-panel [class.panel-open]="!!selectedAppointment || loadingDetail"
+    [selectedAppointment]="selectedAppointment" [loadingDetail]="loadingDetail"
     [panelTitle]="'#' + getIndiceCita(selectedAppointment?.idPedido ?? 0)" [loadingIds]="loadingIds"
     [showEmpleado]="false" [showAcciones]="true" (closed)="closeDetail()" (actionPrimary)="enDesarrollo($event)"
     (actionSecondary)="terminado($event)">
-    <span slot="moto">{{ getNombreMoto(selectedAppointment?.idMoto ?? 0) }}</span>
+
+    <span slot="moto">
+      {{ getNombreMoto(selectedAppointment?.idMoto ?? 0) }}
+    </span>
 
     <div slot="servicios" class="servicios-list">
       @for (d of selectedAppointment?.detalles ?? []; track d.idServicio) {
       <div class="servicio-item">
-        <span class="servicio-nombre">{{ getNombreServicio(d.idServicio) }}</span>
-        <span class="servicio-precio">$ {{ d.subTotal | number: '1.0-0' }}</span>
+        <span class="servicio-nombre">
+          {{ getNombreServicio(d.idServicio) }}
+        </span>
+
+        <span class="servicio-precio">
+          $ {{ d.subTotal | number: '1.0-0' }}
+        </span>
       </div>
       }
     </div>
@@ -157,6 +189,7 @@
     selectedAppointment?.estadoCita === 'EnProceso'
     ) {
     <div slot="acciones" class="detail-acciones">
+
       @if (selectedAppointment?.estadoCita === 'Agendada') {
       <button class="btn-desarrollo full-width" [disabled]="isLoading(selectedAppointment!.idPedido)"
         (click)="enDesarrollo(selectedAppointment!.idPedido)">
@@ -167,6 +200,7 @@
         }}
       </button>
       }
+
       <button class="btn-terminado full-width" [disabled]="isLoading(selectedAppointment!.idPedido)"
         (click)="terminado(selectedAppointment!.idPedido)">
         {{
@@ -175,12 +209,14 @@
         : 'APPOINTMENTS.EMPLOYEE.MARK_FINISHED') | translate
         }}
       </button>
+
       @if (selectedAppointment?.estadoCita === 'EnProceso') {
       <button type="button" class="btn-desarrollo full-width"
         (click)="gestionarRepuestos(selectedAppointment!.idPedido)">
         {{ 'INVENTORY.APPOINTMENT.MANAGE_ITEMS' | translate }}
       </button>
       }
+
     </div>
     }
   </app-appointment-detail-panel>

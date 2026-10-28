@@ -933,3 +933,46 @@ button:disabled {
 .inventory-page .btn-operation.btn-adjust:hover:not(:disabled) {
   background-color: #1f253d;
 }
+
+@media (max-width: 480px) {
+  .inventory-page {
+    padding: 8px 8px 20px;
+  }
+
+  .page-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .page-header h1 {
+    font-size: 25px;
+  }
+
+  .section-tabs {
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .section-tabs button {
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+
+  .summary-card strong {
+    font-size: 18px;
+  }
+
+  .operation-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .btn-operation {
+    width: 100%;
+  }
+
+  .table-scroll table {
+    min-width: 780px;
+  }
+}

@@ -102,3 +102,43 @@ textarea:focus {
     padding: 10px;
   }
 }
+
+@media (max-width: 768px) {
+  :host {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 12px;
+  }
+
+  .form-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 12px auto;
+    padding: 22px 18px;
+    box-sizing: border-box;
+  }
+
+  .form-group input,
+  .form-container textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-save {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 450px) {
+  .form-container {
+    padding: 18px 15px;
+  }
+
+  .form-container h2 {
+    font-size: 24px;
+  }
+}
