@@ -1,0 +1,188 @@
+<div class="backup-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">TALLERCONTROL / BACKUP</p>
+      <h1>{{ 'BACKUP.TITLE' | translate }}</h1>
+      <p class="page-description">{{ 'BACKUP.SUBTITLE' | translate }}</p>
+    </div>
+
+    <div class="header-actions">
+      <button type="button" class="btn-secondary" (click)="loadBackups()" [disabled]="loading || creating">
+        <span aria-hidden="true">↻</span>
+        {{ 'BACKUP.REFRESH' | translate }}
+      </button>
+      <button type="button" class="btn-primary" (click)="createBackup()" [disabled]="creating">
+        <span aria-hidden="true">＋</span>
+        {{ (creating ? 'BACKUP.CREATING' : 'BACKUP.CREATE') | translate }}
+      </button>
+    </div>
+  </header>
+
+  @if (errorMessage) {
+    <div class="notice notice-error" role="alert">
+      <span class="notice-icon" aria-hidden="true">!</span>
+      <span>{{ errorMessage }}</span>
+      <button type="button" class="notice-close" (click)="errorMessage = ''" [attr.aria-label]="'COMMON.CLOSE' | translate">×</button>
+    </div>
+  }
+
+  @if (successMessage) {
+    <div class="notice notice-success" role="status">
+      <span class="notice-icon" aria-hidden="true">✓</span>
+      <span>{{ successMessage | translate }}</span>
+      <button type="button" class="notice-close" (click)="successMessage = ''" [attr.aria-label]="'COMMON.CLOSE' | translate">×</button>
+    </div>
+  }
+
+  <section class="summary-grid" aria-label="Resumen de copias de seguridad">
+    <article class="summary-card summary-primary">
+      <div class="summary-icon" aria-hidden="true">▤</div>
+      <div>
+        <p>{{ 'BACKUP.SUMMARY.TOTAL' | translate }}</p>
+        <strong>{{ backups.length }}</strong>
+      </div>
+    </article>
+    <article class="summary-card">
+      <div class="summary-icon" aria-hidden="true">⇩</div>
+      <div>
+        <p>{{ 'BACKUP.SUMMARY.SIZE' | translate }}</p>
+        <strong>{{ formatSize(totalSizeInBytes) }}</strong>
+      </div>
+    </article>
+    <article class="summary-card">
+      <div class="summary-icon" aria-hidden="true">◷</div>
+      <div>
+        <p>{{ 'BACKUP.SUMMARY.LATEST' | translate }}</p>
+        <strong class="latest-value">
+          {{ backups.length ? (backups[0].createdAt | date:'dd/MM/yyyy HH:mm') : '—' }}
+        </strong>
+      </div>
+    </article>
+  </section>
+
+  <section class="table-card">
+    <div class="table-heading">
+      <div>
+        <h2>{{ 'BACKUP.LIST_TITLE' | translate }}</h2>
+        <p>{{ 'BACKUP.LIST_DESCRIPTION' | translate }}</p>
+      </div>
+      <span class="result-count">{{ backups.length }} {{ 'BACKUP.FILES' | translate }}</span>
+    </div>
+
+    @if (loading) {
+      <div class="state-message">
+        <span class="loader" aria-hidden="true"></span>
+        {{ 'BACKUP.LOADING' | translate }}
+      </div>
+    } @else if (backups.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon" aria-hidden="true">▤</div>
+        <h3>{{ 'BACKUP.EMPTY_TITLE' | translate }}</h3>
+        <p>{{ 'BACKUP.EMPTY_DESCRIPTION' | translate }}</p>
+        <button type="button" class="btn-primary" (click)="createBackup()" [disabled]="creating">
+          {{ 'BACKUP.CREATE_FIRST' | translate }}
+        </button>
+      </div>
+    } @else {
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>{{ 'BACKUP.TABLE.FILE' | translate }}</th>
+              <th>{{ 'BACKUP.TABLE.CREATED' | translate }}</th>
+              <th>{{ 'BACKUP.TABLE.SIZE' | translate }}</th>
+              <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (backup of backups; track trackByFileName($index, backup)) {
+              <tr>
+                <td>
+                  <div class="file-cell">
+                    <span class="file-icon" aria-hidden="true">.BAK</span>
+                    <div>
+                      <strong>{{ backup.fileName }}</strong>
+                      <small>{{ 'BACKUP.FILE_TYPE' | translate }}</small>
+                    </div>
+                  </div>
+                </td>
+                <td>{{ backup.createdAt | date:'dd/MM/yyyy, HH:mm:ss' }}</td>
+                <td><span class="size-badge">{{ formatSize(backup.sizeInBytes) }}</span></td>
+                <td>
+                  <div class="row-actions">
+                    <button type="button" class="btn-download" (click)="downloadBackup(backup)"
+                      [disabled]="!!downloadingFile || !!deletingFile">
+                      {{ (downloadingFile === backup.fileName ? 'BACKUP.DOWNLOADING' : 'BACKUP.DOWNLOAD') | translate }}
+                    </button>
+                    <button type="button" class="btn-delete" (click)="deleteBackup(backup)"
+                      [disabled]="!!deletingFile || !!downloadingFile">
+                      {{ (deletingFile === backup.fileName ? 'BACKUP.DELETING' : 'COMMON.DELETE') | translate }}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+
+  <aside class="security-note">
+    <span class="security-icon" aria-hidden="true">ⓘ</span>
+    <p>{{ 'BACKUP.SECURITY_NOTE' | translate }}</p>
+  </aside>
+</div>
+
+@if (confirmationVisible) {
+  <div class="confirmation-overlay" (click)="cancelConfirmation()">
+    <section
+      class="confirmation-dialog"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="backup-confirmation-title"
+      aria-describedby="backup-confirmation-message"
+      (click)="$event.stopPropagation()"
+    >
+      <div
+        class="confirmation-icon"
+        [class.confirmation-icon-danger]="confirmationAction === 'delete'"
+        aria-hidden="true"
+      >
+        @if (confirmationAction === 'delete') {
+          <span>!</span>
+        } @else {
+          <span>↻</span>
+        }
+      </div>
+
+      <h2 id="backup-confirmation-title">
+        {{ (confirmationAction === 'delete' ? 'BACKUP.CONFIRM.DELETE_TITLE' : 'BACKUP.CONFIRM.CREATE_TITLE') | translate }}
+      </h2>
+
+      <p id="backup-confirmation-message">
+        @if (confirmationAction === 'delete') {
+          {{ 'BACKUP.CONFIRM.DELETE_MESSAGE' | translate }}
+          <strong>{{ selectedBackup?.fileName }}</strong>
+          {{ 'BACKUP.CONFIRM.DELETE_WARNING' | translate }}
+        } @else {
+          {{ 'BACKUP.CONFIRM.CREATE_MESSAGE' | translate }}
+        }
+      </p>
+
+      <div class="confirmation-actions">
+        <button type="button" class="confirmation-cancel" (click)="cancelConfirmation()">
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+        <button
+          type="button"
+          class="confirmation-accept"
+          [class.confirmation-accept-danger]="confirmationAction === 'delete'"
+          (click)="confirmAction()"
+        >
+          {{ (confirmationAction === 'delete' ? 'BACKUP.CONFIRM.DELETE_BUTTON' : 'BACKUP.CONFIRM.CREATE_BUTTON') | translate }}
+        </button>
+      </div>
+    </section>
+  </div>
+}
