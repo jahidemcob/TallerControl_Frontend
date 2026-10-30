@@ -167,7 +167,7 @@
 }
 
 .btn-state {
-  background: #C2CDD5;
+  background: #c2cdd5;
   transition: 0.2s;
 }
 
@@ -185,5 +185,50 @@
 @media (max-width: 600px) {
   .cards-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    width: calc(100% - 20px);
+    max-width: none;
+    height: auto;
+    max-height: none;
+    margin: 12px auto;
+    padding: 16px;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .cards-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cards-header h2 {
+    font-size: 27px;
+  }
+
+  .cards-scroll {
+    flex: initial;
+    min-height: 0;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .service-card {
+    min-width: 0;
+    padding: 14px;
+  }
+
+  .card-actions {
+    flex-wrap: wrap;
+  }
+
+  .btn-edit,
+  .btn-state {
+    flex: 1;
+    min-width: 0;
   }
 }

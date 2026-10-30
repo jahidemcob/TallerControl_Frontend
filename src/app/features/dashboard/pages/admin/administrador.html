@@ -59,6 +59,20 @@
           <span class="text">{{ 'DASHBOARD.INVENTORY' | translate }}</span>
         </button>
       </li>
+
+      <li>
+        <button type="button" (click)="ir('/admin/backup')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="white"
+            stroke-width="2" aria-hidden="true">
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M8 8h8M8 12h8M8 16h5"></path>
+          </svg>
+
+          <span class="text">
+            {{ 'DASHBOARD.BACKUP' | translate }}
+          </span>
+        </button>
+      </li>
     </ul>
   </div>
 

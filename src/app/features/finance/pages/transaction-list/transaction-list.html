@@ -125,10 +125,19 @@
 
           <!-- FILAS -->
           <tr *ngFor="let m of movimientosFiltrados">
-            <td>{{ m.idMovimiento }}</td>
-            <td>{{ m.descripcion }}</td>
-            <td>$ {{ m.monto | number: '1.0-0' }}</td>
-            <td>
+            <td [attr.data-label]="'FINANCE.TABLE.ID' | translate">
+              {{ m.idMovimiento }}
+            </td>
+
+            <td [attr.data-label]="'FINANCE.DESCRIPTION' | translate">
+              {{ m.descripcion }}
+            </td>
+
+            <td [attr.data-label]="'FINANCE.AMOUNT' | translate">
+              $ {{ m.monto | number: '1.0-0' }}
+            </td>
+
+            <td [attr.data-label]="'FINANCE.TYPE' | translate">
               <span [class.tipo-ingreso]="m.tipoMovimiento === 'Ingreso'"
                 [class.tipo-salida]="m.tipoMovimiento === 'Egreso'">
                 {{

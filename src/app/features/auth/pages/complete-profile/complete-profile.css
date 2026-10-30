@@ -44,7 +44,7 @@
   width: 100%;
   padding: 12px 0;
   border: none;
-  border-bottom: 2px solid #C2CDD5;
+  border-bottom: 2px solid #c2cdd5;
   background: transparent;
   outline: none;
   font-size: 14px;
@@ -97,4 +97,34 @@ button:hover {
 
 .mensajeExito {
   color: #2ecc71;
+}
+
+@media (max-width: 600px) {
+  .complete-container {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 85px 14px 24px;
+    box-sizing: border-box;
+  }
+
+  .logo {
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(190px, 60vw);
+  }
+
+  .complete-card {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 22px 20px;
+    box-sizing: border-box;
+  }
+
+  .complete-card h2 {
+    font-size: clamp(30px, 8vw, 36px);
+  }
 }

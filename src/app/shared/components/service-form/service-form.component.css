@@ -1,22 +1,23 @@
-body {
+:host {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh;
-  background: #f4f7fb;
-  padding-top: 20px;
-  margin: 0;
-  font-family: Arial, sans-serif;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .form-container {
-  width: 400px;
-  background: white;
+  width: 460px;
+  max-width: 100%;
+  margin: 0 auto;
   padding: 30px;
+  box-sizing: border-box;
+  transform: translateY(-25px);
+
+  background: white;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  margin-top: -80px;
-  margin-left: -80px;
 }
 
 .form-container h2 {
@@ -40,11 +41,13 @@ body {
 .form-group input,
 .form-group textarea,
 .form-group select {
+  width: 100%;
   padding: 10px;
   border: 1px solid #c2cdd5;
   border-radius: 8px;
   outline: none;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -64,6 +67,7 @@ body {
   cursor: pointer;
   font-size: 16px;
   transition: 0.3s;
+  box-sizing: border-box;
 }
 
 .btn-save:hover {
@@ -87,11 +91,11 @@ body {
   font-weight: 500;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
   .form-container {
-    width: 90%;
+    width: 100%;
     padding: 20px;
-    margin-top: 50px;
+    left: 0;
   }
 
   .btn-save {

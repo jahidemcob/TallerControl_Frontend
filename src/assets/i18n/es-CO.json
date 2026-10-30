@@ -10,7 +10,8 @@
     "SERVICES": "Servicios",
     "FINANCE": "Finanzas",
     "USERS": "Usuarios",
-    "LOGOUT": "Cerrar sesión"
+    "LOGOUT": "Cerrar sesión",
+    "BACKUP": "Copias de seguridad"
   },
   "COMMON": {
     "SAVE": "Guardar",
@@ -29,7 +30,16 @@
     "CONFIRM": "Confirmar",
     "CLEAR": "Limpiar",
     "FILTER": "Filtrar",
-    "SAVING": "Guardando..."
+    "SAVING": "Guardando...",
+    "ACTIONS": "Acciones",
+    "DELETE": "Eliminar",
+    "CLOSE": "Cerrar",
+    "ACTIONS": "Acciones",
+    "DELETE": "Eliminar",
+    "CLOSE": "Cerrar",
+    "CANCEL": "Cancelar",
+    "CONFIRM": "Confirmar",
+    "PROCESSING": "Procesando..."
   },
   "AUTH": {
     "WELCOME": "Bienvenido",
@@ -471,6 +481,52 @@
       "ITEM_UPDATED": "Cantidad actualizada.",
       "ITEM_REMOVED": "Artículo retirado de la reparación.",
       "MANAGE_ITEMS": "Gestionar repuestos"
+    }
+  },
+  "BACKUP": {
+    "TITLE": "Copias de seguridad",
+    "SUBTITLE": "Administra y protege la información de tu taller mediante copias de seguridad.",
+    "REFRESH": "Actualizar",
+    "CREATE": "Crear copia",
+    "CREATING": "Creando copia...",
+    "DOWNLOAD": "Descargar",
+    "DOWNLOADING": "Descargando...",
+    "DELETING": "Eliminando...",
+    "FILES": "copias disponibles",
+    "FILE_TYPE": "Copia de seguridad de SQL Server",
+    "LOADING": "Cargando copias de seguridad...",
+    "LIST_TITLE": "Historial de copias de seguridad",
+    "LIST_DESCRIPTION": "Consulta, descarga o elimina las copias de seguridad almacenadas en el servidor.",
+    "EMPTY_TITLE": "No hay copias de seguridad",
+    "EMPTY_DESCRIPTION": "Todavía no has creado ninguna copia de seguridad. Crea una para proteger la información de tu taller.",
+    "CREATE_FIRST": "Crear primera copia",
+    "SECURITY_NOTE": "Las copias de seguridad contienen información importante del taller. Descarga y almacena estos archivos únicamente en equipos autorizados.",
+    "SUMMARY": {
+      "TOTAL": "Copias disponibles",
+      "SIZE": "Espacio utilizado",
+      "LATEST": "Última copia"
+    },
+    "LIST": {
+      "TITLE": "Historial de copias de seguridad",
+      "DESCRIPTION": "Consulta, descarga o elimina las copias de seguridad almacenadas en el servidor."
+    },
+    "TABLE": {
+      "FILE": "Archivo",
+      "CREATED": "Fecha de creación",
+      "SIZE": "Tamaño"
+    },
+    "CONFIRM": {
+      "CREATE_TITLE": "Crear copia de seguridad",
+      "CREATE_MESSAGE": "¿Estás seguro de que deseas crear una nueva copia de seguridad de la base de datos?",
+      "CREATE_BUTTON": "Sí, crear copia",
+      "DELETE_TITLE": "Eliminar copia de seguridad",
+      "DELETE_MESSAGE": "¿Estás seguro de que deseas eliminar esta copia de seguridad? Esta acción no se puede deshacer.",
+      "DELETE_BUTTON": "Sí, eliminar",
+      "DELETE_WARNING": "Esta acción es permanente y no podrás recuperar la copia eliminada."
+    },
+    "MESSAGES": {
+      "CREATE_SUCCESS": "La copia de seguridad se creó correctamente.",
+      "DELETE_SUCCESS": "La copia de seguridad se eliminó correctamente."
     }
   }
 }

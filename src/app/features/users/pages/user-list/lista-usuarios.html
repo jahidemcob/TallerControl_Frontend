@@ -58,12 +58,23 @@
 
       <tbody>
         <tr *ngFor="let u of usuarios">
-          <td>{{ u.idUsuario }}</td>
-          <td>{{ u.nombre }}</td>
-          <td>{{ u.nombreUsuario }}</td>
-          <td>{{ u.correo }}</td>
+          <td [attr.data-label]="'USERS.TABLE.ID' | translate">
+            {{ u.idUsuario }}
+          </td>
 
-          <td>
+          <td [attr.data-label]="'USERS.TABLE.NAME' | translate">
+            {{ u.nombre }}
+          </td>
+
+          <td [attr.data-label]="'USERS.TABLE.USERNAME' | translate">
+            {{ u.nombreUsuario }}
+          </td>
+
+          <td [attr.data-label]="'USERS.TABLE.EMAIL' | translate">
+            {{ u.correo }}
+          </td>
+
+          <td [attr.data-label]="'USERS.TABLE.ROLE' | translate">
             {{
             (u.idRol === 1
             ? 'USERS.ROLES.ADMIN'
@@ -75,7 +86,7 @@
             }}
           </td>
 
-          <td>
+          <td [attr.data-label]="'USERS.TABLE.STATUS' | translate">
             <span [class.activo]="u.activo" [class.inactivo]="!u.activo">
               {{
               (u.activo
@@ -85,7 +96,7 @@
             </span>
           </td>
 
-          <td class="acciones">
+          <td class="acciones" [attr.data-label]="'USERS.TABLE.ACTIONS' | translate">
             <div class="acciones-inner">
               <button class="btn-edit" (click)="editar(u.idUsuario)">
                 {{ 'USERS.EDIT' | translate }}

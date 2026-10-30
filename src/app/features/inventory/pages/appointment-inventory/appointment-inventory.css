@@ -419,3 +419,33 @@ tbody tr:last-child td {
 .appointment-inventory-page .btn-primary:hover:not(:disabled) {
   background-color: #1f253d;
 }
+
+@media (max-width: 480px) {
+  .appointment-inventory-page {
+    padding: 8px 8px 20px;
+  }
+
+  .page-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .page-title {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .appointment-badge {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+
+  .table-scroll table {
+    min-width: 780px;
+  }
+
+  .section-heading h2 {
+    font-size: 16px;
+  }
+}

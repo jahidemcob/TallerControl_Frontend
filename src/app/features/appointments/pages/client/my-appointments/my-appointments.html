@@ -79,19 +79,37 @@
 
         @for (a of appointmentsFiltradas; track trackById($index, a)) {
         <tr>
-          <td>{{ getIdVisual(a.idPedido) }}</td>
-          <td>{{ getNombreMoto(a.idMoto) }}</td>
-          <td class="servicios-cell">
+          <td [attr.data-label]="'APPOINTMENTS.CLIENT.TABLE.NUMBER' | translate">
+            {{ getIdVisual(a.idPedido) }}
+          </td>
+
+          <td [attr.data-label]="'APPOINTMENTS.TABLE.MOTORCYCLE' | translate">
+            {{ getNombreMoto(a.idMoto) }}
+          </td>
+
+          <td class="servicios-cell" [attr.data-label]="'APPOINTMENTS.CLIENT.TABLE.SERVICES' | translate">
             @for (d of a.detalles; track d.idServicio) {
-            <span class="servicio-tag">- {{ getNombreServicio(d.idServicio) }}</span>
+            <span class="servicio-tag">
+              - {{ getNombreServicio(d.idServicio) }}
+            </span>
             } @empty {
             <span class="empty-small">—</span>
             }
           </td>
-          <td>{{ a.fechaCita }}</td>
-          <td>{{ a.horaCita }}</td>
-          <td>$ {{ a.total | number: '1.0-0' }}</td>
-          <td>
+
+          <td [attr.data-label]="'APPOINTMENTS.CLIENT.TABLE.DATE' | translate">
+            {{ a.fechaCita }}
+          </td>
+
+          <td [attr.data-label]="'APPOINTMENTS.CLIENT.TABLE.TIME' | translate">
+            {{ a.horaCita }}
+          </td>
+
+          <td [attr.data-label]="'APPOINTMENTS.CLIENT.TABLE.TOTAL' | translate">
+            $ {{ a.total | number: '1.0-0' }}
+          </td>
+
+          <td [attr.data-label]="'APPOINTMENTS.TABLE.STATUS' | translate">
             <span class="estado-badge" [class.pendiente]="a.estadoCita === 'Pendiente'"
               [class.agendada]="a.estadoCita === 'Agendada'" [class.en-proceso]="a.estadoCita === 'EnProceso'"
               [class.completada]="a.estadoCita === 'Completada'" [class.rechazada]="a.estadoCita === 'Rechazada'">

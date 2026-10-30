@@ -1,42 +1,42 @@
-.table-container { 
-  width: 90%; 
-  max-width: 1100px; 
+.table-container {
+  width: 90%;
+  max-width: 1100px;
   margin-top: -35px;
-  margin-left: 2px; 
-  background: white; 
-  padding: 25px; 
-  border-radius: 15px;  
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+  margin-left: 2px;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-} 
+}
 
-.table-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  margin-bottom: 20px; 
-} 
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-.table-header h2 { 
-  color: #303854; 
+.table-header h2 {
+  color: #303854;
   font-family: 'League Spartan', sans-serif;
   font-size: 32px;
-  margin: 0; 
-} 
+  margin: 0;
+}
 
-.btn-create { 
-  background: #303854; 
-  color: white; 
-  border: none; 
-  padding: 10px 15px; 
-  border-radius: 10px; 
-  cursor: pointer; 
-  transition: 0.3s; 
-} 
+.btn-create {
+  background: #303854;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-.btn-create:hover { 
-  background: #1f253d; 
-} 
+.btn-create:hover {
+  background: #1f253d;
+}
 
 .header-table {
   width: 100%;
@@ -46,7 +46,7 @@
 
 .header-table thead {
   background: #303854;
-  color: white;  
+  color: white;
 }
 
 .header-table th {
@@ -55,94 +55,304 @@
 }
 
 /* 🔥 SOLUCIÓN AQUÍ */
-.table-scroll { 
+.table-scroll {
   max-height: 380px;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-gutter: stable; /* 👈 clave para alinear siempre */
-} 
+}
 
-.body-table { 
-  width: 100%; 
-  border-collapse: collapse; 
+.body-table {
+  width: 100%;
+  border-collapse: collapse;
   table-layout: fixed;
 }
 
 .body-table tbody tr td:nth-child(4) {
-  max-width: 180px;      
-  white-space: nowrap;  
-  overflow: hidden;      
-  text-overflow: ellipsis; 
-}
-
-/* Usuario (3ª columna) */
-.body-table tbody tr td:nth-child(3) {
-  max-width: 150px;      /* puedes ajustar */
+  max-width: 180px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.body-table td:not(:last-child) { 
-  padding: 12px; 
-  border-bottom: 1px solid #eee; 
-  text-align: center; 
+/* Usuario (3ª columna) */
+.body-table tbody tr td:nth-child(3) {
+  max-width: 150px; /* puedes ajustar */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body-table td:not(:last-child) {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
   vertical-align: middle;
 }
 
-.body-table tr:hover { 
+.body-table tr:hover {
   background: #f9f9f9;
-} 
+}
 
-.acciones { 
+.acciones {
   white-space: nowrap;
   text-align: center;
   vertical-align: middle;
-} 
+}
 
 .acciones-inner {
   display: flex;
   justify-content: flex-end;
   gap: 6px;
-  padding-right: 10px; 
+  padding-right: 10px;
 }
 
-.btn-edit, .btn-state { 
-  padding: 6px 12px; 
-  border-radius: 8px; 
-  cursor: pointer; 
+.btn-edit,
+.btn-state {
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
   white-space: nowrap;
-  font-size: 14px; 
+  font-size: 14px;
   flex-shrink: 0;
-} 
+}
 
-.btn-edit { 
-  background: #303854; 
-  color: white; 
-  border: none; 
-  transition: 0.2s; 
-} 
+.btn-edit {
+  background: #303854;
+  color: white;
+  border: none;
+  transition: 0.2s;
+}
 
-.btn-edit:hover {  
-  background: #1f253d; 
-} 
+.btn-edit:hover {
+  background: #1f253d;
+}
 
-.btn-state { 
-  background: #C2CDD5; 
-  border: none; 
-  transition: 0.2s; 
-} 
+.btn-state {
+  background: #c2cdd5;
+  border: none;
+  transition: 0.2s;
+}
 
-.btn-state:hover { 
-  background: #aab7c2; 
-} 
+.btn-state:hover {
+  background: #aab7c2;
+}
 
-.activo { 
-  color: green; 
-  font-weight: bold; 
-} 
+.activo {
+  color: green;
+  font-weight: bold;
+}
 
-.inactivo { 
-  color: red; 
-  font-weight: bold; 
+.inactivo {
+  color: red;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    width: calc(100% - 20px) !important;
+    max-width: none;
+    height: auto;
+    max-height: none;
+    margin: 12px auto !important;
+    padding: 18px !important;
+    box-sizing: border-box;
+    background: #f4f6f9;
+    border: 1px solid #dfe3e8;
+    border-radius: 15px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    overflow: visible !important;
+  }
+
+  .table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .table-header h2 {
+    font-size: 27px !important;
+    line-height: 1.2;
+  }
+
+  .btn-create {
+    min-height: 42px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+  }
+
+  .header-table {
+    display: none !important;
+  }
+
+  .table-scroll {
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    scrollbar-gutter: auto;
+  }
+
+  .body-table {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    border-collapse: separate !important;
+    border-spacing: 0 14px !important;
+  }
+
+  .body-table colgroup,
+  .body-table > thead {
+    display: none !important;
+  }
+
+  .body-table tbody {
+    display: grid !important;
+    width: 100%;
+    gap: 14px;
+  }
+
+  .body-table tbody tr {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 18px;
+    width: 100%;
+    height: auto !important;
+    padding: 16px 18px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #edf0f4;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+
+  .body-table tbody tr:hover {
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .body-table tbody tr > td {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0;
+    padding: 11px 0 !important;
+    margin: 0;
+    border: 0 !important;
+    border-bottom: 1px solid #f0f2f6 !important;
+    background: transparent;
+    box-sizing: border-box;
+    color: #303854;
+    text-align: left !important;
+    font-size: 14px !important;
+    font-weight: 500;
+    line-height: 1.45;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: anywhere;
+  }
+
+  .body-table tbody tr > td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 5px;
+    color: #778198;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Organización de los datos */
+  .body-table tbody tr > td:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .body-table tbody tr > td:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 15px !important;
+    font-weight: 700;
+  }
+
+  .body-table tbody tr > td:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .body-table tbody tr > td:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .body-table tbody tr > td:nth-child(5) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .body-table tbody tr > td:nth-child(6) {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .body-table tbody tr > td.acciones {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    border-bottom: 0 !important;
+    padding-top: 14px !important;
+    padding-bottom: 0 !important;
+    white-space: normal !important;
+  }
+
+  .acciones-inner {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 8px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .btn-edit,
+  .btn-state {
+    width: 100%;
+    min-width: 0;
+    min-height: 40px;
+    padding: 9px 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-size: 13px !important;
+    font-weight: 600;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 380px) {
+  .table-container {
+    padding: 13px !important;
+  }
+
+  .body-table tbody tr {
+    padding: 13px;
+    gap: 0 12px;
+  }
+
+  .acciones-inner {
+    grid-template-columns: 1fr;
+  }
 }

@@ -29,7 +29,16 @@
     "CONFIRM": "Confirm",
     "CLEAR": "Clear",
     "FILTER": "Filter",
-    "SAVING": "Saving..."
+    "SAVING": "Saving...",
+    "ACTIONS": "Actions",
+    "DELETE": "Delete",
+    "CLOSE": "Close",
+    "ACTIONS": "Actions",
+    "DELETE": "Delete",
+    "CLOSE": "Close",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm",
+    "PROCESSING": "Processing..."
   },
   "AUTH": {
     "WELCOME": "Welcome",
@@ -81,7 +90,8 @@
     "WELCOME": "Welcome",
     "SELECT_ACTION": "Select an action from the dashboard",
     "MOTORCYCLES": "Motorcycles",
-    "INVENTORY": "Inventory"
+    "INVENTORY": "Inventory",
+    "BACKUP": "Backups"
   },
   "APPOINTMENTS": {
     "TITLE": "Appointment Management",
@@ -460,6 +470,52 @@
       "ITEM_UPDATED": "Quantity updated.",
       "ITEM_REMOVED": "Item removed from the repair.",
       "MANAGE_ITEMS": "Manage parts"
+    }
+  },
+  "BACKUP": {
+    "TITLE": "Backups",
+    "SUBTITLE": "Manage and protect your workshop data with database backups.",
+    "REFRESH": "Refresh",
+    "CREATE": "Create backup",
+    "CREATING": "Creating backup...",
+    "DOWNLOAD": "Download",
+    "DOWNLOADING": "Downloading...",
+    "DELETING": "Deleting...",
+    "FILES": "available backups",
+    "FILE_TYPE": "SQL Server database backup",
+    "LOADING": "Loading backups...",
+    "LIST_TITLE": "Backup history",
+    "LIST_DESCRIPTION": "View, download, or delete backup files stored on the server.",
+    "EMPTY_TITLE": "No backups available",
+    "EMPTY_DESCRIPTION": "You haven't created any backups yet. Create one to protect your workshop data.",
+    "CREATE_FIRST": "Create first backup",
+    "SECURITY_NOTE": "Backups contain important workshop data. Download and store these files only on authorized devices.",
+    "SUMMARY": {
+      "TOTAL": "Available backups",
+      "SIZE": "Storage used",
+      "LATEST": "Latest backup"
+    },
+    "LIST": {
+      "TITLE": "Backup history",
+      "DESCRIPTION": "View, download, or delete backup files stored on the server."
+    },
+    "TABLE": {
+      "FILE": "File",
+      "CREATED": "Creation date",
+      "SIZE": "Size"
+    },
+    "CONFIRM": {
+      "CREATE_TITLE": "Create backup",
+      "CREATE_MESSAGE": "Are you sure you want to create a new database backup?",
+      "CREATE_BUTTON": "Yes, create backup",
+      "DELETE_TITLE": "Delete backup",
+      "DELETE_MESSAGE": "Are you sure you want to delete this backup? This action cannot be undone.",
+      "DELETE_BUTTON": "Yes, delete",
+      "DELETE_WARNING": "This action is permanent, and you won't be able to recover the deleted backup."
+    },
+    "MESSAGES": {
+      "CREATE_SUCCESS": "Backup created successfully.",
+      "DELETE_SUCCESS": "Backup deleted successfully."
     }
   }
 }
