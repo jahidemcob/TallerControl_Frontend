@@ -91,7 +91,8 @@
     "WELCOME": "Bienvenido",
     "SELECT_ACTION": "Selecciona una acción en el panel",
     "MOTORCYCLES": "Motocicletas",
-    "INVENTORY": "Inventario"
+    "INVENTORY": "Inventario",
+    "BACKUP": "Copias de seguridad"
   },
   "APPOINTMENTS": {
     "TITLE": "Gestión de citas",
